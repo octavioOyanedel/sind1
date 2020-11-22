@@ -9,3 +9,38 @@
 
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
+
+/**********************************************
+ * GENERAL
+ *********************************************/
+body{
+    font-family: 'Poppins', sans-serif;
+}
+/**********************************************
+ * LOGO
+ *********************************************/
+
+ /*
+ * Contenedor logo
+ */
+ .login{
+	width: 280px;
+	height: 280px;
+	/* Center vertically and horizontally */
+	position: absolute;
+	top: 40%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
+/*
+ * Fondo imagen logo
+ */
+
+label{
+    font-weight: 400 !important;
+}
+
+input {
+    font-size: 14px !important;
+}
