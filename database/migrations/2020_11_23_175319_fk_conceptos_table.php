@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCuentasTable extends Migration
+class FkConceptosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,8 @@ class CreateCuentasTable extends Migration
      */
     public function up()
     {
-        Schema::create('cuentas', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+        Schema::table('conceptos', function (Blueprint $table) {
+            $table->foreign('tipo_contable_id')->references('id')->on('tipo_contables')->onUpdate('cascade')->onDelete('restrict');
         });
     }
 
@@ -26,6 +25,8 @@ class CreateCuentasTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('cuentas');
+        Schema::table('conceptos', function (Blueprint $table) {
+            //
+        });
     }
 }

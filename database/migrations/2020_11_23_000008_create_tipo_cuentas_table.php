@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateContablesTable extends Migration
+class CreateTipoCuentasTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,9 @@ class CreateContablesTable extends Migration
      */
     public function up()
     {
-        Schema::create('contables', function (Blueprint $table) {
+        Schema::create('tipo_cuentas', function (Blueprint $table) {
             $table->id();
+            $table->string('nombre');
             $table->timestamps();
         });
     }
@@ -26,6 +27,6 @@ class CreateContablesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('contables');
+        Schema::dropIfExists('tipo_cuentas');
     }
 }

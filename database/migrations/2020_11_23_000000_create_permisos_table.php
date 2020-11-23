@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateBancosTable extends Migration
+class CreatePermisosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,10 @@ class CreateBancosTable extends Migration
      */
     public function up()
     {
-        Schema::create('bancos', function (Blueprint $table) {
+        // Tabla protegida no se permite crear o eliminar permisos, solo editar nombre
+        Schema::create('permisos', function (Blueprint $table) {
             $table->id();
+            $table->string('nombre');
             $table->timestamps();
         });
     }
@@ -26,6 +28,6 @@ class CreateBancosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('bancos');
+        Schema::dropIfExists('permisos');
     }
 }
