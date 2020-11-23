@@ -14,18 +14,18 @@
     <link href="{{ asset('css/all.css') }}" rel="stylesheet">
 
 </head>
-<body>
-    <div id="app">  
+<body class="sidebar-mini sidebar-closed sidebar-collapse" style="height: auto;">
+    <div id="app">
         {{-- Carga de nav --}}
         @if (Request()->path() == 'login' || Request()->path() == 'password/reset')
-            {{-- Se está en form login o reset email--}}  
+            {{-- Se está en form login o reset email--}}
         @else
             {{-- Navbar superior --}}
             @include('layouts.partials._nav')
-            {{-- Navbar lateral --}}    
-            @include('layouts.partials._aside')       
+            {{-- Navbar lateral --}}
+            @include('layouts.partials._aside')
         @endif
-       {{-- Carga de contenido --}}
+        {{-- Carga de contenido --}}
         <main class="py-4">
             @yield('content')
         </main>
@@ -35,5 +35,5 @@
     <script src="{{ asset('js/all.js') }}"></script>
     @livewireScripts
     @stack('scripts')
-</body>    
+</body>
 </html>
