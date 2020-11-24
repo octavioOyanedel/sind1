@@ -15,6 +15,16 @@ class CreateSociosTable extends Migration
     {
         Schema::create('socios', function (Blueprint $table) {
             $table->id();
+            $table->string('nombre1');
+            $table->string('nombre2');
+            $table->string('apellido1');
+            $table->string('apellido2');
+            $table->string('rut');
+            $table->enum('genero', ['Dama', 'Varón']);
+            $table->date('fecha');
+            $table->integer('contacto');
+            $table->string('correo');
+            $table->unsignedBigInteger('nacion_socio_id');
             $table->timestamps();
         });
     }

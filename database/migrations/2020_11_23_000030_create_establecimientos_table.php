@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSindicalSociosTable extends Migration
+class CreateEstablecimientosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,10 @@ class CreateSindicalSociosTable extends Migration
      */
     public function up()
     {
-        Schema::create('sindical_socios', function (Blueprint $table) {
+        Schema::create('establecimientos', function (Blueprint $table) {
             $table->id();
+            $table->string('nombre');
+            $table->unsignedBigInteger('grado_id');
             $table->timestamps();
         });
     }
@@ -26,6 +28,6 @@ class CreateSindicalSociosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('sindical_socios');
+        Schema::dropIfExists('establecimientos');
     }
 }

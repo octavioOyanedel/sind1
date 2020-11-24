@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateParentescosTable extends Migration
+class CreateSindicalSociosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,12 @@ class CreateParentescosTable extends Migration
      */
     public function up()
     {
-        Schema::create('parentescos', function (Blueprint $table) {
+        Schema::create('sindical_socios', function (Blueprint $table) {
             $table->id();
+            $table->integer('numero');
+            $table->date('fecha');
+            $table->unsignedBigInteger('estado_socio_id');
+            $table->unsignedBigInteger('socio_id');
             $table->timestamps();
         });
     }
@@ -26,6 +30,6 @@ class CreateParentescosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('parentescos');
+        Schema::dropIfExists('sindical_socios');
     }
 }

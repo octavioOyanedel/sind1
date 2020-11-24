@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateNacionSociosTable extends Migration
+class CreateTitulosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,10 @@ class CreateNacionSociosTable extends Migration
      */
     public function up()
     {
-        Schema::create('nacion_socios', function (Blueprint $table) {
+        Schema::create('titulos', function (Blueprint $table) {
             $table->id();
+            $table->string('nombre');
+            $table->unsignedBigInteger('establecimiento_id');
             $table->timestamps();
         });
     }
@@ -26,6 +28,6 @@ class CreateNacionSociosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('nacion_socios');
+        Schema::dropIfExists('titulos');
     }
 }

@@ -15,6 +15,11 @@ class CreateResidenciaSociosTable extends Migration
     {
         Schema::create('residencia_socios', function (Blueprint $table) {
             $table->id();
+            $table->string('direccion');
+            $table->unsignedBigInteger('distrito_id');
+            $table->unsignedBigInteger('provincia_id');
+            $table->unsignedBigInteger('comuna_id');
+            $table->unsignedBigInteger('socio_id');
             $table->timestamps();
         });
     }
