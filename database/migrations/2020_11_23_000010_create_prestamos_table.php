@@ -19,6 +19,7 @@ class CreatePrestamosTable extends Migration
             $table->integer('numero');
             $table->string('cheque');
             $table->integer('monto');
+            $table->boolean('nulo');
             $table->unsignedBigInteger('socio_id');
             $table->unsignedBigInteger('pago_prestamo_id')->nullable();
             $table->unsignedBigInteger('cuenta_id')->nullable();
