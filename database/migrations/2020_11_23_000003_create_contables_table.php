@@ -20,11 +20,12 @@ class CreateContablesTable extends Migration
             $table->string('cheque');
             $table->integer('monto');
             $table->text('detalle');
+            $table->boolean('nulo');
             $table->unsignedBigInteger('cuenta_id')->nullable();
             $table->unsignedBigInteger('concepto_id')->nullable();
             $table->unsignedBigInteger('asociado_id')->nullable();
-            $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('tipo_contable_id')->nullable();
+            $table->unsignedBigInteger('user_id')->nullable();
+            $table->unsignedBigInteger('tipo_contable_id');
             $table->timestamps();
         });
     }

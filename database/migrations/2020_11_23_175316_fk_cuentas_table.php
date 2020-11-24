@@ -14,8 +14,8 @@ class FkCuentasTable extends Migration
     public function up()
     {
         Schema::table('cuentas', function (Blueprint $table) {
-            $table->foreign('banco_id')->references('id')->on('bancos')->onUpdate('cascade')->onDelete('cascade');
-            $table->foreign('tipo_cuenta_id')->references('id')->on('tipo_cuentas')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('banco_id')->references('id')->on('bancos')->onUpdate('cascade')->onDelete('set null');
+            $table->foreign('tipo_cuenta_id')->references('id')->on('tipo_cuentas')->onUpdate('cascade')->onDelete('set null');
         });
     }
 

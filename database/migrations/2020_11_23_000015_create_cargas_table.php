@@ -21,7 +21,7 @@ class CreateCargasTable extends Migration
             $table->string('apellido2');
             $table->string('rut');
             $table->date('fecha');
-            $table->unsignedBigInteger('parentesco_id');
+            $table->unsignedBigInteger('parentesco_id')->nullable();
             $table->unsignedBigInteger('socio_id');
             $table->timestamps();
         });

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateAreasTable extends Migration
+class FkComunasTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,8 @@ class CreateAreasTable extends Migration
      */
     public function up()
     {
-        Schema::create('areas', function (Blueprint $table) {
-            $table->id();
-            $table->string('nombre');
-            $table->unsignedBigInteger('sede_id')->nullable();
-            $table->timestamps();
+        Schema::table('comunas', function (Blueprint $table) {
+            $table->foreign('provincia_id')->references('id')->on('provincias')->onUpdate('cascade')->onDelete('set null');
         });
     }
 
@@ -28,6 +25,8 @@ class CreateAreasTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('areas');
+        Schema::table('comunas', function (Blueprint $table) {
+            //
+        });
     }
 }

@@ -16,7 +16,7 @@ class CreateComunasTable extends Migration
         Schema::create('comunas', function (Blueprint $table) {
             $table->id();
             $table->string('nombre');
-            $table->unsignedBigInteger('provincia_id');
+            $table->unsignedBigInteger('provincia_id')->nullable();
             $table->timestamps();
         });
     }

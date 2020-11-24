@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class FkLogsTable extends Migration
+class FkAreasTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class FkLogsTable extends Migration
      */
     public function up()
     {
-        Schema::table('logs', function (Blueprint $table) {
-            $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('restrict');
+        Schema::table('areas', function (Blueprint $table) {
+            $table->foreign('sede_id')->references('id')->on('sedes')->onUpdate('cascade')->onDelete('set null');
         });
     }
 
@@ -25,7 +25,7 @@ class FkLogsTable extends Migration
      */
     public function down()
     {
-        Schema::table('logs', function (Blueprint $table) {
+        Schema::table('areas', function (Blueprint $table) {
             //
         });
     }

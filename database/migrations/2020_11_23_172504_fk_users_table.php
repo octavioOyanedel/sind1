@@ -13,6 +13,9 @@ class FkUsersTable extends Migration
      */
     public function up()
     {
+        /**
+         * CRUD =
+         */
         Schema::table('users', function (Blueprint $table) {
             $table->foreign('permiso_id')->references('id')->on('permisos')->onUpdate('cascade')->onDelete('restrict');
         });

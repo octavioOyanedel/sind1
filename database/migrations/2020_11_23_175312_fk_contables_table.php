@@ -17,8 +17,8 @@ class FkContablesTable extends Migration
             $table->foreign('cuenta_id')->references('id')->on('cuentas')->onUpdate('cascade')->onDelete('set null');
             $table->foreign('concepto_id')->references('id')->on('conceptos')->onUpdate('cascade')->onDelete('set null');
             $table->foreign('asociado_id')->references('id')->on('asociados')->onUpdate('cascade')->onDelete('set null');
-            $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('restrict');
-            $table->foreign('tipo_contable_id')->references('id')->on('tipo_contables')->onUpdate('cascade')->onDelete('set null');
+            $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('set null');
+            $table->foreign('tipo_contable_id')->references('id')->on('tipo_contables')->onUpdate('cascade')->onDelete('restrict');
         });
     }
 

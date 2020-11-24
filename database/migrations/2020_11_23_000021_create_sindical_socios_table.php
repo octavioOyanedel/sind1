@@ -17,7 +17,7 @@ class CreateSindicalSociosTable extends Migration
             $table->id();
             $table->integer('numero');
             $table->date('fecha');
-            $table->unsignedBigInteger('estado_socio_id');
+            $table->unsignedBigInteger('estado_socio_id')->nullable();
             $table->unsignedBigInteger('socio_id');
             $table->timestamps();
         });

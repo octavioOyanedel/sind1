@@ -16,8 +16,8 @@ class CreateCuentasTable extends Migration
         Schema::create('cuentas', function (Blueprint $table) {
             $table->id();
             $table->string('numero');
-            $table->unsignedBigInteger('banco_id');
-            $table->unsignedBigInteger('tipo_cuenta_id');
+            $table->unsignedBigInteger('banco_id')->nullable();
+            $table->unsignedBigInteger('tipo_cuenta_id')->nullable();
             $table->timestamps();
         });
     }

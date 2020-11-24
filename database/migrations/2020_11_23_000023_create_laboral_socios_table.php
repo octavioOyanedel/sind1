@@ -17,9 +17,9 @@ class CreateLaboralSociosTable extends Migration
             $table->id();
             $table->date('fecha');
             $table->integer('anexo');
-            $table->unsignedBigInteger('cargo_id');
-            $table->unsignedBigInteger('sede_id');
-            $table->unsignedBigInteger('area_id');
+            $table->unsignedBigInteger('cargo_id')->nullable();
+            $table->unsignedBigInteger('sede_id')->nullable();
+            $table->unsignedBigInteger('area_id')->nullable();
             $table->unsignedBigInteger('socio_id');
             $table->timestamps();
         });
