@@ -26,7 +26,7 @@
             @include('layouts.partials._aside')
         @endif
         {{-- Carga de contenido --}}
-        <main class="py-4">
+        <main class="">
             @yield('content')
         </main>
     </div>

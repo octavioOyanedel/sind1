@@ -14,7 +14,15 @@
  * GENERAL
  *********************************************/
 body{
-    font-family: 'Poppins', sans-serif;
+	font-family: 'Poppins', sans-serif;
+}
+label{
+	font-weight: 400 !important;
+	font-size: 12px !important;
+}
+
+input {
+    font-size: 14px !important;
 }
 
 /**********************************************
@@ -27,8 +35,8 @@ body{
 
 @media (max-width: 991px) {
 	.contenedor {
-		margin-left: 5px;
-		margin-right: 5px;
+		margin-left: 0px;
+		margin-right: 0px;
 	}
 }
 /**********************************************
@@ -46,16 +54,4 @@ body{
 	top: 40%;
 	left: 50%;
 	transform: translate(-50%, -50%);
-}
-
-/*
- * Fondo imagen logo
- */
-
-label{
-    font-weight: 400 !important;
-}
-
-input {
-    font-size: 14px !important;
 }
