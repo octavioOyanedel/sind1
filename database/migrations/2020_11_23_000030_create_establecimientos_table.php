@@ -16,7 +16,7 @@ class CreateEstablecimientosTable extends Migration
         Schema::create('establecimientos', function (Blueprint $table) {
             $table->id();
             $table->string('nombre');
-            $table->unsignedBigInteger('grado_id');
+            $table->unsignedBigInteger('grado_id')->nullable();
             $table->timestamps();
         });
     }

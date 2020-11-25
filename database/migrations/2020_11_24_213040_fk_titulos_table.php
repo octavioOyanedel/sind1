@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTitulosTable extends Migration
+class FkTitulosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,8 @@ class CreateTitulosTable extends Migration
      */
     public function up()
     {
-        Schema::create('titulos', function (Blueprint $table) {
-            $table->id();
-            $table->string('nombre');
-            $table->unsignedBigInteger('establecimiento_id')->nullable();
-            $table->timestamps();
+        Schema::table('titulos', function (Blueprint $table) {
+            $table->foreign('establecimiento_id')->references('id')->on('establecimientos')->onUpdate('cascade')->onDelete('set null');
         });
     }
 
@@ -28,6 +25,8 @@ class CreateTitulosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('titulos');
+        Schema::table('titulos', function (Blueprint $table) {
+            //
+        });
     }
 }

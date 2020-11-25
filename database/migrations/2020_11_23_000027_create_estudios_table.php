@@ -15,9 +15,9 @@ class CreateEstudiosTable extends Migration
     {
         Schema::create('estudios', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('grado_id');
-            $table->unsignedBigInteger('establecimiento_id');
-            $table->unsignedBigInteger('estado_estudio_id');
+            $table->unsignedBigInteger('grado_id')->nullable();
+            $table->unsignedBigInteger('establecimiento_id')->nullable();
+            $table->unsignedBigInteger('estado_estudio_id')->nullable();
             $table->unsignedBigInteger('socio_id');
             $table->timestamps();
         });
