@@ -15,7 +15,7 @@ class CreateConceptosTable extends Migration
     {
         Schema::create('conceptos', function (Blueprint $table) {
             $table->id();
-            $table->string('string');
+            $table->string('nombre');
             $table->unsignedBigInteger('tipo_contable_id');
             $table->timestamps();
         });
