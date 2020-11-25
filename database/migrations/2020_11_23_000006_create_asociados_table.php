@@ -15,8 +15,8 @@ class CreateAsociadosTable extends Migration
     {
         Schema::create('asociados', function (Blueprint $table) {
             $table->id();
-            $table->string('nombre');
-            $table->string('servicio')->nullable();
+            $table->string('nombre')->nullable();
+            $table->string('servicio');
             $table->timestamps();
         });
     }
