@@ -48,7 +48,7 @@
 			<div class="form-group row">
 				<label for="genero" class="col-sm-4 col-form-label">Género:</label>
 				<div class="col-sm-8">
-					  <select class="selects form-control form-control-sm" id="genero">
+					  <select class="selects form-control form-control-sm" id="genero" style="width: 100%">
 						<option value="" selected>...</option>
 						<option value="Dama">Dama</option>
 						<option value="Varón">Varón</option>
@@ -115,7 +115,7 @@
 			<div class="form-group row">
 				<label for="provincia" class="col-sm-4 col-form-label">Provincia:</label>
 				<div class="col-sm-8">
-					  <select class="selects form-control form-control-sm" id="provincia">
+					  <select class="selects form-control form-control-sm" id="provincia" style="width: 100%">
 						<option value="" selected>...</option>
 					  </select>
 				</div>			
@@ -124,7 +124,7 @@
 			<div class="form-group row">
 				<label for="comuna" class="col-sm-4 col-form-label">Comuna:</label>
 				<div class="col-sm-8">
-					  <select class="selects form-control form-control-sm" id="comuna">
+					  <select class="selects form-control form-control-sm" id="comuna" style="width: 100%">
 						<option value="" selected>...</option>
 					  </select>
 				</div>			
@@ -140,7 +140,7 @@
 			<div class="form-group row">
 				<label for="sede" class="col-sm-4 col-form-label">Sede:</label>
 				<div class="col-sm-8">
-					  <select class="selects form-control form-control-sm" id="sede">
+					  <select class="selects form-control form-control-sm" id="sede" style="width: 100%">
 						<option value="" selected>...</option>
 					  </select>
 				</div>			
@@ -149,7 +149,7 @@
 			<div class="form-group row">
 				<label for="area" class="col-sm-4 col-form-label">Área:</label>
 				<div class="col-sm-8">
-					  <select class="selects form-control form-control-sm" id="area">
+					  <select class="selects form-control form-control-sm" id="area" style="width: 100%">
 						<option value="" selected>...</option>
 					  </select>
 				</div>			
@@ -158,7 +158,7 @@
 			<div class="form-group row">
 				<label for="cargo" class="col-sm-4 col-form-label">Cargo:</label>
 				<div class="col-sm-8">
-					  <select class="selects form-control form-control-sm" id="cargo">
+					  <select class="selects form-control form-control-sm" id="cargo" style="width: 100%">
 						<option value="" selected>...</option>
 					  </select>
 				</div>			
@@ -167,7 +167,7 @@
 			<div class="form-group row">
 				<label for="nacionalidad" class="col-sm-4 col-form-label">Nacionalidad:</label>
 				<div class="col-sm-8">
-					  <select class="selects form-control form-control-sm" id="nacionalidad">
+					  <select class="selects form-control form-control-sm" id="nacionalidad" style="width: 100%">
 						<option value="" selected>...</option>
 					  </select>
 				</div>			
@@ -186,7 +186,8 @@
 		$(document).ready(function() {
 			$('.selects').select2({
 				width: 'resolve',
-				theme: "classic"
+				theme: 'classic',
+				language: 'es'
 			});
 		});		
 	</script>

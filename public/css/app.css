@@ -10922,6 +10922,29 @@ select option {
   font-size: 12px !important;
 }
 
+form input {
+  border: 1px solid #aaa !important;
+}
+
+form input:focus {
+  border: 1px solid #5897FB !important;
+}
+
+/**********************************************
+ * SELECT2
+ *********************************************/
+
+.select2-selection__rendered,
+ul.select2-results__options li {
+  font-size: 12px !important;
+}
+
+.select2-container--classic .select2-selection--single,
+.select2-selection,
+.select2-search__field {
+  border: 1px solid #ced4da;
+}
+
 /**********************************************
  * NAV
  *********************************************/

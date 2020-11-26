@@ -21,6 +21,7 @@ mix.scripts([
     'resources/js/sweetAlert2-10.10.1.js',
     'resources/js/chartJs-2.9.4.js',
     'resources/js/select2-4.1.0.js',
+    'resources/js/select2Es-4.0.0.js',
 ], 'public/js/all.js');
 
 mix.styles([
