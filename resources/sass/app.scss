@@ -1,8 +1,8 @@
 // Fonts
-@import url('https://fonts.googleapis.com/css?family=Nunito');
-@import url('https://fonts.googleapis.com/css2?family=Poppins');
-@import url('https://fonts.googleapis.com/css2?family=Raleway');
-@import url('https://fonts.googleapis.com/css2?family=Montserrat');
+//@import url('https://fonts.googleapis.com/css?family=Nunito');
+//@import url('https://fonts.googleapis.com/css2?family=Poppins');
+//@import url('https://fonts.googleapis.com/css2?family=Raleway');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
 
 // Variables
 @import 'variables';
@@ -13,32 +13,16 @@
 /**********************************************
  * GENERAL
  *********************************************/
+
 body{
-	font-family: 'Poppins', sans-serif;
+	font-family: 'Montserrat', sans-serif !important;
 }
+
 label{
 	font-weight: 400 !important;
 	font-size: 12px !important;
 }
 
-input {
-    font-size: 14px !important;
-}
-
-/**********************************************
- * CONTENEDOR CONTENIDO
- *********************************************/
-.contenedor{
-	margin-left: 100px;
-	margin-right: 30px;
-}
-
-@media (max-width: 991px) {
-	.contenedor {
-		margin-left: 0px;
-		margin-right: 0px;
-	}
-}
 /**********************************************
  * LOGO
  *********************************************/

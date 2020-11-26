@@ -1,4 +1,4 @@
-<div class="card mx-0">
+<div class="card">
     <div class="card-header"><h4 class="mb-0">Incorporar Socio</h4></div>
 	<form action="" class="">
 		<div class="card-body">

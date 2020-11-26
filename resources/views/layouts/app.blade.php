@@ -14,8 +14,8 @@
     <link href="{{ asset('css/all.css') }}" rel="stylesheet">
 
 </head>
-<body class="sidebar-mini sidebar-closed sidebar-collapse" style="height: auto;">
-    <div id="app">
+<body class="hold-transition sidebar-mini layout-fixed">
+    <div class="wrapper">
         {{-- Carga de nav --}}
         @if (Request()->path() == 'login' || Request()->path() == 'password/reset')
             {{-- Se está en form login o reset email--}}
@@ -27,7 +27,9 @@
         @endif
         {{-- Carga de contenido --}}
         <main class="">
-            @yield('content')
+            <div class="content-wrapper">
+                @yield('content')
+            </div>
         </main>
     </div>
     <!-- Scripts -->

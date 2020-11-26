@@ -16,7 +16,7 @@ mix.js('resources/js/app.js', 'public/js')
     .sourceMaps();
 
 mix.scripts([
-    'resources/js/adminLte-3.0.5.js',
+    'resources/js/adminLte-3.1.0.js',
     'resources/js/fontAwesome-5.15.1.js',
     'resources/js/sweetAlert2-10.10.1.js',
     'resources/js/chartJs-2.9.4.js',
@@ -24,7 +24,7 @@ mix.scripts([
 ], 'public/js/all.js');
 
 mix.styles([
-    'resources/css/adminLte-3.0.5.css',
+    'resources/css/adminLte-3.1.0.css',
     'resources/css/select2-4.1.0.css',
     'resources/css/app.css',
 ], 'public/css/all.css');
