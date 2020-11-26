@@ -6,7 +6,7 @@
 			<div class="form-group row">
 				<label for="rut" class="col-sm-4 col-form-label">Rut:</label>
 				<div class="col-sm-8">
-					<input type="text" class="form-control form-control-sm" id="rut" required>
+					<input type="text" class="form-control form-control-sm" id="rut" placeholder="11222333k" required>
 				</div>			
 			</div>
 
@@ -99,7 +99,10 @@
 			</div>	
 
 			<div class="form-group row">
-				<label for="region" class="col-sm-4 col-form-label">Región:</label>
+				
+				<label for="region" class="col-sm-4 col-form-label">Región:
+					<a wire:click="limpiarModalForm" class="text-primary float-right" href="#" data-toggle="modal" data-target="#nuevaRegion"><i role="button" class="fas fa-plus-circle"></i></a>
+				</label>
 				<div class="col-sm-8">
 					<select wire:model="region" class="form-control form-control-sm" id="region">
 					<option value="" selected>...</option>
@@ -195,10 +198,61 @@
 
 		</div>
 	</form>
-</div>
-@push('scripts')
-	{{-- Select2 --}}
-	<script type="text/javascript">
 
+	<!-- Modal -->
+	<div wire:ignore.self class="modal fade" id="nuevaRegion" data-keyboard="false" tabindex="-1" aria-labelledby="nuevaRegionLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="nuevaRegionLabel">Nueva Región</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<div class="form-group">
+						<label for="nombre">Nombre:</label>
+						<input type="text" class="limpiar-input-modal form-control" id="nombre" wire:model="n_region">
+						@error('n_region') 
+							<small class="text-danger">{{ $message }}</small>
+						@enderror
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Cerrar</button>
+					<button wire:click="nuevaRegion" type="button" class="btn btn-sm btn-primary">Guardar</button>
+				</div>
+			</div>
+		</div>
+	</div>	
+
+</div>
+
+
+
+@push('scripts')
+	<script type="text/javascript">
+		window.livewire.on('limpiarModalForm', () => {
+			$('.limpiar-input-modal').val('');
+		});
 	</script>
+	<script type="text/javascript">
+        window.livewire.on('cerrarModal', () => {
+            $('#nuevaRegion').modal('hide');
+        });
+	</script>
+    <script type="text/javascript">
+        window.livewire.on('alertaOk', texto => {
+            Swal.fire({
+                toast: true,
+                position: 'bottom-end',
+                icon: 'success',
+                title: texto,
+                showConfirmButton: false,
+                timer: 2700,
+                background: '#38c172',
+                iconColor: '#fff'
+            })   
+        });
+    </script>	
 @endpush

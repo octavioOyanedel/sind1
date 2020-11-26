@@ -26,9 +26,12 @@ class Socios extends Component
     public $naciones = [];
 
     // Variables livewire 2way binding
+    // Selects
     public $region;
     public $provincia;
     public $sede;
+    // Nuevos registros
+    public $n_region;
 
     public function render()
     {
@@ -49,4 +52,25 @@ class Socios extends Component
         }        
         return view('livewire.socios');
     }
+
+    // Nueva región
+    public function nuevaRegion()
+    {
+        $this->validate([
+			'n_region' => 'required'
+		]);
+
+		Distrito::create([
+			'nombre' => $this->n_region
+        ]);   
+        
+        $this->emit('cerrarModal');
+        $this->emit('alertaOk', 'Región Agregada.');
+    }
+
+    // Limpiar campos de formularios de ventanas modales
+    public function limpiarModalForm()
+    {
+    	$this->emit('limpiarModalForm');
+    }    
 }
