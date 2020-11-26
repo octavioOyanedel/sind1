@@ -101,7 +101,7 @@
 			<div class="form-group row">
 				<label for="region" class="col-sm-4 col-form-label">Región:</label>
 				<div class="col-sm-8">
-					<select class="selects form-control form-control-sm" id="region" name="region" style="width: 100%">
+					<select wire:model="region" class="form-control form-control-sm" id="region" style="width: 100%">
 					<option value="" selected>...</option>
 						@foreach ($regiones as $r)
 							<option value="{{ $r->id }}">{{ $r->nombre }}</option>
@@ -113,8 +113,11 @@
 			<div class="form-group row">
 				<label for="provincia" class="col-sm-4 col-form-label">Provincia:</label>
 				<div class="col-sm-8">
-					  <select class="selects form-control form-control-sm" id="provincia" style="width: 100%">
+					  <select class="form-control form-control-sm" id="provincia" style="width: 100%">
 						<option value="" selected>...</option>
+						@foreach ($provincias as $p)
+							<option value="{{ $p->id }}">{{ $p->nombre }}</option>
+						@endforeach						
 					  </select>
 				</div>			
 			</div>	
@@ -122,7 +125,7 @@
 			<div class="form-group row">
 				<label for="comuna" class="col-sm-4 col-form-label">Comuna:</label>
 				<div class="col-sm-8">
-					  <select class="selects form-control form-control-sm" id="comuna" style="width: 100%">
+					  <select class="form-control form-control-sm" id="comuna" style="width: 100%">
 						<option value="" selected>...</option>
 					  </select>
 				</div>			
@@ -138,7 +141,7 @@
 			<div class="form-group row">
 				<label for="sede" class="col-sm-4 col-form-label">Sede:</label>
 				<div class="col-sm-8">
-					  <select class="selects form-control form-control-sm" id="sede" style="width: 100%">
+					  <select class="form-control form-control-sm" id="sede" style="width: 100%">
 						<option value="" selected>...</option>
 					  </select>
 				</div>			
@@ -147,7 +150,7 @@
 			<div class="form-group row">
 				<label for="area" class="col-sm-4 col-form-label">Área:</label>
 				<div class="col-sm-8">
-					  <select class="selects form-control form-control-sm" id="area" style="width: 100%">
+					  <select class="form-control form-control-sm" id="area" style="width: 100%">
 						<option value="" selected>...</option>
 					  </select>
 				</div>			
@@ -156,7 +159,7 @@
 			<div class="form-group row">
 				<label for="cargo" class="col-sm-4 col-form-label">Cargo:</label>
 				<div class="col-sm-8">
-					  <select class="selects form-control form-control-sm" id="cargo" style="width: 100%">
+					  <select class="form-control form-control-sm" id="cargo" style="width: 100%">
 						<option value="" selected>...</option>
 					  </select>
 				</div>			
@@ -165,7 +168,7 @@
 			<div class="form-group row">
 				<label for="nacionalidad" class="col-sm-4 col-form-label">Nacionalidad:</label>
 				<div class="col-sm-8">
-					  <select class="selects form-control form-control-sm" id="nacionalidad" style="width: 100%">
+					  <select class="form-control form-control-sm" id="nacionalidad" style="width: 100%">
 						<option value="" selected>...</option>
 					  </select>
 				</div>			
@@ -181,12 +184,6 @@
 @push('scripts')
 	{{-- Select2 --}}
 	<script type="text/javascript">
-		$(document).ready(function() {
-			$('.selects').select2({
-				width: 'resolve',
-				theme: 'classic',
-				language: 'es'
-			});
-		});		
+
 	</script>
 @endpush

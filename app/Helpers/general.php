@@ -1,6 +1,9 @@
 <?php
 
-function testHelper() 
+function estaVacio($objeto) 
 {
-    return 'Todo OK.';
+    if (empty($objeto)) {
+        return true;
+    }
+    return false;
 }
