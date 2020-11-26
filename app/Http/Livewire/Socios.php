@@ -32,6 +32,19 @@ class Socios extends Component
     public $sede;
     // Nuevos registros
     public $n_region;
+    // Form socios
+    public $rut;
+    public $numero;
+    public $nombre1;
+    public $nombre2;
+    public $apellido1;
+    public $apellido2;
+    public $fechaNac;
+    public $contacto;
+    public $correo;
+    public $fechaPucv;
+    public $anexo;
+    public $direccion;
 
     public function render()
     {

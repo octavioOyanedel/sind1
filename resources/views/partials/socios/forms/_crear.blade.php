@@ -3,52 +3,22 @@
 	<form action="" class="">
 		<div class="card-body">
 
-			<div class="form-group row">
-				<label for="rut" class="col-sm-4 col-form-label">Rut:</label>
-				<div class="col-sm-8">
-					<input type="text" class="form-control form-control-sm" id="rut" placeholder="11222333k" required>
-				</div>			
-			</div>
+			<x-input id="rut" type="text" label="Rut" placeholder="Ej.: 11222333k" wireModel="rut" required="si"/>
+
+			<x-input id="numero" type="text" label="# Socio" placeholder="Ej.: 123" wireModel="numero" required="si"/>
+
+			<x-input id="nombre1" type="text" label="1° Nombre" placeholder="Ej.: Amaro" wireModel="nombre1" required="si"/>
+
+			<x-input id="nombre2" type="text" label="2° Nombre" placeholder="Ej.: Amaro" wireModel="nombre2" required=""/>
+
+			<x-input id="apellido1" type="text" label="Apellido Pat." placeholder="Ej.: Barrueto" wireModel="apellido1" required="si"/>
+
+			<x-input id="apellido2" type="text" label="Apellido Mat." placeholder="Ej.: Martínez" wireModel="apellido2" required=""/>	
 
 			<div class="form-group row">
-				<label for="numero" class="col-sm-4 col-form-label"># Socio:</label>
+				<label for="genero" class="col-sm-4 col-form-label" title="Campo Obligatorio.">Género *</label>
 				<div class="col-sm-8">
-					<input type="text" class="form-control form-control-sm" id="numero" required>
-				</div>			
-			</div>			
-
-			<div class="form-group row">
-				<label for="nombre1" class="col-sm-4 col-form-label">1° Nombre:</label>
-				<div class="col-sm-8">
-					<input type="text" class="form-control form-control-sm" id="nombre1" required>
-				</div>			
-			</div>
-
-			<div class="form-group row">
-				<label for="nombre2" class="col-sm-4 col-form-label">2° Nombre:</label>
-				<div class="col-sm-8">
-					<input type="text" class="form-control form-control-sm" id="nombre2">
-				</div>			
-			</div>
-
-			<div class="form-group row">
-				<label for="apellido1" class="col-sm-4 col-form-label">Apellido Pat.:</label>
-				<div class="col-sm-8">
-					<input type="text" class="form-control form-control-sm" id="apellido1">
-				</div>			
-			</div>
-
-			<div class="form-group row">
-				<label for="apellido2" class="col-sm-4 col-form-label">Apellido Mat.:</label>
-				<div class="col-sm-8">
-					<input type="text" class="form-control form-control-sm" id="apellido2">
-				</div>			
-			</div>		
-
-			<div class="form-group row">
-				<label for="genero" class="col-sm-4 col-form-label">Género:</label>
-				<div class="col-sm-8">
-					  <select class="selects form-control form-control-sm" id="genero">
+					  <select class="selects form-control form-control-sm" id="genero" required>
 						<option value="" selected>...</option>
 						<option value="Dama">Dama</option>
 						<option value="Varón">Varón</option>
@@ -56,40 +26,15 @@
 				</div>			
 			</div>		
 
-			<div class="form-group row">
-				<label for="fecha_nac" class="col-sm-4 col-form-label">Fecha Nac.:</label>
-				<div class="col-sm-8">
-					<input type="date" class="form-control form-control-sm" id="fecha_nac">
-				</div>			
-			</div>	
+			<x-input id="fechaNac" type="date" label="Fecha Nac." placeholder="" wireModel="fechaNac" required=""/>
 
-			<div class="form-group row">
-				<label for="contacto" class="col-sm-4 col-form-label"># Contacto:</label>
-				<div class="col-sm-8">
-					<input type="text" class="form-control form-control-sm" id="contacto">
-				</div>			
-			</div>		
+			<x-input id="contacto" type="text" label="# Contacto" placeholder="Ej.: 987654321" wireModel="contacto" required=""/>	
 
-			<div class="form-group row">
-				<label for="correo" class="col-sm-4 col-form-label">Correo:</label>
-				<div class="col-sm-8">
-					<input type="text" class="form-control form-control-sm" id="correo">
-				</div>			
-			</div>	
+			<x-input id="correo" type="text" label="Correo" placeholder="Ej.: sind1@pucv.cl" wireModel="correo" required=""/>
 
-			<div class="form-group row">
-				<label for="fecha_pucv" class="col-sm-4 col-form-label">Fecha Ing. PUCV:</label>
-				<div class="col-sm-8">
-					<input type="date" class="form-control form-control-sm" id="fecha_pucv">
-				</div>			
-			</div>	
+			<x-input id="fechaPucv" type="date" label="Fecha Ing. PUCV" placeholder="" wireModel="fechaPucv" required=""/>
 
-			<div class="form-group row">
-				<label for="anexo" class="col-sm-4 col-form-label">Anexo:</label>
-				<div class="col-sm-8">
-					<input type="text" class="form-control form-control-sm" id="anexo">
-				</div>			
-			</div>
+			<x-input id="anexo" type="text" label="Anexo" placeholder="Ej.: 3096" wireModel="anexo" required=""/>
 
 			<div class="form-group row">
 				<label for="fecha_sind1" class="col-sm-4 col-form-label">Fecha Ing. SIND1:</label>
@@ -137,12 +82,7 @@
 				</div>			
 			</div>	
 
-			<div class="form-group row">
-				<label for="direccion" class="col-sm-4 col-form-label">Dirección:</label>
-				<div class="col-sm-8">
-					<input type="text" class="form-control form-control-sm" id="direccion">
-				</div>			
-			</div>	
+			<x-input id="direccion" type="text" label="Dirección" placeholder="Ej.: Calle 1, Casa N° 2" wireModel="direccion" required=""/>
 
 			<div class="form-group row">
 				<label for="sede" class="col-sm-4 col-form-label">Sede:</label>
