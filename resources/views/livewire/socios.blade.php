@@ -3,7 +3,7 @@
 
 		{{-- CARD FORM --}}
 		<div class="col-sm-12 col-md-3">
-            @include("partials.socios.forms._crear")
+            @include("partials.socios.forms.$form")
 
 		</div>
 

@@ -101,14 +101,12 @@
 			<div class="form-group row">
 				<label for="region" class="col-sm-4 col-form-label">Región:</label>
 				<div class="col-sm-8">
-					  <select class="selects form-control form-control-sm" id="region" name="region" style="width: 100%">
-						<option value="" selected>...</option>
-						<option value="">aaaaaaa</option>
-						<option value="">bbbbbb</option>
-						<option value="">cccccccccc</option>
-						<option value="">ddddddddddddd</option>
-						<option value="">eeeeeeeeeeeee</option>
-					  </select>
+					<select class="selects form-control form-control-sm" id="region" name="region" style="width: 100%">
+					<option value="" selected>...</option>
+						@foreach ($regiones as $r)
+							<option value="{{ $r->id }}">{{ $r->nombre }}</option>
+						@endforeach
+					</select>
 				</div>			
 			</div>	
 

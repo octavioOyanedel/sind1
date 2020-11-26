@@ -114,6 +114,9 @@
                         <i class="text-danger nav-icon fas fa-sign-out-alt"></i>
                         <p>Salir</p>
                     </a>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                        @csrf
+                    </form>
                 </li>                                                                     
             </ul>
         </nav>
