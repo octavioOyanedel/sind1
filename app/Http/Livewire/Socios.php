@@ -29,7 +29,11 @@ class Socios extends Component
     // Selects
     public $region;
     public $provincia;
+    public $comuna;
     public $sede;
+    public $area;
+    public $cargo;
+    public $nacion;
     // Nuevos registros
     public $n_region;
     // Form socios
@@ -44,6 +48,7 @@ class Socios extends Component
     public $correo;
     public $fechaPucv;
     public $anexo;
+    public $fechaSind1;
     public $direccion;
 
     public function render()

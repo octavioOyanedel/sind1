@@ -36,101 +36,23 @@
 
 			<x-input id="anexo" type="text" label="Anexo" placeholder="Ej.: 3096" wireModel="anexo" required=""/>
 
-			<div class="form-group row">
-				<label for="fecha_sind1" class="col-sm-4 col-form-label">Fecha Ing. SIND1:</label>
-				<div class="col-sm-8">
-					<input type="date" class="form-control form-control-sm" id="fecha_sind1">
-				</div>			
-			</div>	
+			<x-input id="fechaSind1" type="date" label="Fecha Ing. SIND1" placeholder="" wireModel="fechaSind1" required=""/>
 
-			<div class="form-group row">
-				
-				<label for="region" class="col-sm-4 col-form-label">Región:
-					<a wire:click="limpiarModalForm" class="text-primary float-right" href="#" data-toggle="modal" data-target="#nuevaRegion"><i role="button" class="fas fa-plus-circle"></i></a>
-				</label>
-				<div class="col-sm-8">
-					<select wire:model="region" class="form-control form-control-sm" id="region">
-					<option value="" selected>...</option>
-						@foreach ($regiones as $r)
-							<option value="{{ $r->id }}">{{ $r->nombre }}</option>
-						@endforeach
-					</select>
-				</div>			
-			</div>	
+			<x-select id="region" label="Región" modal="#nuevaRegion" wireModel="region" required="si" :coleccion="$regiones"/>
 
-			<div class="form-group row">
-				<label for="provincia" class="col-sm-4 col-form-label">Provincia:</label>
-				<div class="col-sm-8">
-					  <select wire:model="provincia" class="form-control form-control-sm" id="provincia">
-						<option value="" selected>...</option>
-						@foreach ($provincias as $p)
-							<option value="{{ $p->id }}">{{ $p->nombre }}</option>
-						@endforeach						
-					  </select>
-				</div>			
-			</div>	
+			<x-select id="provincia" label="Provincia" modal="#nuevaProvincia" wireModel="provincia" required="si" :coleccion="$provincias"/>
 
-			<div class="form-group row">
-				<label for="comuna" class="col-sm-4 col-form-label">Comuna:</label>
-				<div class="col-sm-8">
-					  <select class="form-control form-control-sm" id="comuna">
-						<option value="" selected>...</option>
-						@foreach ($comunas as $c)
-							<option value="{{ $c->id }}">{{ $c->nombre }}</option>
-						@endforeach							
-					  </select>
-				</div>			
-			</div>	
+			<x-select id="comuna" label="Comuna" modal="#nuevaComuna" wireModel="comuna" required="si" :coleccion="$comunas"/>
 
 			<x-input id="direccion" type="text" label="Dirección" placeholder="Ej.: Calle 1, Casa N° 2" wireModel="direccion" required=""/>
 
-			<div class="form-group row">
-				<label for="sede" class="col-sm-4 col-form-label">Sede:</label>
-				<div class="col-sm-8">
-					  <select wire:model="sede" class="form-control form-control-sm" id="sede">
-						<option value="" selected>...</option>
-						@foreach ($sedes as $s)
-							<option value="{{ $s->id }}">{{ $s->nombre }}</option>
-						@endforeach								
-					  </select>
-				</div>			
-			</div>	
+			<x-select id="sede" label="Sede" modal="#nuevaSede" wireModel="sede" required="si" :coleccion="$sedes"/>
 
-			<div class="form-group row">
-				<label for="area" class="col-sm-4 col-form-label">Área:</label>
-				<div class="col-sm-8">
-					  <select class="form-control form-control-sm" id="area">
-						<option value="" selected>...</option>
-						@foreach ($areas as $a)
-							<option value="{{ $a->id }}">{{ $a->nombre }}</option>
-						@endforeach							
-					  </select>
-				</div>			
-			</div>	
+			<x-select id="area" label="Area" modal="#nuevaArea" wireModel="area" required="si" :coleccion="$areas"/>
 			
-			<div class="form-group row">
-				<label for="cargo" class="col-sm-4 col-form-label">Cargo:</label>
-				<div class="col-sm-8">
-					  <select class="form-control form-control-sm" id="cargo">
-						<option value="" selected>...</option>
-						@foreach ($cargos as $c)
-							<option value="{{ $c->id }}">{{ $c->nombre }}</option>
-						@endforeach							
-					  </select>
-				</div>			
-			</div>	
+			<x-select id="cargo" label="cargo" modal="#nuevoCargo" wireModel="cargo" required="si" :coleccion="$cargos"/>
 
-			<div class="form-group row">
-				<label for="nacionalidad" class="col-sm-4 col-form-label">Nacionalidad:</label>
-				<div class="col-sm-8">
-					  <select class="form-control form-control-sm" id="nacionalidad">
-						<option value="" selected>...</option>
-						@foreach ($naciones as $n)
-							<option value="{{ $n->id }}">{{ $n->nombre }}</option>
-						@endforeach							
-					  </select>
-				</div>			
-			</div>	
+			<x-select id="nacion" label="Nacionalidad" modal="#nuevaNacion" wireModel="nacion" required="si" :coleccion="$naciones"/>
 
 			<div class="form-group">
 				<button type="submit" class="form-control btn btn-primary">Guardar</button>
