@@ -13,10 +13,14 @@ use Livewire\Component;
 
 class Socios extends Component
 {
-    // Nombres vistas
+    /**
+     * Nombres vistas
+     */
     public $form = "_crear";
 
-    // Colecciones selects
+    /**
+     * Coleciones para selects
+     */
     public $regiones = [];
     public $provincias = [];
     public $comunas = [];
@@ -25,8 +29,9 @@ class Socios extends Component
     public $cargos = [];
     public $naciones = [];
 
-    // Variables livewire 2way binding
-    // Selects
+    /**
+     * Variables livewire 2way binding
+     */
     public $region;
     public $provincia;
     public $comuna;
@@ -35,7 +40,9 @@ class Socios extends Component
     public $cargo;
     public $nacion;
     // Nuevos registros
-    public $n_region;
+    public $nueva_region;
+    public $nueva_provincia;
+    public $nueva_comuna;
     // Form socios
     public $rut;
     public $numero;
@@ -67,26 +74,68 @@ class Socios extends Component
         }
     	if (!empty($this->sede)) {
     		$this->areas = Area::where('sede_id', $this->sede)->get();
-        }        
+        }
+
         return view('livewire.socios');
     }
 
-    // Nueva región
+    /**
+     * Nueva región
+     */
     public function nuevaRegion()
     {
         $this->validate([
-			'n_region' => 'required'
+			'nueva_region' => 'required'
 		]);
 
 		Distrito::create([
-			'nombre' => $this->n_region
+			'nombre' => $this->nueva_region
         ]);   
         
         $this->emit('cerrarModal');
         $this->emit('alertaOk', 'Región Agregada.');
     }
 
-    // Limpiar campos de formularios de ventanas modales
+    /**
+     * Nueva provincia
+     */
+    public function nuevaProvincia()
+    {
+        $this->validate([
+            'region' => 'required',
+            'nueva_provincia' => 'required'
+		]);
+
+		Provincia::create([
+            'nombre' => $this->nueva_provincia,
+            'distrito_id' => $this->region
+        ]);   
+        
+        $this->emit('cerrarModal');
+        $this->emit('alertaOk', 'Provincia Agregada.');
+    }
+
+    /**
+     * Nueva provincia
+     */
+    public function nuevaComuna()
+    {
+        $this->validate([
+            'provincia' => 'required',
+            'nueva_comuna' => 'required'
+		]);
+
+		Comuna::create([
+            'nombre' => $this->nueva_comuna,
+            'provincia_id' => $this->provincia
+        ]);   
+        
+        $this->emit('cerrarModal');
+        $this->emit('alertaOk', 'Comuna Agregada.');
+    }
+    /**
+     * Limpiar campos de formularios de ventanas modales
+     */
     public function limpiarModalForm()
     {
     	$this->emit('limpiarModalForm');

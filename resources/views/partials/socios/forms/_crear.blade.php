@@ -50,7 +50,7 @@
 
 			<x-select id="area" label="Area" modal="#nuevaArea" wireModel="area" required="si" :coleccion="$areas"/>
 			
-			<x-select id="cargo" label="cargo" modal="#nuevoCargo" wireModel="cargo" required="si" :coleccion="$cargos"/>
+			<x-select id="cargo" label="Cargo" modal="#nuevoCargo" wireModel="cargo" required="si" :coleccion="$cargos"/>
 
 			<x-select id="nacion" label="Nacionalidad" modal="#nuevaNacion" wireModel="nacion" required="si" :coleccion="$naciones"/>
 
@@ -61,36 +61,11 @@
 		</div>
 	</form>
 
-	<!-- Modal -->
-	<div wire:ignore.self class="modal fade" id="nuevaRegion" data-keyboard="false" tabindex="-1" aria-labelledby="nuevaRegionLabel" aria-hidden="true">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="nuevaRegionLabel">Nueva Región</h5>
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-				</div>
-				<div class="modal-body">
-					<div class="form-group">
-						<label for="nombre">Nombre:</label>
-						<input type="text" class="limpiar-input-modal form-control" id="nombre" wire:model="n_region">
-						@error('n_region') 
-							<small class="text-danger">{{ $message }}</small>
-						@enderror
-					</div>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Cerrar</button>
-					<button wire:click="nuevaRegion" type="button" class="btn btn-sm btn-primary">Guardar</button>
-				</div>
-			</div>
-		</div>
-	</div>	
-
+	<!-- Ventanas Modales -->
+	<x-modal id="nuevaRegion" titulo="Nueva Región" wireClick="nuevaRegion" boton="Guardar" coleccion="" />
+	<x-modal id="nuevaProvincia" titulo="Nueva Provincia" wireClick="nuevaProvincia" boton="Guardar" :coleccion="$regiones"/>
+	<x-modal id="nuevaComuna" titulo="Nueva Comuna" wireClick="nuevaComuna" boton="Guardar" :coleccion="$provincias"/>
 </div>
-
-
 
 @push('scripts')
 	<script type="text/javascript">
@@ -101,6 +76,8 @@
 	<script type="text/javascript">
         window.livewire.on('cerrarModal', () => {
             $('#nuevaRegion').modal('hide');
+			$('#nuevaProvincia').modal('hide');
+			$('#nuevaComuna').modal('hide');
         });
 	</script>
     <script type="text/javascript">
