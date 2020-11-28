@@ -166,7 +166,7 @@ return [
         'nueva_comuna' => 'comuna',
         'nueva_sede' => 'sede',
         'nueva_area' => 'área',
-        'nueva_cargo' => 'cargo',
+        'nuevo_cargo' => 'cargo',
         'nueva_nacion' => 'nacionalidad',
     ],
 

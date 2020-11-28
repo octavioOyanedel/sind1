@@ -10,6 +10,7 @@ use App\Models\NacionSocio;
 use App\Models\Provincia;
 use App\Models\Sede;
 use Livewire\Component;
+use App\Rules\NombreRule;
 
 class Socios extends Component
 {
@@ -89,7 +90,7 @@ class Socios extends Component
     public function nuevaRegion()
     {
         $this->validate([
-			'nueva_region' => 'required'
+			'nueva_region' => ['required', new NombreRule, 'unique:distritos,nombre']
 		]);
 
 		Distrito::create([
@@ -107,7 +108,7 @@ class Socios extends Component
     {
         $this->validate([
             'region' => 'required',
-            'nueva_provincia' => 'required'
+            'nueva_provincia' => ['required', new NombreRule, 'unique:provincias,nombre']
 		]);
 
 		Provincia::create([
@@ -126,7 +127,7 @@ class Socios extends Component
     {
         $this->validate([
             'provincia' => 'required',
-            'nueva_comuna' => 'required'
+            'nueva_comuna' => ['required', new NombreRule, 'unique:comunas,nombre']
 		]);
 
 		Comuna::create([
@@ -144,7 +145,7 @@ class Socios extends Component
     public function nuevaSede()
     {
         $this->validate([
-            'nueva_sede' => 'required',
+            'nueva_sede' => ['required', new NombreRule, 'unique:sedes,nombre']
 		]);
 
 		Sede::create([
@@ -162,7 +163,7 @@ class Socios extends Component
     {
         $this->validate([
             'sede' => 'required',
-            'nueva_area' => 'required'
+            'nueva_area' => ['required', new NombreRule, 'unique:areas,nombre']
 		]);
 
 		Area::create([
@@ -180,7 +181,7 @@ class Socios extends Component
     public function nuevoCargo()
     {
         $this->validate([
-            'nuevo_cargo' => 'required',
+            'nuevo_cargo' => ['required', new NombreRule, 'unique:cargos,nombre']
 		]);
 
 		Cargo::create([
@@ -197,7 +198,7 @@ class Socios extends Component
     public function nuevaNacion()
     {
         $this->validate([
-            'nueva_nacion' => 'required',
+            'nueva_nacion' => ['required', new NombreRule, 'unique:nacion_socios,nombre']
 		]);
 
 		NacionSocio::create([
