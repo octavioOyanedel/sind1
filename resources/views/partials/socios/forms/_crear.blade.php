@@ -29,24 +29,24 @@
 
 			<x-input id="fechaSind1" type="date" label="Fecha Ing. SIND1" placeholder="" wireModel="fechaSind1" required=""/>
 
-			<x-select id="region" label="Región" modal="#nuevaRegion" wireModel="region" required="si" :coleccion="$regiones"/>
+			<x-select id="region" label="Región" modal="#nuevaRegion" wireModel="region" required="" :coleccion="$regiones"/>
 
-			<x-select id="provincia" label="Provincia" modal="#nuevaProvincia" wireModel="provincia" required="si" :coleccion="$provincias"/>
+			<x-select id="provincia" label="Provincia" modal="#nuevaProvincia" wireModel="provincia" required="" :coleccion="$provincias"/>
 
-			<x-select id="comuna" label="Comuna" modal="#nuevaComuna" wireModel="comuna" required="si" :coleccion="$comunas"/>
+			<x-select id="comuna" label="Comuna" modal="#nuevaComuna" wireModel="comuna" required="" :coleccion="$comunas"/>
 
 			<x-input id="direccion" type="text" label="Dirección" placeholder="Ej.: Calle 1, Casa N° 2" wireModel="direccion" required=""/>
 
-			<x-select id="sede" label="Sede" modal="#nuevaSede" wireModel="sede" required="si" :coleccion="$sedes"/>
+			<x-select id="sede" label="Sede" modal="#nuevaSede" wireModel="sede" required="" :coleccion="$sedes"/>
 
-			<x-select id="area" label="Area" modal="#nuevaArea" wireModel="area" required="si" :coleccion="$areas"/>
+			<x-select id="area" label="Area" modal="#nuevaArea" wireModel="area" required="" :coleccion="$areas"/>
 			
-			<x-select id="cargo" label="Cargo" modal="#nuevoCargo" wireModel="cargo" required="si" :coleccion="$cargos"/>
+			<x-select id="cargo" label="Cargo" modal="#nuevoCargo" wireModel="cargo" required="" :coleccion="$cargos"/>
 
-			<x-select id="nacion" label="Nacionalidad" modal="#nuevaNacion" wireModel="nacion" required="si" :coleccion="$naciones"/>
+			<x-select id="nacion" label="Nacionalidad" modal="#nuevaNacion" wireModel="nacion" required="" :coleccion="$naciones"/>
 
 			<div class="form-group">
-				<button type="submit" class="form-control btn btn-primary">Guardar</button>
+				<button wire:click="incorporarSocio" type="submit" class="form-control btn btn-primary">Guardar</button>
 			</div>
 
 		</div>

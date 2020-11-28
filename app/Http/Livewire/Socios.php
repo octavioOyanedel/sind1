@@ -9,6 +9,7 @@ use App\Models\Distrito;
 use App\Models\NacionSocio;
 use App\Models\Provincia;
 use App\Models\Sede;
+use App\Models\Socio;
 use Livewire\Component;
 use App\Rules\NombreRule;
 
@@ -55,6 +56,7 @@ class Socios extends Component
     public $nombre2;
     public $apellido1;
     public $apellido2;
+    public $genero;
     public $fechaNac;
     public $contacto;
     public $correo;
@@ -82,6 +84,38 @@ class Socios extends Component
         }
 
         return view('livewire.socios');
+    }
+
+    /**
+     * Nueva región
+     */
+    public function incorporarSocio()
+    {
+        $this->validate([
+            'rut' => ['required', 'alpha_num', 'max:9', 'unique:socios,rut'],
+            'numero' => ['required', 'numeric', 'unique:socios,numero'], 
+            'nombre1' => ['required', new NombreRule], 
+            'nombre2' => ['nullable', new NombreRule], 
+            'apellido1' => ['required', new NombreRule], 
+            'apellido2' => ['nullable', new NombreRule], 
+            'genero' => ['required', 'alpha'], 
+            'fechaNac' => ['nullable', 'date'], 
+            'contacto' => ['nullable', 'numeric'], 
+            'correo' => ['nullable', 'email'], 
+            'fechaPucv' => ['nullable', 'date'], 
+            'anexo' => ['nullable', 'numeric'], 
+            'fechaSind1' => ['nullable', 'date'],             
+            'region' => ['nullable'], 
+            'provincia' => ['nullable'], 
+            'comuna' => ['nullable'], 
+            'direccion' => ['nullable'],             
+            'sede' => ['nullable'], 
+            'area' => ['nullable'], 
+            'cargo' => ['nullable'], 
+            'nacion' => ['nullable'],         
+		]); 
+        
+        $this->emit('alertaOk', 'Socio Incorporado.');
     }
 
     /**
