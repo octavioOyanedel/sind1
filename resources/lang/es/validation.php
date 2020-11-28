@@ -146,6 +146,28 @@ return [
     |
     */
 
-    'attributes' => [],
+    'attributes' => [
+        'numero' => '# socio',
+        'nombre1' => '1° nombre',
+        'nombre2' => '2° nombre',
+        'apellido1' => 'apellido Pat.',
+        'apellido2' => 'apellido Mat.',
+        'genero' => 'género',
+        'fechaNac' => 'fecha de Nac.',
+        'contacto' => '# contacto',
+        'fechaPucv' => 'fecha Ing. PUCV',
+        'fechaSind1' => 'fecha Ing. SIND1',
+        'region' => 'región',
+        'direccion' => 'dirección',
+        'area' => 'área',
+        'nacion' => 'nacionalidad',
+        'nueva_region' => 'región',
+        'nueva_provincia' => 'provincia',
+        'nueva_comuna' => 'comuna',
+        'nueva_sede' => 'sede',
+        'nueva_area' => 'área',
+        'nueva_cargo' => 'cargo',
+        'nueva_nacion' => 'nacionalidad',
+    ],
 
 ];
