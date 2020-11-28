@@ -12,13 +12,25 @@
                     @switch($id)
                         @case('nuevaRegion')
                             @include('components.partials.forms._region')
-                            @break
+                        @break
                         @case('nuevaProvincia')
                             @include('components.partials.forms._provincia', ['regiones' => $coleccion])
-							@break
+						@break
 						@case('nuevaComuna')
                             @include('components.partials.forms._comuna', ['provincias' => $coleccion])
-                            @break  							                         
+						@break
+						@case('nuevaSede')
+                            @include('components.partials.forms._sede')
+						@break
+						@case('nuevaArea')
+                            @include('components.partials.forms._area', ['sedes' => $coleccion])
+						@break 	
+						@case('nuevoCargo')
+                            @include('components.partials.forms._cargo')
+						@break
+						@case('nuevaNacion')
+                            @include('components.partials.forms._nacion')
+                        @break 						 																											                         
                         @default                           
                     @endswitch
 				</div>

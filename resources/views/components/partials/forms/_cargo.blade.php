@@ -1,0 +1,1 @@
+<x-input-modal id="nuevo_cargo" type="text" label="Nombre" placeholder="Ej.: Ayudante" wireModel="nuevo_cargo" required="si"/>

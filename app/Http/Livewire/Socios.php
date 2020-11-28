@@ -43,6 +43,10 @@ class Socios extends Component
     public $nueva_region;
     public $nueva_provincia;
     public $nueva_comuna;
+    public $nueva_sede;
+    public $nueva_area;
+    public $nuevo_cargo;
+    public $nueva_nacion;
     // Form socios
     public $rut;
     public $numero;
@@ -133,6 +137,77 @@ class Socios extends Component
         $this->emit('cerrarModal');
         $this->emit('alertaOk', 'Comuna Agregada.');
     }
+
+    /**
+     * Nueva sede
+     */
+    public function nuevaSede()
+    {
+        $this->validate([
+            'nueva_sede' => 'required',
+		]);
+
+		Sede::create([
+            'nombre' => $this->nueva_sede,
+        ]);   
+        
+        $this->emit('cerrarModal');
+        $this->emit('alertaOk', 'Sede Agregada.');
+    }
+
+    /**
+     * Nueva area
+     */
+    public function nuevaArea()
+    {
+        $this->validate([
+            'sede' => 'required',
+            'nueva_area' => 'required'
+		]);
+
+		Area::create([
+            'nombre' => $this->nueva_area,
+            'sede_id' => $this->sede
+        ]);   
+        
+        $this->emit('cerrarModal');
+        $this->emit('alertaOk', 'Área Agregada.');
+    }
+
+    /**
+     * Nueva cargo
+     */
+    public function nuevoCargo()
+    {
+        $this->validate([
+            'nuevo_cargo' => 'required',
+		]);
+
+		Cargo::create([
+            'nombre' => $this->nuevo_cargo,
+        ]);   
+        
+        $this->emit('cerrarModal');
+        $this->emit('alertaOk', 'Cargo Agregado.');
+    }
+
+    /**
+     * Nueva nacion
+     */
+    public function nuevaNacion()
+    {
+        $this->validate([
+            'nueva_nacion' => 'required',
+		]);
+
+		NacionSocio::create([
+            'nombre' => $this->nueva_nacion,
+        ]);   
+        
+        $this->emit('cerrarModal');
+        $this->emit('alertaOk', 'Nacionalidad Agregada.');
+    }
+
     /**
      * Limpiar campos de formularios de ventanas modales
      */

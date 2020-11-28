@@ -1,0 +1,1 @@
+<x-input-modal id="nueva_nacion" type="text" label="Nombre" placeholder="Ej.: Chile" wireModel="nueva_nacion" required="si"/>

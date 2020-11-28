@@ -65,6 +65,10 @@
 	<x-modal id="nuevaRegion" titulo="Nueva Región" wireClick="nuevaRegion" boton="Guardar" coleccion="" />
 	<x-modal id="nuevaProvincia" titulo="Nueva Provincia" wireClick="nuevaProvincia" boton="Guardar" :coleccion="$regiones"/>
 	<x-modal id="nuevaComuna" titulo="Nueva Comuna" wireClick="nuevaComuna" boton="Guardar" :coleccion="$provincias"/>
+	<x-modal id="nuevaSede" titulo="Nueva Sede" wireClick="nuevaSede" boton="Guardar" coleccion=""/>
+	<x-modal id="nuevaArea" titulo="Nueva Área" wireClick="nuevaArea" boton="Guardar" :coleccion="$sedes"/>
+	<x-modal id="nuevoCargo" titulo="Nuevo Cargo" wireClick="nuevoCargo" boton="Guardar" coleccion=""/>
+	<x-modal id="nuevaNacion" titulo="Nueva Nacionalidad" wireClick="nuevaNacion" boton="Guardar" coleccion=""/>
 </div>
 
 @push('scripts')
@@ -78,6 +82,10 @@
             $('#nuevaRegion').modal('hide');
 			$('#nuevaProvincia').modal('hide');
 			$('#nuevaComuna').modal('hide');
+			$('#nuevaSede').modal('hide');
+			$('#nuevaArea').modal('hide');
+			$('#nuevoCargo').modal('hide');
+			$('#nuevaNacion').modal('hide');
         });
 	</script>
     <script type="text/javascript">
