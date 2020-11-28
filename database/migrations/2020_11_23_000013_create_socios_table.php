@@ -21,10 +21,23 @@ class CreateSociosTable extends Migration
             $table->string('apellido2')->nullable();
             $table->string('rut')->unique();
             $table->enum('genero', ['Dama', 'Varón']);
-            $table->date('fecha')->nullable();
+            $table->date('fecha_nac')->nullable();
             $table->integer('contacto')->nullable();
             $table->string('correo')->unique()->nullable();
+            $table->string('direccion')->nullable();
+            $table->date('fecha_sind1')->nullable();
+            $table->integer('numero')->unique();
+            $table->integer('anexo')->nullable();
+            $table->date('fecha_pucv')->nullable();
+            $table->unsignedBigInteger('distrito_id')->nullable();
+            $table->unsignedBigInteger('provincia_id')->nullable();
+            $table->unsignedBigInteger('comuna_id')->nullable();
+            $table->unsignedBigInteger('estado_socio_id')->nullable();
+            $table->unsignedBigInteger('cargo_id')->nullable();
+            $table->unsignedBigInteger('sede_id')->nullable();
+            $table->unsignedBigInteger('area_id')->nullable();
             $table->unsignedBigInteger('nacion_socio_id')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }
