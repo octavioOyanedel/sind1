@@ -1,6 +1,5 @@
 <div class="card">
     <div class="card-header"><h4 class="mb-0">Incorporar Socio</h4></div>
-	<form action="" class="">
 		<div class="card-body">
 
 			<x-input id="rut" type="text" label="Rut" placeholder="Ej.: 11222333k" wireModel="rut" required="si"/>
@@ -46,11 +45,9 @@
 			<x-select id="nacion" label="Nacionalidad" modal="#nuevaNacion" wireModel="nacion" required="" :coleccion="$naciones"/>
 
 			<div class="form-group">
-				<button wire:click="incorporarSocio" type="submit" class="form-control btn btn-primary">Guardar</button>
+				<button wire:click="incorporarSocio" class="form-control btn btn-primary">Guardar</button>
 			</div>
-
 		</div>
-	</form>
 
 	<!-- Ventanas Modales -->
 	<x-modal id="nuevaRegion" titulo="Nueva Región" wireClick="nuevaRegion" boton="Guardar" coleccion="" />
@@ -60,13 +57,18 @@
 	<x-modal id="nuevaArea" titulo="Nueva Área" wireClick="nuevaArea" boton="Guardar" :coleccion="$sedes"/>
 	<x-modal id="nuevoCargo" titulo="Nuevo Cargo" wireClick="nuevoCargo" boton="Guardar" coleccion=""/>
 	<x-modal id="nuevaNacion" titulo="Nueva Nacionalidad" wireClick="nuevaNacion" boton="Guardar" coleccion=""/>
-	
+
 </div>
 
 @push('scripts')
 	<script type="text/javascript">
 		window.livewire.on('limpiarModalForm', () => {
 			$('.limpiar-input-modal').val('');
+		});
+	</script>
+	<script type="text/javascript">
+		window.livewire.on('limpiarForm', () => {
+			$('.limpiar-input').val('');
 		});
 	</script>
 	<script type="text/javascript">
@@ -88,7 +90,7 @@
                 icon: 'success',
                 title: texto,
                 showConfirmButton: false,
-                timer: 2700,
+                timer: 3300,
                 background: '#38c172',
                 iconColor: '#fff'
             })   

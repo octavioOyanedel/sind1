@@ -139,7 +139,8 @@ class Socios extends Component
             'cargo_id' => $this->cargo,
             'nacion_socio_id' => $this->nacion
         ]);
-
+        $this->resetForm();
+        $this->limpiarForm();
         $this->emit('alertaOk', 'Socio Incorporado.');
     }
 
@@ -274,5 +275,41 @@ class Socios extends Component
     public function limpiarModalForm()
     {
     	$this->emit('limpiarModalForm');
+    }
+
+    /**
+     * Limpiar campos de formularios 
+     */
+    public function limpiarForm()
+    {
+    	$this->emit('limpiarForm');
+    }
+    
+    /**
+     * Reset 2way binding
+     */
+    public function resetForm()
+    {
+        $this->rut = '';
+        $this->numero = '';
+        $this->nombre1 = '';
+        $this->nombre2 = '';
+        $this->apellido1 = '';
+        $this->apellido2 = '';
+        $this->genero = '';
+        $this->fechaNac = '';
+        $this->contacto = '';
+        $this->correo = '';
+        $this->fechaPucv = '';
+        $this->anexo = '';
+        $this->fechaSind1 = '';
+        $this->region = '';
+        $this->provincia = '';
+        $this->comuna = '';
+        $this->direccion = '';
+        $this->sede = '';
+        $this->area = '';
+        $this->cargo = '';
+        $this->nacion = '';
     }    
 }
