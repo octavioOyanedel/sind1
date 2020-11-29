@@ -12,4 +12,22 @@ class Socio extends Model
     use SoftDeletes;
 
     protected $guarded = [];
+
+    /**
+     * RELACIONES
+     */
+    public function sede()
+    {
+        return $this->belongsTo('App\Models\Sede');
+    }
+
+    public function area()
+    {
+        return $this->belongsTo('App\Models\Area');
+    }
+
+    public function cargo()
+    {
+        return $this->belongsTo('App\Models\Cargo');
+    }    
 }

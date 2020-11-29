@@ -30,9 +30,28 @@ input, select, select option{
 .content-wrapper {
     background-color: transparent !important;
 }
+
+table thead tr th, table tbody tr th, table tbody tr td {
+	font-size: 12px;
+}
+
+table thead tr th, table tbody tr th, table tbody tr td{
+    white-space: nowrap !important;
+}
+
 /**********************************************
  * SWEET ALERT
  *********************************************/
+
+ .cabecera-tabla{
+	background-color: #343a40;
+	color: white;
+	font-size: 12px !important;
+}
+/**********************************************
+ * SWEET ALERT
+ *********************************************/
+
 .swal2-title{
 	color: white !important;
 	font-size: 12px !important;

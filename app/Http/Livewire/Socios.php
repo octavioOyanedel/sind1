@@ -21,6 +21,7 @@ class Socios extends Component
      * Nombres vistas
      */
     public $form = "_crear";
+    public $list = "_listar";
 
     /**
      * Coleciones para selects
@@ -32,6 +33,7 @@ class Socios extends Component
     public $areas = [];
     public $cargos = [];
     public $naciones = [];
+    public $socios = [];
 
     /**
      * Variables livewire 2way binding
@@ -69,6 +71,7 @@ class Socios extends Component
 
     public function render()
     {
+        $this->socios = Socio::with(['sede','area','cargo'])->orderBy('created_at', 'DESC')->get();
         $this->regiones = Distrito::orderBy('nombre', 'ASC')->get();
         $this->sedes = Sede::orderBy('nombre', 'ASC')->get();
         $this->cargos = Cargo::orderBy('nombre', 'ASC')->get();
