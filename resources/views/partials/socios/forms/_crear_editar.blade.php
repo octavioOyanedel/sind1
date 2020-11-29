@@ -1,5 +1,5 @@
 <div class="card">
-    <div class="card-header"><h4 class="mb-0">Incorporar Socio</h4></div>
+    <div class="card-header"><h4 class="mb-0">{{$titulo}}</h4></div>
 		<div class="card-body">
 
 			<x-input id="rut" type="text" label="Rut" placeholder="Ej.: 11222333k" wireModel="rut" required="si"/>
@@ -45,7 +45,12 @@
 			<x-select id="nacion" label="Nacionalidad" modal="#nuevaNacion" wireModel="nacion" required="" :coleccion="$naciones"/>
 
 			<div class="form-group">
-				<button wire:click="incorporarSocio" class="form-control btn btn-primary">Guardar</button>
+				@if ($boton === 'crear')
+					<button wire:click="incorporarSocio" class="form-control btn btn-primary">Guardar</button>
+				@else
+					<button wire:click="editarSocio" class="form-control btn btn-primary">Editar</button>
+				@endif
+
 			</div>
 		</div>
 
@@ -95,5 +100,19 @@
                 iconColor: '#fff'
             })   
         });
-    </script>	
+	</script>	
+	<script type="text/javascript">
+		window.livewire.on('alertaInfo', texto => {
+			Swal.fire({
+				toast: true,
+				position: 'bottom-end',
+				icon: 'warning',
+				title: texto,
+				showConfirmButton: false,
+				timer: 3300,
+				background: '#ffc107',
+				iconColor: '#fff'
+			})   
+		});
+	</script>
 @endpush

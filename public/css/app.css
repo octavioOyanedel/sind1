@@ -10936,16 +10936,23 @@ table thead tr th,
 table tbody tr th,
 table tbody tr td {
   white-space: nowrap !important;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 /**********************************************
- * SWEET ALERT
+ * TABLA
  *********************************************/
 
 .cabecera-tabla {
   background-color: #343a40;
   color: white;
   font-size: 12px !important;
+}
+
+.celda-accion {
+  max-width: 42px !important;
+  max-height: 48px !important;
 }
 
 /**********************************************

@@ -36,11 +36,13 @@ table thead tr th, table tbody tr th, table tbody tr td {
 }
 
 table thead tr th, table tbody tr th, table tbody tr td{
-    white-space: nowrap !important;
+	white-space: nowrap !important;
+	overflow: hidden; 
+	text-overflow: ellipsis;
 }
 
 /**********************************************
- * SWEET ALERT
+ * TABLA
  *********************************************/
 
  .cabecera-tabla{
@@ -48,6 +50,12 @@ table thead tr th, table tbody tr th, table tbody tr td{
 	color: white;
 	font-size: 12px !important;
 }
+
+.celda-accion {
+	max-width: 42px !important;
+	max-height: 48px !important;
+}
+
 /**********************************************
  * SWEET ALERT
  *********************************************/

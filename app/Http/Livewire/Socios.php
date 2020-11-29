@@ -14,13 +14,16 @@ use Livewire\Component;
 use App\Rules\NombreRule;
 use App\Rules\RutRule;
 use App\Rules\DireccionRule;
+use Illuminate\Validation\Rule;
 
 class Socios extends Component
 {
     /**
-     * Nombres vistas
+     * Nombres vistas y componentes dinámicos de vistas
      */
-    public $form = "_crear";
+    public $form = "_crear_editar";
+    public $titulo = "Incorporar Socio";
+    public $boton = "crear";
     public $list = "_listar";
 
     /**
@@ -68,6 +71,8 @@ class Socios extends Component
     public $anexo;
     public $fechaSind1;
     public $direccion;
+    // Variable id para edicion de socio
+    public $id_socio;
 
     public function render()
     {
@@ -92,7 +97,7 @@ class Socios extends Component
     }
 
     /**
-     * Nueva región
+     * Nuevo socio
      */
     public function incorporarSocio()
     {
@@ -142,9 +147,106 @@ class Socios extends Component
             'cargo_id' => $this->cargo,
             'nacion_socio_id' => $this->nacion
         ]);
+        
         $this->resetForm();
         $this->limpiarForm();
         $this->emit('alertaOk', 'Socio Incorporado.');
+    }
+
+    /**
+     * Mostrar form editar socio
+     */
+    public function cargarFormEditar(Socio $socio)
+    {
+        $this->titulo = "Editar Socio";
+        $this->boton = "editar";
+        // captura de id para su posterior edición
+        $this->id_socio = $socio->id;
+        $this->rut = $socio->rut;
+        $this->numero = $socio->numero;
+        $this->nombre1 = $socio->nombre1;
+        $this->nombre2 = $socio->nombre2;
+        $this->apellido1 = $socio->apellido1;
+        $this->apellido2 = $socio->apellido2;
+        $this->genero = $socio->genero;
+        $this->fechaNac = $socio->fecha_nac;
+        $this->contacto = $socio->contacto;
+        $this->correo = $socio->correo;
+        $this->fechaPucv = $socio->fecha_pucv;
+        $this->anexo = $socio->anexo;
+        $this->fechaSind1 = $socio->fecha_sind1;
+        $this->direccion = $socio->direccion;
+        $this->region = $socio->distrito_id;
+        $this->provincia = $socio->provincia_id;
+        $this->comuna = $socio->comuna_id;
+        $this->sede = $socio->sede_id;
+        $this->area = $socio->area_id;
+        $this->cargo = $socio->cargo_id;
+        $this->nacion = $socio->nacion_socio_id;        
+    }
+
+    /**
+     * Editar socio
+     */
+    public function editarSocio()
+    {
+        $socio = Socio::findOrfail($this->id_socio);
+        if($this->datosEditados($socio->toArray()) > 0){
+            $this->validate([
+                'rut' => ['required',  new RutRule, 'alpha_num', 'max:9', Rule::unique('socios')->ignore($socio)],
+                'numero' => ['required', 'numeric', Rule::unique('socios')->ignore($socio)], 
+                'nombre1' => ['required', new NombreRule], 
+                'nombre2' => ['nullable', new NombreRule], 
+                'apellido1' => ['required', new NombreRule], 
+                'apellido2' => ['nullable', new NombreRule], 
+                'genero' => ['required', 'alpha'], 
+                'fechaNac' => ['nullable', 'date'], 
+                'contacto' => ['nullable', 'numeric'], 
+                'correo' => ['nullable', 'email', Rule::unique('socios')->ignore($socio)], 
+                'fechaPucv' => ['nullable', 'date'], 
+                'anexo' => ['nullable', 'numeric'], 
+                'fechaSind1' => ['nullable', 'date'],             
+                'region' => ['nullable'], 
+                'provincia' => ['nullable'], 
+                'comuna' => ['nullable'], 
+                'direccion' => ['nullable', new DireccionRule],             
+                'sede' => ['nullable'], 
+                'area' => ['nullable'], 
+                'cargo' => ['nullable'], 
+                'nacion' => ['nullable'],         
+            ]);
+    
+            $socio->update([
+                'rut' => $this->rut,
+                'numero' => $this->numero,
+                'nombre1' => $this->nombre1,
+                'nombre2' => $this->nombre2,
+                'apellido1' => $this->apellido1,
+                'apellido2' => $this->apellido2,
+                'genero' => $this->genero,
+                'fecha_nac' => $this->fechaNac,
+                'contacto' => $this->contacto,
+                'correo' => $this->correo,
+                'fecha_pucv' => $this->fechaPucv,
+                'anexo' => $this->anexo,
+                'fecha_sind1' => $this->fechaSind1,
+                'distrito_id' => $this->region,
+                'provincia_id' => $this->provincia,
+                'comuna_id' => $this->comuna,
+                'sede_id' => $this->sede,
+                'area_id' => $this->area,
+                'cargo_id' => $this->cargo,
+                'nacion_socio_id' => $this->nacion
+            ]);
+    
+            $this->emit('alertaOk', 'Socio Editado.');
+            $this->limpiarForm();
+            $this->form = "_crear_editar";
+            $this->titulo = "Incorporar Socio";
+            $this->boton = "crear";
+        }else{
+            $this->emit('alertaInfo', 'No se han hecho modificaciones en formulario.');
+        }
     }
 
     /**
@@ -314,5 +416,48 @@ class Socios extends Component
         $this->area = '';
         $this->cargo = '';
         $this->nacion = '';
-    }    
+    }
+
+    /**
+     * Compara si existen cambios en formulario
+     */
+    public function datosEditados($socio)
+    {
+        unset($socio['id']);
+        unset($socio['estado_socio_id']);
+        unset($socio['deleted_at']);
+        unset($socio['created_at']);
+        unset($socio['updated_at']);
+        $nuevos_datos = $this->crearArregloNuevosDatos();
+        return count(array_diff_assoc($socio,$nuevos_datos));
+    }
+    /**
+     * Crea arreglo asociativo con nuevos valores para comparación
+     */
+    public function crearArregloNuevosDatos()
+    {
+        return array(
+            "nombre1" => $this->nombre1,
+            "nombre2" => $this->nombre2,
+            "apellido1" => $this->apellido1,
+            "apellido2" => $this->apellido2,
+            "rut" => $this->rut,
+            "genero" => $this->genero,
+            "fecha_nac" => $this->fechaNac,
+            "contacto" => $this->contacto,
+            "correo" => $this->correo,
+            "direccion" => $this->direccion,
+            "fecha_sind1" => $this->fechaSind1,
+            "numero" => $this->numero,
+            "anexo" => $this->anexo,
+            "fecha_pucv" => $this->fechaPucv,
+            "distrito_id" => $this->region,
+            "provincia_id" => $this->provincia,
+            "comuna_id" => $this->comuna,
+            "cargo_id" => $this->cargo,
+            "sede_id" => $this->sede,
+            "area_id" => $this->area,
+            "nacion_socio_id" => $this->nacion,       
+        );
+    }
 }
