@@ -60,6 +60,7 @@
 	<x-modal id="nuevaArea" titulo="Nueva Área" wireClick="nuevaArea" boton="Guardar" :coleccion="$sedes"/>
 	<x-modal id="nuevoCargo" titulo="Nuevo Cargo" wireClick="nuevoCargo" boton="Guardar" coleccion=""/>
 	<x-modal id="nuevaNacion" titulo="Nueva Nacionalidad" wireClick="nuevaNacion" boton="Guardar" coleccion=""/>
+	
 </div>
 
 @push('scripts')

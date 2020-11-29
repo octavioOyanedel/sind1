@@ -25,6 +25,10 @@ class RutRule implements Rule
      */
     public function passes($attribute, $value)
     {
+        if(!preg_match("/[1-9]{1,2}[0-9]{3}[0-9]{3}[0-9Kk]{1}/",$value) == true){
+            return false;
+        }
+
         $rutOriginal = $value;
         $ultimoDigito = 0;
         $ultimoDigitoObtenido = 0;
@@ -88,6 +92,6 @@ class RutRule implements Rule
      */
     public function message()
     {
-        return 'Campo :attribute no válido.';
+        return 'El campo :attribute no es válido.';
     }
 }

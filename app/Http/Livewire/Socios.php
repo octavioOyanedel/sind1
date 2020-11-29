@@ -12,6 +12,8 @@ use App\Models\Sede;
 use App\Models\Socio;
 use Livewire\Component;
 use App\Rules\NombreRule;
+use App\Rules\RutRule;
+use App\Rules\DireccionRule;
 
 class Socios extends Component
 {
@@ -92,7 +94,7 @@ class Socios extends Component
     public function incorporarSocio()
     {
         $this->validate([
-            'rut' => ['required', 'alpha_num', 'max:9', 'unique:socios,rut'],
+            'rut' => ['required',  new RutRule, 'alpha_num', 'max:9', 'unique:socios,rut'],
             'numero' => ['required', 'numeric', 'unique:socios,numero'], 
             'nombre1' => ['required', new NombreRule], 
             'nombre2' => ['nullable', new NombreRule], 
@@ -101,20 +103,43 @@ class Socios extends Component
             'genero' => ['required', 'alpha'], 
             'fechaNac' => ['nullable', 'date'], 
             'contacto' => ['nullable', 'numeric'], 
-            'correo' => ['nullable', 'email'], 
+            'correo' => ['nullable', 'email', 'unique:socios,correo'], 
             'fechaPucv' => ['nullable', 'date'], 
             'anexo' => ['nullable', 'numeric'], 
             'fechaSind1' => ['nullable', 'date'],             
             'region' => ['nullable'], 
             'provincia' => ['nullable'], 
             'comuna' => ['nullable'], 
-            'direccion' => ['nullable'],             
+            'direccion' => ['nullable', new DireccionRule],             
             'sede' => ['nullable'], 
             'area' => ['nullable'], 
             'cargo' => ['nullable'], 
             'nacion' => ['nullable'],         
-		]); 
+        ]);
         
+        Socio::create([
+            'rut' => $this->rut,
+            'numero' => $this->numero,
+            'nombre1' => $this->nombre1,
+            'nombre2' => $this->nombre2,
+            'apellido1' => $this->apellido1,
+            'apellido2' => $this->apellido2,
+            'genero' => $this->genero,
+            'fecha_nac' => $this->fechaNac,
+            'contacto' => $this->contacto,
+            'correo' => $this->correo,
+            'fecha_pucv' => $this->fechaPucv,
+            'anexo' => $this->anexo,
+            'fecha_sind1' => $this->fechaSind1,
+            'distrito_id' => $this->region,
+            'provincia_id' => $this->provincia,
+            'comuna_id' => $this->comuna,
+            'sede_id' => $this->sede,
+            'area_id' => $this->area,
+            'cargo_id' => $this->cargo,
+            'nacion_socio_id' => $this->nacion
+        ]);
+
         $this->emit('alertaOk', 'Socio Incorporado.');
     }
 

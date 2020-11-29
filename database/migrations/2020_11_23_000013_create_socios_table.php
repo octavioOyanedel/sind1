@@ -32,7 +32,7 @@ class CreateSociosTable extends Migration
             $table->unsignedBigInteger('distrito_id')->nullable();
             $table->unsignedBigInteger('provincia_id')->nullable();
             $table->unsignedBigInteger('comuna_id')->nullable();
-            $table->unsignedBigInteger('estado_socio_id')->nullable();
+            $table->unsignedBigInteger('estado_socio_id')->nullable()->default(1);
             $table->unsignedBigInteger('cargo_id')->nullable();
             $table->unsignedBigInteger('sede_id')->nullable();
             $table->unsignedBigInteger('area_id')->nullable();
