@@ -1,5 +1,18 @@
 <div class="card">
-    <div class="card-header"><h4 class="mb-0">{{$titulo}}</h4></div>
+    <div class="card-header">
+        <h4 class="mb-0">{{$titulo}}
+            @if ($titulo == "Incorporar Socio")
+                <a class="float-right" href="#" title="Buscar Socio">
+                    <i class="fas fa-search"></i>
+                </a>
+            @endif
+            @if ($titulo == "Editar Socio")
+                <a class="float-right" href="#" title="Incorporar Socio">
+                    <i class="fas fa-user-plus"></i>
+                </a>
+            @endif
+        </h4>
+    </div>
 		<div class="card-body">
 
 			<x-input id="rut" type="text" label="Rut" placeholder="Ej.: 11222333k" wireModel="rut" required="si"/>
@@ -12,13 +25,13 @@
 
 			<x-input id="apellido1" type="text" label="Apellido Pat." placeholder="Ej.: Barrueto" wireModel="apellido1" required="si"/>
 
-			<x-input id="apellido2" type="text" label="Apellido Mat." placeholder="Ej.: Martínez" wireModel="apellido2" required=""/>	
+			<x-input id="apellido2" type="text" label="Apellido Mat." placeholder="Ej.: Martínez" wireModel="apellido2" required=""/>
 
 			@include('components.partials.forms._genero')
 
 			<x-input id="fechaNac" type="date" label="Fecha Nac." placeholder="" wireModel="fechaNac" required=""/>
 
-			<x-input id="contacto" type="text" label="# Contacto" placeholder="Ej.: 987654321" wireModel="contacto" required=""/>	
+			<x-input id="contacto" type="text" label="# Contacto" placeholder="Ej.: 987654321" wireModel="contacto" required=""/>
 
 			<x-input id="correo" type="text" label="Correo" placeholder="Ej.: sind1@pucv.cl" wireModel="correo" required=""/>
 
@@ -39,7 +52,7 @@
 			<x-select id="sede" label="Sede" modal="#nuevaSede" wireModel="sede" required="" :coleccion="$sedes"/>
 
 			<x-select id="area" label="Area" modal="#nuevaArea" wireModel="area" required="" :coleccion="$areas"/>
-			
+
 			<x-select id="cargo" label="Cargo" modal="#nuevoCargo" wireModel="cargo" required="" :coleccion="$cargos"/>
 
 			<x-select id="nacion" label="Nacionalidad" modal="#nuevaNacion" wireModel="nacion" required="" :coleccion="$naciones"/>
@@ -74,6 +87,7 @@
 	<script type="text/javascript">
 		window.livewire.on('limpiarForm', () => {
 			$('.limpiar-input').val('');
+            $('.limpiar-select').val('');
 		});
 	</script>
 	<script type="text/javascript">
@@ -98,9 +112,9 @@
                 timer: 3300,
                 background: '#38c172',
                 iconColor: '#fff'
-            })   
+            })
         });
-	</script>	
+	</script>
 	<script type="text/javascript">
 		window.livewire.on('alertaInfo', texto => {
 			Swal.fire({
@@ -112,7 +126,7 @@
 				timer: 3300,
 				background: '#ffc107',
 				iconColor: '#fff'
-			})   
+			})
 		});
 	</script>
 @endpush

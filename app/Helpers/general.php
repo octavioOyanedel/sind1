@@ -7,10 +7,18 @@ use App\Models\Socio;
  * Input: Void
  * Output: Int numero de socio recomendado
  */
-function numeroRecomendado() 
+function numeroRecomendado()
 {
-    $numero = Socio::orderBy('numero', 'DESC')->first()->numero + 1;
-    return 'Ej.: '.$numero; 
+    $socio = Socio::orderBy('numero', 'DESC')->first();
+
+    if($socio != null){
+        $numero = $socio->numero + 1;
+        $numero = strval($numero);
+        //var_dump($numero);
+        return 'Ej.: '.$numero;
+    }else{
+        return 'Ej.: 1';
+    }
 }
 
 /**
@@ -18,7 +26,7 @@ function numeroRecomendado()
  * Input: Objeto
  * Output: String con nombre formateado
  */
-function formatoNombre($objeto) 
+function formatoNombre($objeto)
 {
     if($objeto->apellido2 == null){
         return trim($objeto->apellido1.', '.$objeto->nombre1.' '.$objeto->nombre2);
@@ -33,12 +41,12 @@ function formatoNombre($objeto)
  * Input: Objeto
  * Output: String con valor
  */
-function imprimirRelacion($objeto) 
+function imprimirRelacion($objeto)
 {
     if($objeto != null){
         //if($objeto instanceof App\Models\Sede){
         //    return $objeto->nombre;
-        //}    
+        //}
         return $objeto->nombre;
     }
 }

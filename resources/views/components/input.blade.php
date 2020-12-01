@@ -5,7 +5,7 @@
             <input wire:model="{{$wireModel}}" type="{{$type}}" class="limpiar-input form-control @error($wireModel) is-invalid @enderror" id="{{$id}}" @if ($id === 'numero') placeholder="{{numeroRecomendado()}}" @else placeholder="{{$placeholder}}" @endif @if ($required === 'si') required @endif>
             @error($wireModel)
                 <small class="text-danger">{{ $message }}</small>
-            @enderror		
-        </div>			
-    </div>    
+            @enderror
+        </div>
+    </div>
 </div>
