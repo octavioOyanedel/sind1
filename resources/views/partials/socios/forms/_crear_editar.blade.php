@@ -1,17 +1,20 @@
 <div class="card">
     <div class="card-header">
-        <h4 class="mb-0">{{$titulo}}
+        <span class="mb-0">{{$titulo}}
             @if ($titulo == "Incorporar Socio")
-                <a class="float-right" href="#" title="Buscar Socio">
-                    <i class="fas fa-search"></i>
+                <a wire:click="mostrarFormBuscar" class="float-right" href="#" title="Buscar Socio/s">
+                    <i class="fas fa-search fa-xs"></i>
                 </a>
             @endif
             @if ($titulo == "Editar Socio")
-                <a class="float-right" href="#" title="Incorporar Socio">
-                    <i class="fas fa-user-plus"></i>
-                </a>
+                <a wire:click="mostrarFormCrear" class="float-right" href="#" title="Editar Socio">
+					<i class="fas fa-user-plus fa-xs"></i>				
+				</a>
+                <a wire:click="mostrarFormBuscar" class="float-right" href="#" title="Buscar Socio/s">
+					<i class="fas fa-search fa-xs mr-3"></i>				
+                </a>				
             @endif
-        </h4>
+        </span>
     </div>
 		<div class="card-body">
 
@@ -63,7 +66,6 @@
 				@else
 					<button wire:click="editarSocio" class="form-control btn btn-primary">Editar</button>
 				@endif
-
 			</div>
 		</div>
 

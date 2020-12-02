@@ -4,8 +4,8 @@
             <a wire:click="limpiarModalForm" class="text-primary float-right" href="#" data-toggle="modal" data-target="{{$modal}}"><i role="button" class="fas fa-plus-circle"></i></a>
         </label>
         <div class="col-sm-8">
-        <select wire:model="{{$wireModel}}" class="limpiar-select form-control form-control-sm custom-select @error($wireModel) is-invalid @enderror" id="{{$id}}">
-            <option value="" selected>...</option>
+            <select wire:model="{{$wireModel}}" class="limpiar-select form-control custom-select @error($wireModel) is-invalid @enderror" id="{{$id}}">
+                <option value="" selected>...</option>
                 @foreach ($coleccion as $item)
                     <option value="{{ $item->id }}">{{ $item->nombre }}</option>
                 @endforeach

@@ -1,6 +1,6 @@
 <div class="card">
 	<div class="card-header">
-		<h4 class="mb-0">Listado Socios</h4>
+		<span class="mb-0">Listado Socios</span>
 	</div>
 	<div class="card-body">
         @if (count($socios) != 0)

@@ -1,10 +1,10 @@
 <div class="card">
 	<div class="card-header">
-		<h4 class="mb-0">Info Socio
+		<span class="mb-0">Info Socio
             <a class="float-right" href="#" title="Listar Socios">
-                <i class="fas fa-list"></i>
+                <i class="fas fa-list fa-xs"></i>
             </a>
-        </h4>
+        </span>
 	</div>
 	<div class="card-body">
         <table class="table table-bordered">

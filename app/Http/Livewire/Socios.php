@@ -75,6 +75,8 @@ class Socios extends Component
     public $id_socio;
     // Variable para mostrar socio
     public $socio;
+    // Variable busqueda unica
+    public $valor_busqueda;
 
     public function render()
     {
@@ -472,4 +474,40 @@ class Socios extends Component
             "nacion_socio_id" => $this->nacion,
         );
     }
+
+    /**
+     * Cambia a form buscar
+     */
+    public function mostrarFormBuscar()
+    {
+        $this->resetForm();
+        $this->forms = "_buscar";
+        $this->titulo = "Buscar Socio";
+    }
+
+    /**
+     * Cambia a form crear
+     */
+    public function mostrarFormCrear()
+    {
+        $this->resetForm();
+        $this->forms = "_crear_editar";
+        $this->titulo = "Incorporar Socio";
+    }    
+
+    /**
+     * Cambia a form editar
+     */
+    public function mostrarFormEditar()
+    {
+        //
+    }
+    
+    /**
+     * Cambia a form editar
+     */
+    public function busquedaUnica()
+    {
+        //
+    }         
 }
