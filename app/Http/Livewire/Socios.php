@@ -77,10 +77,25 @@ class Socios extends Component
     public $socio;
     // Variable busqueda unica
     public $valor_busqueda;
+    public $fechaNacIni;
+    public $fechaNacFin;
+    public $fechaSind1Ini;
+    public $fechaSind1Fin;
+    public $fechaPucvIni;
+    public $fechaPucvFin;
 
     public function render()
     {
         $this->socios = Socio::with(['sede','area','cargo'])->orderBy('created_at', 'DESC')->get();
+        $this->alistarColecciones();
+        return view('livewire.socios');
+    }
+
+    /**
+     * Obtener colecciones para poblar selects
+     */
+    public function alistarColecciones()
+    {
         $this->regiones = Distrito::orderBy('nombre', 'ASC')->get();
         $this->sedes = Sede::orderBy('nombre', 'ASC')->get();
         $this->cargos = Cargo::orderBy('nombre', 'ASC')->get();
@@ -96,10 +111,7 @@ class Socios extends Component
     	if (!empty($this->sede)) {
     		$this->areas = Area::where('sede_id', $this->sede)->get();
         }
-
-        return view('livewire.socios');
     }
-
     /**
      * Nuevo socio
      */
@@ -162,6 +174,7 @@ class Socios extends Component
      */
     public function cargarFormEditar(Socio $socio)
     {
+        $this->forms = "_crear_editar";
         $this->titulo = "Editar Socio";
         $this->boton = "editar";
         // captura de id para su posterior edición
@@ -480,6 +493,7 @@ class Socios extends Component
      */
     public function mostrarFormBuscar()
     {
+        $this->alistarColecciones();
         $this->resetForm();
         $this->forms = "_buscar";
         $this->titulo = "Buscar Socio";
@@ -493,7 +507,7 @@ class Socios extends Component
         $this->resetForm();
         $this->forms = "_crear_editar";
         $this->titulo = "Incorporar Socio";
-    }    
+    }
 
     /**
      * Cambia a form editar
@@ -502,12 +516,33 @@ class Socios extends Component
     {
         //
     }
-    
+
     /**
-     * Cambia a form editar
+     * Mostrar listado de socios
+     */
+    public function mostrarTablaListar()
+    {
+        $this->tablas = "_listar";
+    }
+
+    /**
+     * Búsqueda única
      */
     public function busquedaUnica()
     {
-        //
-    }         
+        dd($this->valor_busqueda);
+    }
+
+    /**
+     * Búsqueda masiva
+     */
+    public function busquedaMasiva()
+    {
+        dd($this->fechaNacIni);
+        $this->fechaNacFin;
+        $this->fechaSind1Ini;
+        $this->fechaSind1Fin;
+        $this->fechaPucvIni;
+        $this->fechaPucvFin;
+    }
 }

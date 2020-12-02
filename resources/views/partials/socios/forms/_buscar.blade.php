@@ -10,37 +10,29 @@
         <div class="input-group">
             <input wire:model="valor_busqueda" id="buscar" type="text" class="form-control @error('valor_busqueda') is-invalid @enderror" placeholder="Buscar" aria-label="Buscar" aria-describedby="button-addon2">
             <div class="input-group-append">
-                <button class="btn btn-primary" type="button" id="button-addon2"><i class="fas fa-search fa-xs"></i></button>
+                <button wire:click="busquedaUnica" class="btn btn-primary" type="button" id="button-addon2"><i class="fas fa-search fa-xs"></i></button>
             </div>
-            @error('valor_busqueda') 
+            @error('valor_busqueda')
                 <small class="text-danger">{{ $message }}</small>
             @enderror
         </div>
+
         <hr class="">
-        
+
+        <x-rango-fecha id="fecha_nac" label="Rango Fecha Nac." wireModelIni="fechaNacIni" wireModelFin="fechaNacFin" />
+        <x-rango-fecha id="fecha_pucv" label="Rango Ing. PUCV" wireModelIni="fechaPucvIni" wireModelFin="fechaPucvFin" />
+        <x-rango-fecha id="fecha_sind1" label="Rango Ing. SIND1" wireModelIni="fechaSind1Ini" wireModelFin="fechaSind1Fin" />
+
+        <x-select-busqueda id="region" label="Región" :coleccion="$regiones" wireModel="region"/>
+        <x-select-busqueda id="provincia" label="Provincia" :coleccion="$provincias" wireModel="provincia"/>
+        <x-select-busqueda id="comuna" label="Comuna" :coleccion="$comunas" wireModel="comuna"/>
+        <x-select-busqueda id="sede" label="Sede" :coleccion="$sedes" wireModel="sede"/>
+        <x-select-busqueda id="area" label="Área" :coleccion="$areas" wireModel="area"/>
+        <x-select-busqueda id="cargo" label="Cargo" :coleccion="$cargos" wireModel="cargo"/>
+        <x-select-busqueda id="nacion" label="Nacionalidad" :coleccion="$naciones" wireModel="nacion"/>
+
         <div class="form-group">
-            <label for="">Rango Fecha Nac.</label>
-            <div class="input-group">
-                <input type="date" aria-label="First name" class="form-control mr-1">
-                <input type="date" aria-label="Last name" class="form-control ml-1">
-            </div>
+            <button wire:click="busquedaMasiva" class="form-control btn btn-primary">Buscar</button>
         </div>
-
-        <div class="form-group row">
-            <label for="" class="col-sm-4 col-form-label">Región</label>
-            <div class="col-sm-8">
-                <select class="form-control custom-select" id="">
-                    <option value="" selected>...</option>
-    
-                </select>
-            </div>			 
-            @error('region') 
-                <small class="text-danger">{{ $message }}</small>
-            @enderror           
-        </div> 
-
-        <div class="form-group">
-            <button class="form-control btn btn-primary">Buscar</button>
-        </div>        
 	</div>
 </div>

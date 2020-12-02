@@ -1,8 +1,8 @@
 <div class="card">
 	<div class="card-header">
 		<span class="mb-0">Info Socio
-            <a class="float-right" href="#" title="Listar Socios">
-                <i class="fas fa-list fa-xs"></i>
+            <a wire:click="mostrarTablaListar" class="float-right" href="#" title="Listar Socios">
+                <i class="fas fa-list"></i>
             </a>
         </span>
 	</div>
