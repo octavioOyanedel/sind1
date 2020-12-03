@@ -29,5 +29,15 @@ class Socio extends Model
     public function cargo()
     {
         return $this->belongsTo('App\Models\Cargo');
-    }    
+    }
+
+    /**
+     * SCOPES
+     */
+    public function scopeGeneral($query, $q, $campo)
+    {
+        if ($q) {
+            return $query->orWhere($campo, 'LIKE', "%$q%");
+        }
+    }
 }

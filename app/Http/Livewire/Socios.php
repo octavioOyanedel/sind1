@@ -164,8 +164,9 @@ class Socios extends Component
             'nacion_socio_id' => $this->nacion
         ]);
 
+        //$this->emit('limpiarForm');
         $this->resetForm();
-        $this->limpiarForm();
+        //$this->limpiarForm();
         $this->emit('alertaOk', 'Socio Incorporado.');
     }
 
@@ -258,7 +259,7 @@ class Socios extends Component
             ]);
 
             $this->emit('alertaOk', 'Socio Editado.');
-            $this->limpiarForm();
+            //$this->limpiarForm();
             $this->forms = "_crear_editar";
             $this->titulo = "Incorporar Socio";
             $this->boton = "crear";
@@ -422,27 +423,27 @@ class Socios extends Component
      */
     public function resetForm()
     {
-        $this->rut = '';
-        $this->numero = '';
-        $this->nombre1 = '';
-        $this->nombre2 = '';
-        $this->apellido1 = '';
-        $this->apellido2 = '';
-        $this->genero = '';
-        $this->fechaNac = '';
-        $this->contacto = '';
-        $this->correo = '';
-        $this->fechaPucv = '';
-        $this->anexo = '';
-        $this->fechaSind1 = '';
-        $this->region = '';
-        $this->provincia = '';
-        $this->comuna = '';
-        $this->direccion = '';
-        $this->sede = '';
-        $this->area = '';
-        $this->cargo = '';
-        $this->nacion = '';
+        $this->rut = NULL;
+        $this->numero = NULL;
+        $this->nombre1 = NULL;
+        //$this->nombre2 = '';
+        $this->apellido1 = NULL;
+        //$this->apellido2 = '';
+        $this->genero = NULL;
+        $this->fechaNac = NULL;
+        //$this->contacto = '';
+        //$this->correo = '';
+        //$this->fechaPucv = '';
+        //$this->anexo = '';
+        //$this->fechaSind1 = '';
+        //$this->region = '';
+        //$this->provincia = '';
+        //$this->comuna = '';
+        //$this->direccion = '';
+        //$this->sede = '';
+        //$this->area = '';
+        //$this->cargo = '';
+        //$this->nacion = '';
     }
 
     /**
@@ -493,8 +494,9 @@ class Socios extends Component
      */
     public function mostrarFormBuscar()
     {
+        $this->valor_busqueda = '';
         $this->alistarColecciones();
-        $this->resetForm();
+        //$this->resetForm();
         $this->forms = "_buscar";
         $this->titulo = "Buscar Socio";
     }
@@ -504,7 +506,7 @@ class Socios extends Component
      */
     public function mostrarFormCrear()
     {
-        $this->resetForm();
+        //$this->resetForm();
         $this->forms = "_crear_editar";
         $this->titulo = "Incorporar Socio";
     }
@@ -530,7 +532,10 @@ class Socios extends Component
      */
     public function busquedaUnica()
     {
-        dd($this->valor_busqueda);
+        $socios = Socio::withTrashed()->orderBy('apellido1','ASC')
+            ->general($this->valor_busqueda, 'nombre1')
+            ->get();
+        dd($socios);
     }
 
     /**

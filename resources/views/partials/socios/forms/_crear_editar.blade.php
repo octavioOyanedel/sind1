@@ -1,6 +1,6 @@
 <div class="card">
     <div class="card-header">
-        <span class="mb-0">{{$titulo}}
+        <span class="mb-0">{{$titulo}} {{$fechaNac}}
             @if ($titulo == "Incorporar Socio")
                 <a wire:click="mostrarFormBuscar" class="float-right" href="#" title="Buscar Socio/s">
                     <i class="fas fa-search fa-xs"></i>
@@ -8,11 +8,11 @@
             @endif
             @if ($titulo == "Editar Socio")
                 <a wire:click="mostrarFormCrear" class="float-right" href="#" title="Editar Socio">
-					<i class="fas fa-user-plus fa-xs"></i>				
+					<i class="fas fa-user-plus fa-xs"></i>
 				</a>
                 <a wire:click="mostrarFormBuscar" class="float-right" href="#" title="Buscar Socio/s">
-					<i class="fas fa-search fa-xs mr-3"></i>				
-                </a>				
+					<i class="fas fa-search fa-xs mr-3"></i>
+                </a>
             @endif
         </span>
     </div>
@@ -83,7 +83,8 @@
 @push('scripts')
 	<script type="text/javascript">
 		window.livewire.on('limpiarModalForm', () => {
-			$('.limpiar-input-modal').val('');
+			//$('.limpiar-input-modal').val('');
+            $('fechaql').val('');
 		});
 	</script>
 	<script type="text/javascript">
