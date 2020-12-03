@@ -47,4 +47,17 @@ class Socio extends Model
             return $query->where('nombre1', '=', $nombre)->where('apellido1', '=', $apellido);
         }
     }
+
+    public function scopeRangoFecha($query, $inicio, $fin, $campo)
+    {
+        if($inicio != null && $fin != null){
+            return $query->whereBetween($campo, [$inicio, $fin]);
+        }
+        if($inicio != null && $fin === null){
+            return $query->where($campo,'>=',$inicio);
+        }
+        if($inicio === null && $fin != null){
+            return $query->where($campo,'<=',$fin);
+        }
+    }    
 }

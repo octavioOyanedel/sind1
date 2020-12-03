@@ -180,9 +180,6 @@ class Socios extends Component
      */
     public function cargarFormEditar(Socio $socio)
     {
-        $this->forms = "_crear_editar";
-        $this->titulo = "Editar Socio";
-        $this->boton = "editar";
         // captura de id para su posterior edición
         $this->id_socio = $socio->id;
         $this->rut = $socio->rut;
@@ -206,6 +203,9 @@ class Socios extends Component
         $this->area = $socio->area_id;
         $this->cargo = $socio->cargo_id;
         $this->nacion = $socio->nacion_socio_id;
+        $this->forms = "_crear_editar";
+        $this->titulo = "Editar Socio";
+        $this->boton = "editar";
     }
 
     /**
@@ -266,6 +266,9 @@ class Socios extends Component
             $this->resetForm();
             $this->emit('alertaOk', 'Socio Editado.');
             $this->forms = "_crear_editar";
+            if($this->forms == '_crear_editar' && $this->tablas == '_ver'){
+                $this->mostrarSocio($socio);
+            }
             $this->titulo = "Incorporar Socio";
             $this->boton = "crear";
         }else{
@@ -422,14 +425,6 @@ class Socios extends Component
     }
 
     /**
-     * Limpiar campos de formularios
-     */
-    public function limpiarForm()
-    {
-
-    }
-
-    /**
      * Reset 2way binding
      */
     public function resetForm()
@@ -455,6 +450,12 @@ class Socios extends Component
         $this->area = NULL;
         $this->cargo = NULL;
         $this->nacion = NULL;
+        $this->fechaNacIni = NULL;
+        $this->fechaNacFin = NULL;
+        $this->fechaSind1Ini = NULL;
+        $this->fechaSind1Fin = NULL;
+        $this->fechaPucvIni = NULL;
+        $this->fechaPucvFin = NULL;
     }
 
     /**
@@ -506,6 +507,7 @@ class Socios extends Component
     public function mostrarFormBuscar()
     {
         $this->valor_busqueda = '';
+        $this->resetForm();
         $this->alistarColecciones();
         $this->forms = "_buscar";
         $this->titulo = "Buscar Socio";
@@ -514,19 +516,11 @@ class Socios extends Component
     /**
      * Cambia a form crear
      */
-    public function mostrarFormCrear()
+    public function mostrarForm()
     {
         $this->resetForm();
         $this->forms = "_crear_editar";
         $this->titulo = "Incorporar Socio";
-    }
-
-    /**
-     * Cambia a form editar
-     */
-    public function mostrarFormEditar()
-    {
-        //
     }
 
     /**
@@ -543,7 +537,7 @@ class Socios extends Component
     public function busquedaUnica()
     {
         if($this->valor_busqueda == NULL || $this->valor_busqueda == ''){
-            $this->emit('alertaInfo', 'Debe ingresar texto a buscar.');
+            $this->emit('alertaInfo', 'Debe ingresar búsqueda.');
         }else{
             $nombre = separarNombreApellido($this->valor_busqueda)['nombre'];
             if(count(separarNombreApellido($this->valor_busqueda)) > 1){
@@ -551,6 +545,7 @@ class Socios extends Component
             }
             $this->encontrados = Socio::withTrashed()->orderBy('apellido1','ASC')
             ->nombres($nombre, $apellido)
+            ->general($this->valor_busqueda, 'id')
             ->general($this->valor_busqueda, 'nombre1')
             ->general($this->valor_busqueda, 'nombre2')
             ->general($this->valor_busqueda, 'apellido1')
@@ -571,11 +566,37 @@ class Socios extends Component
      */
     public function busquedaMasiva()
     {
-        dd($this->fechaNacIni);
-        $this->fechaNacFin;
-        $this->fechaSind1Ini;
-        $this->fechaSind1Fin;
-        $this->fechaPucvIni;
-        $this->fechaPucvFin;
+        if($this->validacionBusquedaMasiva()){
+            $this->emit('alertaInfo', 'Debe seleccionar al menos un criterio de búsqueda.');
+        }else{
+            $this->encontrados = Socio::withTrashed()->orderBy('apellido1','ASC')
+            ->general($this->valor_busqueda, 'nombre1')
+            ->rangoFecha($this->fechaNacIni, $this->fechaNacFin, 'fecha_nac')
+            ->get();
+            $this->tablas = "_resultados";           
+        }
     }
+
+    /**
+     * Búsqueda masiva
+     */
+    public function validacionBusquedaMasiva()
+    {
+        if( $this->fechaNacIni === NULL && 
+            $this->fechaNacFin === NULL &&
+            $this->fechaSind1Ini === NULL &&
+            $this->fechaSind1Fin === NULL &&
+            $this->fechaPucvIni === NULL &&
+            $this->fechaPucvFin === NULL &&
+            $this->region === NULL &&
+            $this->provincia === NULL &&
+            $this->comuna === NULL &&
+            $this->sede === NULL &&
+            $this->area === NULL &&
+            $this->cargo === NULL && 
+            $this->nacion === NULL ){
+            return true;
+        }
+        return false;
+    }    
 }

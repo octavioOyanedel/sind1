@@ -1,6 +1,10 @@
 <div class="card">
 	<div class="card-header">
-		<span class="mb-0">Resultados Búsqueda</span>
+		<span class="mb-0">Resultados Búsqueda
+            <a wire:click="mostrarTablaListar" class="float-right" href="#" title="Listar Socio">
+                <i class="fas fa-list"></i>
+            </a>
+        </span>
 	</div>
 	<div class="card-body">
         @if (count($encontrados) != 0)

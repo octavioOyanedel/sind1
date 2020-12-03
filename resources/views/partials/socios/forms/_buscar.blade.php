@@ -1,7 +1,7 @@
 <div class="card">
 	<div class="card-header">
 		<span class="mb-0">Buscar Socio/s
-            <a wire:click="mostrarFormCrear" class="float-right" href="#" title="Buscar Socio">
+            <a wire:click="mostrarForm" class="float-right" href="#" title="Buscar Socio">
                 <i class="fas fa-user-plus fa-xs"></i>
             </a>
         </span>

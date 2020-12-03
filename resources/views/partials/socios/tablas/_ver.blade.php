@@ -1,9 +1,15 @@
 <div class="card">
 	<div class="card-header">
 		<span class="mb-0">Info Socio
-            <a wire:click="mostrarTablaListar" class="float-right" href="#" title="Listar Socios">
+            <a wire:click="mostrarTablaListar" class="float-right" href="#" title="Listar Socio">
                 <i class="fas fa-list"></i>
             </a>
+            <a  wire:click="cargarFormEditar({{$socio->id}})" class="float-right mr-2" href="#" title="Editar Socios">
+                <i class="fas fa-user-edit"></i>
+            </a>
+            <a wire:click="busquedaUnica" class="float-right mr-2" href="#" title="Volver a Resultados.">
+                <i class="fas fa-chevron-circle-left"></i>
+            </a> 
         </span>
 	</div>
 	<div class="card-body">
