@@ -1,9 +1,9 @@
 <div class="card">
 	<div class="card-header">
-		<span class="mb-0">Listado Socios</span>
+		<span class="mb-0">Resultados Búsqueda</span>
 	</div>
 	<div class="card-body">
-        @if (count($socios) != 0)
+        @if (count($encontrados) != 0)
             <div class="table-responsive">
                 <table class="table table-striped table-hover table-bordered">
                     <thead class="cabecera-tabla">
@@ -16,7 +16,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($socios as $item)
+                        @foreach ($encontrados as $item)
                         <tr>
                             <th class="text-center" scope="row">{{$item->numero}}</th>
                             <td>{{formatoNombre($item)}}</td>
@@ -30,14 +30,30 @@
                     </tbody>
                 </table>
                 <div class="float-right">
-					{{ $socios->links() }}
+
 				</div>
             </div>
         @else
-            <div class="alert alert-warning" role="alert">
-                No existen <strong>socios</strong> registrados.
-            </div>
+        <div class="alert alert-warning" role="alert">
+            <h4 class="alert-heading"><i class="far fa-frown"></i></h4>
+            <p>No se han encontrado resultados para tu búsqueda.</p>
+            <hr>
+            <p class="mb-0">
+                Recomendaciones:
+                <small class="">
+                    <ul class="">
+                        <li>rut</li>
+                        <li>nombre + apellido</li>
+                        <li>sólo nombre o apellido</li>
+                        <li>correo</li>
+                        <li># socio</li>
+                        <li>anexo</li>
+                        <li>dirección</li>
+                        <li># contacto</li>
+                    </ul>
+                </small>
+            </p>
+          </div>
         @endif
 	</div>
 </div>
-

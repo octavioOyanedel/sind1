@@ -86,13 +86,15 @@ class Socios extends Component
     public $fechaSind1Fin;
     public $fechaPucvIni;
     public $fechaPucvFin;
+    // Registros encontrados
+    public $encontrados;
 
     public function render()
     {
         //$this->socios = Socio::with(['sede','area','cargo'])->orderBy('created_at', 'DESC')->paginate(15);
         $this->alistarColecciones();
         return view('livewire.socios',[
-            'socios' => Socio::with(['sede','area','cargo'])->orderBy('created_at', 'DESC')->paginate(15)
+            'socios' => Socio::with(['sede','area','cargo'])->orderBy('created_at', 'DESC')->simplePaginate(10)
         ]);
     }
 
@@ -505,7 +507,6 @@ class Socios extends Component
     {
         $this->valor_busqueda = '';
         $this->alistarColecciones();
-        //$this->resetForm();
         $this->forms = "_buscar";
         $this->titulo = "Buscar Socio";
     }
@@ -515,7 +516,7 @@ class Socios extends Component
      */
     public function mostrarFormCrear()
     {
-        //$this->resetForm();
+        $this->resetForm();
         $this->forms = "_crear_editar";
         $this->titulo = "Incorporar Socio";
     }
@@ -541,10 +542,28 @@ class Socios extends Component
      */
     public function busquedaUnica()
     {
-        $socios = Socio::withTrashed()->orderBy('apellido1','ASC')
+        if($this->valor_busqueda == NULL || $this->valor_busqueda == ''){
+            $this->emit('alertaInfo', 'Debe ingresar texto a buscar.');
+        }else{
+            $nombre = separarNombreApellido($this->valor_busqueda)['nombre'];
+            if(count(separarNombreApellido($this->valor_busqueda)) > 1){
+                $apellido = separarNombreApellido($this->valor_busqueda)['apellido'];
+            }
+            $this->encontrados = Socio::withTrashed()->orderBy('apellido1','ASC')
+            ->nombres($nombre, $apellido)
             ->general($this->valor_busqueda, 'nombre1')
+            ->general($this->valor_busqueda, 'nombre2')
+            ->general($this->valor_busqueda, 'apellido1')
+            ->general($this->valor_busqueda, 'apellido2')
+            ->general($this->valor_busqueda, 'rut')
+            ->general($this->valor_busqueda, 'numero')
+            ->general($this->valor_busqueda, 'contacto')
+            ->general($this->valor_busqueda, 'correo')
+            ->general($this->valor_busqueda, 'direccion')
             ->get();
-        dd($socios);
+            $this->tablas = "_resultados";
+        }
+
     }
 
     /**

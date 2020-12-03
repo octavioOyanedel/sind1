@@ -40,4 +40,11 @@ class Socio extends Model
             return $query->orWhere($campo, 'LIKE', "%$q%");
         }
     }
+
+    public function scopeNombres($query, $nombre, $apellido)
+    {
+        if ($nombre && $apellido) {
+            return $query->where('nombre1', '=', $nombre)->where('apellido1', '=', $apellido);
+        }
+    }
 }

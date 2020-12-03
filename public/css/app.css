@@ -10941,6 +10941,14 @@ table tbody tr td {
 }
 
 /**********************************************
+ * PAGINATE
+ *********************************************/
+
+ul.pagination li.page-item {
+  font-size: 12px !important;
+}
+
+/**********************************************
  * TABLA
  *********************************************/
 
@@ -10953,6 +10961,10 @@ table tbody tr td {
 .celda-accion {
   max-width: 42px !important;
   max-height: 48px !important;
+}
+
+.alerta-tabla {
+  font-size: 14px !important;
 }
 
 /**********************************************

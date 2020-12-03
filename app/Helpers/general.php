@@ -2,6 +2,25 @@
 use App\Models\Socio;
 
 /**
+ * Obtener arreglo con nombre y apellido candidato para busqueda
+ * Input: string búsqueda
+ * Output: arreglo con nombre y apellido
+ */
+function separarNombreApellido($q)
+{
+	$arreglo = array('nombre'=>'','apellido'=>'');
+	if($q != ''){
+		$aux = explode(' ', $q);
+		$arreglo['nombre'] = $aux[0];
+		if(count($aux) > 1){
+			unset($aux[0]);
+			$arreglo['apellido'] = implode(' ',$aux);
+		}
+	}
+	return $arreglo;
+}
+
+/**
  * Obtiene número de socio + 1 para recomendar en form
  * incorporar socio.
  * Input: Void
