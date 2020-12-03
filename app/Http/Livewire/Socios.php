@@ -164,9 +164,7 @@ class Socios extends Component
             'nacion_socio_id' => $this->nacion
         ]);
 
-        //$this->emit('limpiarForm');
         $this->resetForm();
-        //$this->limpiarForm();
         $this->emit('alertaOk', 'Socio Incorporado.');
     }
 
@@ -258,8 +256,8 @@ class Socios extends Component
                 'nacion_socio_id' => $this->nacion
             ]);
 
+            $this->resetForm();
             $this->emit('alertaOk', 'Socio Editado.');
-            //$this->limpiarForm();
             $this->forms = "_crear_editar";
             $this->titulo = "Incorporar Socio";
             $this->boton = "crear";
@@ -407,7 +405,13 @@ class Socios extends Component
      */
     public function limpiarModalForm()
     {
-    	$this->emit('limpiarModalForm');
+        $this->nueva_region = NULL;
+        $this->nueva_provincia = NULL;
+        $this->nueva_comuna = NULL;
+        $this->nueva_sede = NULL;
+        $this->nueva_area = NULL;
+        $this->nuevo_cargo = NULL;
+        $this->nueva_nacion = NULL;
     }
 
     /**
@@ -415,7 +419,7 @@ class Socios extends Component
      */
     public function limpiarForm()
     {
-    	$this->emit('limpiarForm');
+
     }
 
     /**
@@ -426,24 +430,24 @@ class Socios extends Component
         $this->rut = NULL;
         $this->numero = NULL;
         $this->nombre1 = NULL;
-        //$this->nombre2 = '';
+        $this->nombre2 = NULL;
         $this->apellido1 = NULL;
-        //$this->apellido2 = '';
+        $this->apellido2 = NULL;
         $this->genero = NULL;
         $this->fechaNac = NULL;
-        //$this->contacto = '';
-        //$this->correo = '';
-        //$this->fechaPucv = '';
-        //$this->anexo = '';
-        //$this->fechaSind1 = '';
-        //$this->region = '';
-        //$this->provincia = '';
-        //$this->comuna = '';
-        //$this->direccion = '';
-        //$this->sede = '';
-        //$this->area = '';
-        //$this->cargo = '';
-        //$this->nacion = '';
+        $this->contacto = NULL;
+        $this->correo = NULL;
+        $this->fechaPucv = NULL;
+        $this->anexo = NULL;
+        $this->fechaSind1 = NULL;
+        $this->region = NULL;
+        $this->provincia = NULL;
+        $this->comuna = NULL;
+        $this->direccion = NULL;
+        $this->sede = NULL;
+        $this->area = NULL;
+        $this->cargo = NULL;
+        $this->nacion = NULL;
     }
 
     /**

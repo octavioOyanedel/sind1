@@ -82,18 +82,6 @@
 
 @push('scripts')
 	<script type="text/javascript">
-		window.livewire.on('limpiarModalForm', () => {
-			//$('.limpiar-input-modal').val('');
-            $('fechaql').val('');
-		});
-	</script>
-	<script type="text/javascript">
-		window.livewire.on('limpiarForm', () => {
-			$('.limpiar-input').val('');
-            $('.limpiar-select').val('');
-		});
-	</script>
-	<script type="text/javascript">
         window.livewire.on('cerrarModal', () => {
             $('#nuevaRegion').modal('hide');
 			$('#nuevaProvincia').modal('hide');
