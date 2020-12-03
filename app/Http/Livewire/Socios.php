@@ -91,7 +91,6 @@ class Socios extends Component
 
     public function render()
     {
-        //$this->socios = Socio::with(['sede','area','cargo'])->orderBy('created_at', 'DESC')->paginate(15);
         $this->alistarColecciones();
         return view('livewire.socios',[
             'socios' => Socio::with(['sede','area','cargo'])->orderBy('created_at', 'DESC')->simplePaginate(10)
