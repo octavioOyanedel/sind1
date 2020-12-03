@@ -22,7 +22,7 @@
         <x-rango-fecha id="fecha_nac" label="Rango Fecha Nac." wireModelIni="fechaNacIni" wireModelFin="fechaNacFin" />
         <x-rango-fecha id="fecha_pucv" label="Rango Ing. PUCV" wireModelIni="fechaPucvIni" wireModelFin="fechaPucvFin" />
         <x-rango-fecha id="fecha_sind1" label="Rango Ing. SIND1" wireModelIni="fechaSind1Ini" wireModelFin="fechaSind1Fin" />
-
+        @include('components.partials.forms._genero_buscar')
         <x-select-busqueda id="region" label="Región" :coleccion="$regiones" wireModel="region"/>
         <x-select-busqueda id="provincia" label="Provincia" :coleccion="$provincias" wireModel="provincia"/>
         <x-select-busqueda id="comuna" label="Comuna" :coleccion="$comunas" wireModel="comuna"/>

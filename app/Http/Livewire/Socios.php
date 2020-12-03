@@ -263,12 +263,23 @@ class Socios extends Component
                 'nacion_socio_id' => $this->nacion
             ]);
 
+
+
+            if($this->tablas == '_resultados'){
+                if($this->valor_busqueda === NULL || $this->valor_busqueda === ''){
+                    $this->busquedaMasiva();
+                }else{
+                    $this->busquedaUnica();
+                }
+            }    
+
+            if($this->tablas == '_ver'){
+                $this->mostrarSocio($socio);
+            } 
+
             $this->resetForm();
             $this->emit('alertaOk', 'Socio Editado.');
             $this->forms = "_crear_editar";
-            if($this->forms == '_crear_editar' && $this->tablas == '_ver'){
-                $this->mostrarSocio($socio);
-            }
             $this->titulo = "Incorporar Socio";
             $this->boton = "crear";
         }else{
@@ -570,8 +581,17 @@ class Socios extends Component
             $this->emit('alertaInfo', 'Debe seleccionar al menos un criterio de búsqueda.');
         }else{
             $this->encontrados = Socio::withTrashed()->orderBy('apellido1','ASC')
-            ->general($this->valor_busqueda, 'nombre1')
             ->rangoFecha($this->fechaNacIni, $this->fechaNacFin, 'fecha_nac')
+            ->rangoFecha($this->fechaSind1Ini, $this->fechaSind1Fin, 'fecha_sind1')
+            ->rangoFecha($this->fechaPucvIni, $this->fechaPucvFin, 'fecha_pucv')
+            ->generalAnd($this->genero, 'genero')
+            ->generalAnd($this->region, 'distrito_id')
+            ->generalAnd($this->provincia, 'provincia_id')
+            ->generalAnd($this->comuna, 'comuna_id')
+            ->generalAnd($this->sede, 'sede_id')
+            ->generalAnd($this->area, 'area_id')
+            ->generalAnd($this->cargo, 'cargo_id')
+            ->generalAnd($this->nacion, 'nacion_socio_id')
             ->get();
             $this->tablas = "_resultados";           
         }
@@ -582,7 +602,8 @@ class Socios extends Component
      */
     public function validacionBusquedaMasiva()
     {
-        if( $this->fechaNacIni === NULL && 
+        if( $this->genero === NULL &&
+            $this->fechaNacIni === NULL && 
             $this->fechaNacFin === NULL &&
             $this->fechaSind1Ini === NULL &&
             $this->fechaSind1Fin === NULL &&

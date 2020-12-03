@@ -41,6 +41,13 @@ class Socio extends Model
         }
     }
 
+    public function scopeGeneralAnd($query, $q, $campo)
+    {
+        if ($q) {
+            return $query->where($campo, $q);
+        }
+    }
+
     public function scopeNombres($query, $nombre, $apellido)
     {
         if ($nombre && $apellido) {
