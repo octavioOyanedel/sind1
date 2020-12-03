@@ -35,10 +35,13 @@
                         @endforeach
                     </tbody>
                 </table>
+                <div class="float-right">
+					{{ $socios->links() }}
+				</div>
             </div>
         @else
             <div class="alert alert-warning" role="alert">
-                No existen <strong>socios</strong> registradoss.
+                No existen <strong>socios</strong> registrados.
             </div>
         @endif
 	</div>

@@ -15,9 +15,13 @@ use App\Rules\NombreRule;
 use App\Rules\RutRule;
 use App\Rules\DireccionRule;
 use Illuminate\Validation\Rule;
+use Livewire\WithPagination;
 
 class Socios extends Component
 {
+    use WithPagination;
+	// Corrige error en estilos de paginación
+	protected $paginationTheme = 'bootstrap';
     /**
      * Nombres vistas y componentes dinámicos de vistas
      */
@@ -36,7 +40,6 @@ class Socios extends Component
     public $areas = [];
     public $cargos = [];
     public $naciones = [];
-    public $socios = [];
 
     /**
      * Variables livewire 2way binding
@@ -86,9 +89,11 @@ class Socios extends Component
 
     public function render()
     {
-        $this->socios = Socio::with(['sede','area','cargo'])->orderBy('created_at', 'DESC')->get();
+        //$this->socios = Socio::with(['sede','area','cargo'])->orderBy('created_at', 'DESC')->paginate(15);
         $this->alistarColecciones();
-        return view('livewire.socios');
+        return view('livewire.socios',[
+            'socios' => Socio::with(['sede','area','cargo'])->orderBy('created_at', 'DESC')->paginate(15)
+        ]);
     }
 
     /**
