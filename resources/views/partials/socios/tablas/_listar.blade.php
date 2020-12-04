@@ -55,6 +55,12 @@
 </div>
 
 @push('scripts')
+    <script type="text/javascript">
+        window.livewire.on('limpiarErrores', () => {
+            $('.select-modal').removeClass("is-invalid");
+            $('.mensaje-error').text('');
+        });
+    </script>
 	<script type="text/javascript">
         window.livewire.on('cerrarModal', () => {
             $('#desvincular').modal('hide');

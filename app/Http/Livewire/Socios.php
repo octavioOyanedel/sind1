@@ -93,7 +93,10 @@ class Socios extends Component
     // Registros encontrados
     public $encontrados = [];
     public $flag_busqueda;
-
+    // Variables select para evitar duplicado de mensajes de error entre modal y form principal
+    public $regionModal;
+    public $provinciaModal;
+    public $sedeModal;    
     /**
      * Render clase livewire
      */
@@ -352,7 +355,6 @@ class Socios extends Component
 
     public function cargarTablaSocio(Socio $socio)
     {
-        //$this->flag_busqueda = NULL;
         if($this->validacionBusquedaUnica() && $this->validacionBusquedaUnica()){
             $this->flag_busqueda = NULL;
         }
@@ -397,6 +399,7 @@ class Socios extends Component
 
     public function prepararSocio(Socio $socio)
     {
+        $this->emit('limpiarErrores');
         $this->resetFormEliminar();
         $this->id_socio = $socio->id;
     }
@@ -430,14 +433,18 @@ class Socios extends Component
     }
 
     public function resetFormsNuevos()
-    {
+    {    
         $this->nueva_region = NULL;
         $this->nueva_provincia = NULL;
         $this->nueva_comuna = NULL;
         $this->nueva_sede = NULL;
         $this->nueva_area = NULL;
         $this->nuevo_cargo = NULL;
-        $this->nueva_nacion = NULL;      
+        $this->nueva_nacion = NULL;
+        $this->regionModal = NULL;
+        $this->provinciaModal = NULL;
+        $this->sedeModal = NULL;
+        $this->emit('limpiarErrores'); 
     }
 
     public function resetFormBusquedaUnica(){
@@ -486,13 +493,13 @@ class Socios extends Component
     public function nuevaProvincia()
     {
         $this->validate([
-            'region' => 'required',
+            'regionModal' => 'required',
             'nueva_provincia' => ['required', new NombreRule, 'unique:provincias,nombre']
 		]);
 
 		Provincia::create([
             'nombre' => $this->nueva_provincia,
-            'distrito_id' => $this->region
+            'distrito_id' => $this->regionModal
         ]);
 
         $this->emit('cerrarModal');
@@ -502,7 +509,7 @@ class Socios extends Component
     public function nuevaComuna()
     {
         $this->validate([
-            'provincia' => 'required',
+            'provinciaModal' => 'required',
             'nueva_comuna' => ['required', new NombreRule, 'unique:comunas,nombre']
 		]);
 
@@ -532,7 +539,7 @@ class Socios extends Component
     public function nuevaArea()
     {
         $this->validate([
-            'sede' => 'required',
+            'sedeModal' => 'required',
             'nueva_area' => ['required', new NombreRule, 'unique:areas,nombre']
 		]);
 

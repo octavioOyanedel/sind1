@@ -1,2 +1,2 @@
-<x-select-modal id="sede" label="Sede" required="si" :coleccion="$sedes" wireModel="sede"/>
+<x-select-modal id="sede" label="Sede" required="si" :coleccion="$sedes" wireModel="sedeModal"/>
 <x-input-modal id="nueva_area" type="text" label="Nombre" placeholder="Ej.: DSIC" wireModel="nueva_area" required="si"/>

@@ -82,6 +82,13 @@
 			$('#nuevaNacion').modal('hide');
         });
 	</script>
+	<script type="text/javascript">
+		window.livewire.on('limpiarErrores', () => {
+			$('.select-modal').removeClass("is-invalid");
+			$('.input-modal').removeClass("is-invalid");
+			$('.mensaje-error').text('');
+		});
+	</script>	
     <script type="text/javascript">
         window.livewire.on('alertaOk', texto => {
             Swal.fire({
