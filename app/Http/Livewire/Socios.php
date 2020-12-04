@@ -21,14 +21,16 @@ class Socios extends Component
 {
     use WithPagination;
 	// Corrige error en estilos de paginación
-	protected $paginationTheme = 'bootstrap';
+    protected $paginationTheme = 'bootstrap';
+    
     /**
-     * Nombres vistas y componentes dinámicos de vistas
+     * Estado inicial de formulario y tabla
      */
     public $forms = "_crear_editar";
-    public $titulo = "Incorporar Socio";
+    public $titulo_form = "Incorporar Socio";
     public $boton = "crear";
     public $tablas = "_listar";
+    public $titulo_tabla = "Listado de Socios";
 
     /**
      * Coleciones para selects
@@ -87,8 +89,12 @@ class Socios extends Component
     public $fechaPucvIni;
     public $fechaPucvFin;
     // Registros encontrados
-    public $encontrados;
+    public $encontrados = [];
+    public $flag_busqueda;
 
+    /**
+     * Render clase livewire
+     */
     public function render()
     {
         $this->alistarColecciones();
@@ -118,10 +124,11 @@ class Socios extends Component
     		$this->areas = Area::where('sede_id', $this->sede)->get();
         }
     }
+
     /**
-     * Nuevo socio
-     */
-    public function incorporarSocio()
+     * Acciones CRUD
+     */   
+    public function create()
     {
         $this->validate([
             'rut' => ['required',  new RutRule, 'alpha_num', 'max:9', 'unique:socios,rut'],
@@ -145,9 +152,9 @@ class Socios extends Component
             'area' => ['nullable'],
             'cargo' => ['nullable'],
             'nacion' => ['nullable'],
-        ]);
-
-        Socio::create([
+        ]);   
+        
+        $socio = Socio::create([
             'rut' => $this->rut,
             'numero' => $this->numero,
             'nombre1' => $this->nombre1,
@@ -170,50 +177,15 @@ class Socios extends Component
             'nacion_socio_id' => $this->nacion
         ]);
 
-        $this->resetForm();
+        $this->resetFormsCrearEditar();
+        $this->cargarTablaSocio($socio);
         $this->emit('alertaOk', 'Socio Incorporado.');
     }
 
-    /**
-     * Mostrar form editar socio
-     */
-    public function cargarFormEditar(Socio $socio)
-    {
-        // captura de id para su posterior edición
-        $this->id_socio = $socio->id;
-        $this->rut = $socio->rut;
-        $this->numero = $socio->numero;
-        $this->nombre1 = $socio->nombre1;
-        $this->nombre2 = $socio->nombre2;
-        $this->apellido1 = $socio->apellido1;
-        $this->apellido2 = $socio->apellido2;
-        $this->genero = $socio->genero;
-        $this->fechaNac = $socio->fecha_nac;
-        $this->contacto = $socio->contacto;
-        $this->correo = $socio->correo;
-        $this->fechaPucv = $socio->fecha_pucv;
-        $this->anexo = $socio->anexo;
-        $this->fechaSind1 = $socio->fecha_sind1;
-        $this->direccion = $socio->direccion;
-        $this->region = $socio->distrito_id;
-        $this->provincia = $socio->provincia_id;
-        $this->comuna = $socio->comuna_id;
-        $this->sede = $socio->sede_id;
-        $this->area = $socio->area_id;
-        $this->cargo = $socio->cargo_id;
-        $this->nacion = $socio->nacion_socio_id;
-        $this->forms = "_crear_editar";
-        $this->titulo = "Editar Socio";
-        $this->boton = "editar";
-    }
-
-    /**
-     * Editar socio
-     */
-    public function editarSocio()
+    public function update()
     {
         $socio = Socio::findOrfail($this->id_socio);
-        if($this->datosEditados($socio->toArray()) > 0){
+        if($this->registrosEditados($socio->toArray()) > 0){
             $this->validate([
                 'rut' => ['required',  new RutRule, 'alpha_num', 'max:9', Rule::unique('socios')->ignore($socio)],
                 'numero' => ['required', 'numeric', Rule::unique('socios')->ignore($socio)],
@@ -262,182 +234,152 @@ class Socios extends Component
                 'nacion_socio_id' => $this->nacion
             ]);
 
-
-
-            if($this->tablas == '_resultados'){
-                if($this->valor_busqueda === NULL || $this->valor_busqueda === ''){
-                    $this->busquedaMasiva();
-                }else{
-                    $this->busquedaUnica();
-                }
-            }    
-
-            if($this->tablas == '_ver'){
-                $this->mostrarSocio($socio);
-            } 
-
-            $this->resetForm();
-            $this->emit('alertaOk', 'Socio Editado.');
             $this->forms = "_crear_editar";
-            $this->titulo = "Incorporar Socio";
+            $this->titulo_form = "Incorporar Socio";
             $this->boton = "crear";
+            $this->resetFormsCrearEditar();
+            $this->cargarTablaSocio($socio);
+            $this->emit('alertaOk', 'Socio Editado.');
         }else{
             $this->emit('alertaInfo', 'No se han hecho modificaciones en formulario.');
         }
     }
 
     /**
-     * Mostrar Socio
+     * Búsquedas unica y masiva de socios
      */
-    public function mostrarSocio(Socio $socio)
+    public function busquedaUnica()
     {
+        $this->resetFormBusquedaMasiva();
+        if($this->validacionBusquedaUnica()){
+            $this->emit('alertaInfo', 'Debe ingresar búsqueda.');
+        }else{
+            $nombre = separarNombreApellido($this->valor_busqueda)['nombre'];
+            if(count(separarNombreApellido($this->valor_busqueda)) > 1){
+                $apellido = separarNombreApellido($this->valor_busqueda)['apellido'];
+            }
+            $this->encontrados = Socio::withTrashed()->with(['distrito','provincia','comuna','nacionSocio','sede','area','cargo','estadoSocio'])->orderBy('apellido1','ASC')
+            ->nombres($nombre, $apellido)
+            ->general($this->valor_busqueda, 'id')
+            ->general($this->valor_busqueda, 'nombre1')
+            ->general($this->valor_busqueda, 'nombre2')
+            ->general($this->valor_busqueda, 'apellido1')
+            ->general($this->valor_busqueda, 'apellido2')
+            ->general($this->valor_busqueda, 'rut')
+            ->general($this->valor_busqueda, 'anexo')
+            ->general($this->valor_busqueda, 'numero')
+            ->general($this->valor_busqueda, 'contacto')
+            ->general($this->valor_busqueda, 'correo')
+            ->general($this->valor_busqueda, 'direccion')
+            ->get();
+            $this->tablas = "_resultados";
+            $this->titulo_tabla = "Resultados:";
+            $this->flag_busqueda = "unica";
+        }
+    }
+
+    public function busquedaMasiva()
+    {
+        $this->resetFormBusquedaUnica();
+        if($this->validacionBusquedaMasiva()){
+            $this->emit('alertaInfo', 'Debe seleccionar al menos un criterio de búsqueda.');
+        }else{
+            $this->encontrados = Socio::withTrashed()->orderBy('apellido1','ASC')
+            ->rangoFecha($this->fechaNacIni, $this->fechaNacFin, 'fecha_nac')
+            ->rangoFecha($this->fechaSind1Ini, $this->fechaSind1Fin, 'fecha_sind1')
+            ->rangoFecha($this->fechaPucvIni, $this->fechaPucvFin, 'fecha_pucv')
+            ->generalAnd($this->genero, 'genero')
+            ->generalAnd($this->region, 'distrito_id')
+            ->generalAnd($this->provincia, 'provincia_id')
+            ->generalAnd($this->comuna, 'comuna_id')
+            ->generalAnd($this->sede, 'sede_id')
+            ->generalAnd($this->area, 'area_id')
+            ->generalAnd($this->cargo, 'cargo_id')
+            ->generalAnd($this->nacion, 'nacion_socio_id')
+            ->get();
+            $this->tablas = "_resultados";
+            $this->flag_busqueda = "masiva";        
+        }
+    }    
+
+    /**
+     * Carga de vistas (tablas y forms)
+     */
+    public function cargarFormCreate()
+    {
+        //$this->flag_busqueda = NULL; 
+        $this->forms = "_crear_editar";
+        $this->titulo_form = "Incorporar Socio";
+        $this->boton = "crear";       
+    }
+
+    public function cargarFormEdit(Socio $socio)
+    {
+        // captura de id para su posterior edición
+        $this->id_socio = $socio->id;
+        $this->forms = "_crear_editar";
+        $this->titulo_form = "Editar Socio";
+        $this->boton = "Editar";
+        $this->poblarFormEditar($socio);        
+    }
+
+    public function cargarFormBuscar()
+    {
+        $this->resetFormBusquedaUnica();
+        $this->resetFormBusquedaMasiva();
+        $this->alistarColecciones();
+        $this->forms = "_buscar";
+        $this->titulo_form = "Buscar Socio/s";
+    }
+
+    public function cargarTablaSocio(Socio $socio)
+    {
+        //$this->flag_busqueda = NULL;
+        if($this->validacionBusquedaUnica() && $this->validacionBusquedaUnica()){
+            $this->flag_busqueda = NULL;
+        }
         $this->socio = $socio;
         $this->tablas = "_ver";
-    }
+        $this->titulo_tabla = "Info Socio";
+    }   
 
-    /**
-     * Nueva región
-     */
-    public function nuevaRegion()
+    public function cargarTablaListar()
     {
-        $this->validate([
-			'nueva_region' => ['required', new NombreRule, 'unique:distritos,nombre']
-		]);
-
-		Distrito::create([
-			'nombre' => $this->nueva_region
-        ]);
-
-        $this->emit('cerrarModal');
-        $this->emit('alertaOk', 'Región Agregada.');
-    }
-
+        $this->tablas = "_listar";
+        $this->titulo_tabla = "Listado de Socios";
+    }   
     /**
-     * Nueva provincia
+     * Poblado de forms
      */
-    public function nuevaProvincia()
+    public function poblarFormEditar(Socio $socio)
     {
-        $this->validate([
-            'region' => 'required',
-            'nueva_provincia' => ['required', new NombreRule, 'unique:provincias,nombre']
-		]);
-
-		Provincia::create([
-            'nombre' => $this->nueva_provincia,
-            'distrito_id' => $this->region
-        ]);
-
-        $this->emit('cerrarModal');
-        $this->emit('alertaOk', 'Provincia Agregada.');
+        $this->rut = $socio->rut;
+        $this->numero = $socio->numero;
+        $this->nombre1 = $socio->nombre1;
+        $this->nombre2 = $socio->nombre2;
+        $this->apellido1 = $socio->apellido1;
+        $this->apellido2 = $socio->apellido2;
+        $this->genero = $socio->genero;
+        $this->fechaNac = $socio->fecha_nac;
+        $this->contacto = $socio->contacto;
+        $this->correo = $socio->correo;
+        $this->fechaPucv = $socio->fecha_pucv;
+        $this->anexo = $socio->anexo;
+        $this->fechaSind1 = $socio->fecha_sind1;
+        $this->direccion = $socio->direccion;
+        $this->region = $socio->distrito_id;
+        $this->provincia = $socio->provincia_id;
+        $this->comuna = $socio->comuna_id;
+        $this->sede = $socio->sede_id;
+        $this->area = $socio->area_id;
+        $this->cargo = $socio->cargo_id;
+        $this->nacion = $socio->nacion_socio_id;
     }
 
     /**
-     * Nueva provincia
+     * Reset Formularios
      */
-    public function nuevaComuna()
-    {
-        $this->validate([
-            'provincia' => 'required',
-            'nueva_comuna' => ['required', new NombreRule, 'unique:comunas,nombre']
-		]);
-
-		Comuna::create([
-            'nombre' => $this->nueva_comuna,
-            'provincia_id' => $this->provincia
-        ]);
-
-        $this->emit('cerrarModal');
-        $this->emit('alertaOk', 'Comuna Agregada.');
-    }
-
-    /**
-     * Nueva sede
-     */
-    public function nuevaSede()
-    {
-        $this->validate([
-            'nueva_sede' => ['required', new NombreRule, 'unique:sedes,nombre']
-		]);
-
-		Sede::create([
-            'nombre' => $this->nueva_sede,
-        ]);
-
-        $this->emit('cerrarModal');
-        $this->emit('alertaOk', 'Sede Agregada.');
-    }
-
-    /**
-     * Nueva area
-     */
-    public function nuevaArea()
-    {
-        $this->validate([
-            'sede' => 'required',
-            'nueva_area' => ['required', new NombreRule, 'unique:areas,nombre']
-		]);
-
-		Area::create([
-            'nombre' => $this->nueva_area,
-            'sede_id' => $this->sede
-        ]);
-
-        $this->emit('cerrarModal');
-        $this->emit('alertaOk', 'Área Agregada.');
-    }
-
-    /**
-     * Nueva cargo
-     */
-    public function nuevoCargo()
-    {
-        $this->validate([
-            'nuevo_cargo' => ['required', new NombreRule, 'unique:cargos,nombre']
-		]);
-
-		Cargo::create([
-            'nombre' => $this->nuevo_cargo,
-        ]);
-
-        $this->emit('cerrarModal');
-        $this->emit('alertaOk', 'Cargo Agregado.');
-    }
-
-    /**
-     * Nueva nacion
-     */
-    public function nuevaNacion()
-    {
-        $this->validate([
-            'nueva_nacion' => ['required', new NombreRule, 'unique:nacion_socios,nombre']
-		]);
-
-		NacionSocio::create([
-            'nombre' => $this->nueva_nacion,
-        ]);
-
-        $this->emit('cerrarModal');
-        $this->emit('alertaOk', 'Nacionalidad Agregada.');
-    }
-
-    /**
-     * Limpiar campos de formularios de ventanas modales
-     */
-    public function limpiarModalForm()
-    {
-        $this->nueva_region = NULL;
-        $this->nueva_provincia = NULL;
-        $this->nueva_comuna = NULL;
-        $this->nueva_sede = NULL;
-        $this->nueva_area = NULL;
-        $this->nuevo_cargo = NULL;
-        $this->nueva_nacion = NULL;
-    }
-
-    /**
-     * Reset 2way binding
-     */
-    public function resetForm()
+    public function resetFormsCrearEditar()
     {
         $this->rut = NULL;
         $this->numero = NULL;
@@ -459,31 +401,194 @@ class Socios extends Component
         $this->sede = NULL;
         $this->area = NULL;
         $this->cargo = NULL;
-        $this->nacion = NULL;
+        $this->nacion = NULL;        
+    }
+
+    public function resetFormsNuevos()
+    {
+        $this->nueva_region = NULL;
+        $this->nueva_provincia = NULL;
+        $this->nueva_comuna = NULL;
+        $this->nueva_sede = NULL;
+        $this->nueva_area = NULL;
+        $this->nuevo_cargo = NULL;
+        $this->nueva_nacion = NULL;      
+    }
+
+    public function resetFormBusquedaUnica(){
+        $this->valor_busqueda = NULL;
+    }
+
+    public function resetFormBusquedaMasiva()
+    {
         $this->fechaNacIni = NULL;
         $this->fechaNacFin = NULL;
         $this->fechaSind1Ini = NULL;
         $this->fechaSind1Fin = NULL;
         $this->fechaPucvIni = NULL;
         $this->fechaPucvFin = NULL;
+        $this->genero = NULL;
+        $this->region = NULL;
+        $this->provincia = NULL;
+        $this->comuna = NULL;
+        $this->sede = NULL;
+        $this->area = NULL;
+        $this->cargo = NULL;
+        $this->nacion = NULL;                     
     }
 
     /**
-     * Compara si existen cambios en formulario
+     * Nuevos registros via ventanas modales
      */
-    public function datosEditados($socio)
+    public function nuevaRegion()
+    {
+        $this->validate([
+			'nueva_region' => ['required', new NombreRule, 'unique:distritos,nombre']
+		]);
+
+		Distrito::create([
+			'nombre' => $this->nueva_region
+        ]);
+
+        $this->emit('cerrarModal');
+        $this->emit('alertaOk', 'Región Agregada.');
+    }
+
+    public function nuevaProvincia()
+    {
+        $this->validate([
+            'region' => 'required',
+            'nueva_provincia' => ['required', new NombreRule, 'unique:provincias,nombre']
+		]);
+
+		Provincia::create([
+            'nombre' => $this->nueva_provincia,
+            'distrito_id' => $this->region
+        ]);
+
+        $this->emit('cerrarModal');
+        $this->emit('alertaOk', 'Provincia Agregada.');
+    }
+
+    public function nuevaComuna()
+    {
+        $this->validate([
+            'provincia' => 'required',
+            'nueva_comuna' => ['required', new NombreRule, 'unique:comunas,nombre']
+		]);
+
+		Comuna::create([
+            'nombre' => $this->nueva_comuna,
+            'provincia_id' => $this->provincia
+        ]);
+
+        $this->emit('cerrarModal');
+        $this->emit('alertaOk', 'Comuna Agregada.');
+    }
+
+    public function nuevaSede()
+    {
+        $this->validate([
+            'nueva_sede' => ['required', new NombreRule, 'unique:sedes,nombre']
+		]);
+
+		Sede::create([
+            'nombre' => $this->nueva_sede,
+        ]);
+
+        $this->emit('cerrarModal');
+        $this->emit('alertaOk', 'Sede Agregada.');
+    }
+
+    public function nuevaArea()
+    {
+        $this->validate([
+            'sede' => 'required',
+            'nueva_area' => ['required', new NombreRule, 'unique:areas,nombre']
+		]);
+
+		Area::create([
+            'nombre' => $this->nueva_area,
+            'sede_id' => $this->sede
+        ]);
+
+        $this->emit('cerrarModal');
+        $this->emit('alertaOk', 'Área Agregada.');
+    }
+
+    public function nuevoCargo()
+    {
+        $this->validate([
+            'nuevo_cargo' => ['required', new NombreRule, 'unique:cargos,nombre']
+		]);
+
+		Cargo::create([
+            'nombre' => $this->nuevo_cargo,
+        ]);
+
+        $this->emit('cerrarModal');
+        $this->emit('alertaOk', 'Cargo Agregado.');
+    }
+
+    public function nuevaNacion()
+    {
+        $this->validate([
+            'nueva_nacion' => ['required', new NombreRule, 'unique:nacion_socios,nombre']
+		]);
+
+		NacionSocio::create([
+            'nombre' => $this->nueva_nacion,
+        ]);
+
+        $this->emit('cerrarModal');
+        $this->emit('alertaOk', 'Nacionalidad Agregada.');
+    }    
+    /**
+     * Validacion de formularios vacios (nuevos o búsqueda) o sin cambios (editar)
+     */
+    public function validacionBusquedaUnica()
+    {
+        if($this->valor_busqueda === NULL){
+            return true;
+        }
+        return false;
+    }
+
+    public function validacionBusquedaMasiva()
+    {
+        if( $this->genero === NULL &&
+            $this->fechaNacIni === NULL && 
+            $this->fechaNacFin === NULL &&
+            $this->fechaSind1Ini === NULL &&
+            $this->fechaSind1Fin === NULL &&
+            $this->fechaPucvIni === NULL &&
+            $this->fechaPucvFin === NULL &&
+            $this->region === NULL &&
+            $this->provincia === NULL &&
+            $this->comuna === NULL &&
+            $this->sede === NULL &&
+            $this->area === NULL &&
+            $this->cargo === NULL && 
+            $this->nacion === NULL ){
+            return true;
+        }
+        return false;
+    }    
+
+    /**
+     * Helpers propios 
+     */
+    public function registrosEditados($socio)
     {
         unset($socio['id']);
         unset($socio['estado_socio_id']);
         unset($socio['deleted_at']);
         unset($socio['created_at']);
-        unset($socio['updated_at']);
+        unset($socio['updated_at']);     
         $nuevos_datos = $this->crearArregloNuevosDatos();
         return count(array_diff_assoc($socio,$nuevos_datos));
     }
-    /**
-     * Crea arreglo asociativo con nuevos valores para comparación
-     */
+
     public function crearArregloNuevosDatos()
     {
         return array(
@@ -510,113 +615,4 @@ class Socios extends Component
             "nacion_socio_id" => $this->nacion,
         );
     }
-
-    /**
-     * Cambia a form buscar
-     */
-    public function mostrarFormBuscar()
-    {
-        $this->valor_busqueda = '';
-        $this->resetForm();
-        $this->alistarColecciones();
-        $this->forms = "_buscar";
-        $this->titulo = "Buscar Socio";
-    }
-
-    /**
-     * Cambia a form crear
-     */
-    public function mostrarForm()
-    {
-        $this->resetForm();
-        $this->forms = "_crear_editar";
-        $this->titulo = "Incorporar Socio";
-    }
-
-    /**
-     * Mostrar listado de socios
-     */
-    public function mostrarTablaListar()
-    {
-        $this->tablas = "_listar";
-    }
-
-    /**
-     * Búsqueda única
-     */
-    public function busquedaUnica()
-    {
-        if($this->valor_busqueda == NULL || $this->valor_busqueda == ''){
-            $this->emit('alertaInfo', 'Debe ingresar búsqueda.');
-        }else{
-            $nombre = separarNombreApellido($this->valor_busqueda)['nombre'];
-            if(count(separarNombreApellido($this->valor_busqueda)) > 1){
-                $apellido = separarNombreApellido($this->valor_busqueda)['apellido'];
-            }
-            $this->encontrados = Socio::withTrashed()->orderBy('apellido1','ASC')
-            ->nombres($nombre, $apellido)
-            ->general($this->valor_busqueda, 'id')
-            ->general($this->valor_busqueda, 'nombre1')
-            ->general($this->valor_busqueda, 'nombre2')
-            ->general($this->valor_busqueda, 'apellido1')
-            ->general($this->valor_busqueda, 'apellido2')
-            ->general($this->valor_busqueda, 'rut')
-            ->general($this->valor_busqueda, 'numero')
-            ->general($this->valor_busqueda, 'contacto')
-            ->general($this->valor_busqueda, 'correo')
-            ->general($this->valor_busqueda, 'direccion')
-            ->get();
-            $this->tablas = "_resultados";
-        }
-
-    }
-
-    /**
-     * Búsqueda masiva
-     */
-    public function busquedaMasiva()
-    {
-        if($this->validacionBusquedaMasiva()){
-            $this->emit('alertaInfo', 'Debe seleccionar al menos un criterio de búsqueda.');
-        }else{
-            $this->encontrados = Socio::withTrashed()->orderBy('apellido1','ASC')
-            ->rangoFecha($this->fechaNacIni, $this->fechaNacFin, 'fecha_nac')
-            ->rangoFecha($this->fechaSind1Ini, $this->fechaSind1Fin, 'fecha_sind1')
-            ->rangoFecha($this->fechaPucvIni, $this->fechaPucvFin, 'fecha_pucv')
-            ->generalAnd($this->genero, 'genero')
-            ->generalAnd($this->region, 'distrito_id')
-            ->generalAnd($this->provincia, 'provincia_id')
-            ->generalAnd($this->comuna, 'comuna_id')
-            ->generalAnd($this->sede, 'sede_id')
-            ->generalAnd($this->area, 'area_id')
-            ->generalAnd($this->cargo, 'cargo_id')
-            ->generalAnd($this->nacion, 'nacion_socio_id')
-            ->get();
-            $this->tablas = "_resultados";           
-        }
-    }
-
-    /**
-     * Búsqueda masiva
-     */
-    public function validacionBusquedaMasiva()
-    {
-        if( $this->genero === NULL &&
-            $this->fechaNacIni === NULL && 
-            $this->fechaNacFin === NULL &&
-            $this->fechaSind1Ini === NULL &&
-            $this->fechaSind1Fin === NULL &&
-            $this->fechaPucvIni === NULL &&
-            $this->fechaPucvFin === NULL &&
-            $this->region === NULL &&
-            $this->provincia === NULL &&
-            $this->comuna === NULL &&
-            $this->sede === NULL &&
-            $this->area === NULL &&
-            $this->cargo === NULL && 
-            $this->nacion === NULL ){
-            return true;
-        }
-        return false;
-    }    
 }

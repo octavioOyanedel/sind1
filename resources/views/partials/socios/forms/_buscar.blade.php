@@ -1,9 +1,9 @@
 <div class="card">
 	<div class="card-header">
-		<span class="mb-0">Buscar Socio/s
-            <a wire:click="mostrarForm" class="float-right" href="#" title="Buscar Socio">
-                <i class="fas fa-user-plus fa-xs"></i>
-            </a>
+        <span class="mb-0">{{$titulo_form}}
+            <a wire:click="cargarFormCreate" class="float-right text-success" href="#" title="Incorporar Socio">
+                <i class="fas fa-user-plus"></i>
+            </a>		
         </span>
 	</div>
 	<div class="card-body">

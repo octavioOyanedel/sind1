@@ -10920,6 +10920,7 @@ input,
 select,
 select option {
   font-size: 12px !important;
+  color: black;
 }
 
 .content-wrapper {

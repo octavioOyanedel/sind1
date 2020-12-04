@@ -1,19 +1,9 @@
 <div class="card">
     <div class="card-header">
-        <span class="mb-0">{{$titulo}}
-            @if ($titulo == "Incorporar Socio")
-                <a wire:click="mostrarFormBuscar" class="float-right" href="#" title="Buscar Socio/s">
-                    <i class="fas fa-search fa-xs"></i>
-                </a>
-            @endif
-            @if ($titulo == "Editar Socio")
-                <a wire:click="mostrarForm" class="float-right" href="#" title="Editar Socio">
-					<i class="fas fa-user-plus fa-xs"></i>
-				</a>
-                <a wire:click="mostrarFormBuscar" class="float-right" href="#" title="Buscar Socio/s">
-					<i class="fas fa-search fa-xs mr-3"></i>
-                </a>
-            @endif
+        <span class="mb-0">{{$titulo_form}}
+            <a wire:click="cargarFormBuscar" class="float-right text-success" href="#" title="Buscar Socio">
+                <i class="fas fa-search"></i>
+            </a>		
         </span>
     </div>
 		<div class="card-body">
@@ -62,9 +52,9 @@
 
 			<div class="form-group">
 				@if ($boton === 'crear')
-					<button wire:click="incorporarSocio" class="form-control btn btn-primary">Guardar</button>
+					<button wire:click="create" class="form-control btn btn-primary">Guardar</button>
 				@else
-					<button wire:click="editarSocio" class="form-control btn btn-primary">Editar</button>
+					<button wire:click="update" class="form-control btn btn-primary">Editar</button>
 				@endif
 			</div>
 		</div>

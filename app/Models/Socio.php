@@ -16,6 +16,31 @@ class Socio extends Model
     /**
      * RELACIONES
      */
+    public function distrito()
+    {
+        return $this->belongsTo('App\Models\Distrito');
+    }    
+
+    public function provincia()
+    {
+        return $this->belongsTo('App\Models\Provincia');
+    } 
+
+    public function comuna()
+    {
+        return $this->belongsTo('App\Models\Comuna');
+    }   
+
+    public function nacionSocio()
+    {
+        return $this->belongsTo('App\Models\NacionSocio');
+    }   
+
+    public function estadoSocio()
+    {
+        return $this->belongsTo('App\Models\EstadoSocio');
+    }   
+
     public function sede()
     {
         return $this->belongsTo('App\Models\Sede');

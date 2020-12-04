@@ -1,9 +1,9 @@
 <div class="card">
 	<div class="card-header">
-		<span class="mb-0">Resultados Búsqueda
-            <a wire:click="mostrarTablaListar" class="float-right" href="#" title="Listar Socio">
+		<span class="mb-0">{{$titulo_tabla}} {{count($encontrados)}}
+            <a wire:click="cargarTablaListar" class="float-right text-dark" href="#" title="Listar Socios">
                 <i class="fas fa-list"></i>
-            </a>
+            </a>             
         </span>
 	</div>
 	<div class="card-body">
@@ -21,15 +21,15 @@
                     </thead>
                     <tbody>
                         @foreach ($encontrados as $item)
-                        <tr>
-                            <th class="text-center" scope="row">{{$item->numero}}</th>
-                            <td>{{formatoNombre($item)}}</td>
-                            <td class="text-center">{{$item->anexo}}</td>
-                            <td>{{imprimirRelacion($item->sede)}}</td>
-                            <td wire:click="mostrarSocio({{$item->id}})" class="celda-accion text-center"><a href="#" class="text-success"><i title="Ver socio" class="fas fa-user-check"></i></a></td>
-                            <td wire:click="cargarFormEditar({{$item->id}})" class="celda-accion text-center"><a href="#" class="text-primary"><i title="Editar socio" class="fas fa-user-edit"></i></a></td>
-                            <td class="celda-accion text-center"><a href="#" class="text-danger"><i title="Eliminar socio" class="fas fa-user-minus"></i></a></td>
-                        </tr>
+                            <tr>
+                                <th class="text-center" scope="row">{{$item->numero}}</th>
+                                <td>{{formatoNombre($item)}}</td>
+                                <td class="text-center">{{$item->anexo}}</td>
+                                <td>{{imprimirRelacion($item->sede)}}</td>
+                                <td wire:click="cargarTablaSocio({{$item->id}})" class="celda-accion text-center"><a href="#" class="text-success"><i title="Ver socio" class="fas fa-user-check"></i></a></td>
+                                <td wire:click="cargarFormEdit({{$item->id}})" class="celda-accion text-center"><a href="#" class="text-primary"><i title="Editar socio" class="fas fa-user-edit"></i></a></td>
+                                <td class="celda-accion text-center"><a href="#" class="text-danger"><i title="Eliminar socio" class="fas fa-user-minus"></i></a></td>
+                            </tr>
                         @endforeach
                     </tbody>
                 </table>

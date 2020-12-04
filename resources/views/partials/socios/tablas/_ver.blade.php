@@ -1,15 +1,23 @@
 <div class="card">
 	<div class="card-header">
 		<span class="mb-0">Info Socio
-            <a wire:click="mostrarTablaListar" class="float-right" href="#" title="Listar Socio">
+            <a wire:click="cargarTablaListar" class="float-right text-dark" href="#" title="Listar Socios">
                 <i class="fas fa-list"></i>
             </a>
-            <a  wire:click="cargarFormEditar({{$socio->id}})" class="float-right mr-2" href="#" title="Editar Socios">
+            <a wire:click="cargarFormEdit({{$socio->id}})" class="float-right text-primary mr-4" href="#" title="Editar Socio">
                 <i class="fas fa-user-edit"></i>
             </a>
-            <a wire:click="busquedaUnica" class="float-right mr-2" href="#" title="Volver a Resultados.">
-                <i class="fas fa-chevron-circle-left"></i>
-            </a> 
+            @if ($flag_busqueda != NULL)
+                @if ($flag_busqueda === 'unica')
+                    <a wire:click="busquedaUnica" class="float-right text-success mr-4" href="#" title="Volver a Resultados.">
+                        <i class="fas fa-chevron-circle-left"></i>
+                    </a>
+                @else
+                    <a wire:click="busquedaMasiva" class="float-right text-success mr-4" href="#" title="Volver a Resultados.">
+                        <i class="fas fa-chevron-circle-left"></i>
+                    </a>
+                @endif                 
+            @endif                      
         </span>
 	</div>
 	<div class="card-body">
@@ -23,7 +31,7 @@
             </tr>
             <tr>
                 <th>Rut</th>
-                <td>{{$socio->rut}}</td>
+                <td>{{formatoRut($socio->rut)}}</td>
             </tr>
             <tr>
                 <th>Género</th>
@@ -39,19 +47,19 @@
             </tr>
             <tr>
                 <th>Fecha Nac.</th>
-                <td>{{$socio->fecha_nac}}</td>
+                <td>{{fechaYmdAdmy($socio->fecha_nac)}}</td>
             </tr>
             <tr>
                 <th>Región</th>
-                <td>{{$socio->distrito_id}}</td>
+                <td>{{imprimirRelacion($socio->distrito)}}</td>
             </tr>
             <tr>
                 <th>Provincia</th>
-                <td>{{$socio->provincia_id}}</td>
+                <td>{{imprimirRelacion($socio->provincia)}}</td>
             </tr>
             <tr>
                 <th>Comuna</th>
-                <td>{{$socio->comuna_id}}</td>
+                <td>{{imprimirRelacion($socio->comuna)}}</td>
             </tr>
             <tr>
                 <th>Dirección</th>
@@ -59,14 +67,14 @@
             </tr>
             <tr>
                 <th>Nacionalidad</th>
-                <td>{{$socio->nacion_socio_id}}</td>
+                <td>{{imprimirRelacion($socio->nacionSocio)}}</td>
             </tr>
             <tr class="cabecera-tabla">
                 <td colspan="2">Datos Sindicales</td>
             </tr>
             <tr>
                 <th>Estado Socio</th>
-                <td>{{$socio->estado_socio_id}}</td>
+                <td>{{imprimirRelacion($socio->estadoSocio)}}</td>
             </tr>
             <tr>
                 <th># Socio</th>
@@ -74,14 +82,14 @@
             </tr>
             <tr>
                 <th>Fecha Ing. SIND1</th>
-                <td>{{$socio->fecha_sind1}}</td>
+                <td>{{fechaYmdAdmy($socio->fecha_sind1)}}</td>
             </tr>
             <tr class="cabecera-tabla">
                 <td colspan="2">Datos Laborales</td>
             </tr>
             <tr>
                 <th>Fecha Ing. PUCV</th>
-                <td>{{$socio->fecha_pucv}}</td>
+                <td>{{fechaYmdAdmy($socio->fecha_pucv)}}</td>
             </tr>
             <tr>
                 <th>Anexo</th>
@@ -89,15 +97,15 @@
             </tr>
             <tr>
                 <th>Sede</th>
-                <td>{{$socio->sede_id}}</td>
+                <td>{{imprimirRelacion($socio->sede)}}</td>
             </tr>
             <tr>
                 <th>Área</th>
-                <td>{{$socio->area_id}}</td>
+                <td>{{imprimirRelacion($socio->area)}}</td>
             </tr>
             <tr>
                 <th>Cargo</th>
-                <td>{{$socio->cargo_id}}</td>
+                <td>{{imprimirRelacion($socio->cargo)}}</td>
             </tr>
             <tr class="cabecera-tabla">
                 <td colspan="2">Cargas Familiares</td>
