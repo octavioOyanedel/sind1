@@ -168,6 +168,7 @@ return [
         'nueva_area' => 'área',
         'nuevo_cargo' => 'cargo',
         'nueva_nacion' => 'nacionalidad',
+        'estado' => 'estado socio',
     ],
 
 ];

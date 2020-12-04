@@ -30,13 +30,16 @@
 						@break
 						@case('nuevaNacion')
                             @include('components.partials.forms._nacion')
-                        @break 						 																											                         
+						@break
+						@case('desvincular')
+                            @include('components.partials.forms._desvincular', ['estados' => $coleccion])
+                        @break 							 						 																											                         
                         @default                           
                     @endswitch
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Cerrar</button>
-                    <button wire:click="{{$wireClick}}" type="button" class="btn btn-sm btn-primary">{{$boton}}</button>
+                    <button wire:click="{{$wireClick}}" type="button" class="btn btn-sm @if($id == "desvincular") btn-danger @else btn-primary @endif">{{$boton}}</button>
 				</div>
 			</div>
 		</div>

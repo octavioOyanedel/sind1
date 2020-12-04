@@ -36,7 +36,7 @@
                             <td>{{imprimirRelacion($item->sede)}}</td>
                             <td wire:click="cargarTablaSocio({{$item->id}})" class="celda-accion text-center"><a href="#" class="text-success"><i title="Ver socio" class="fas fa-user-check"></i></a></td>
                             <td wire:click="cargarFormEdit({{$item->id}})" class="celda-accion text-center"><a href="#" class="text-primary"><i title="Editar socio" class="fas fa-user-edit"></i></a></td>
-                            <td class="celda-accion text-center"><a href="#" class="text-danger"><i title="Eliminar socio" class="fas fa-user-minus"></i></a></td>
+                            <td class="celda-accion text-center"><a wire:click="prepararSocio({{$item->id}})" href="#" class="text-danger" data-toggle="modal" data-target="#desvincular"><i title="Eliminar socio" class="fas fa-user-minus"></i></a></td>
                         </tr>
                         @endforeach
                     </tbody>
@@ -50,6 +50,28 @@
                 No existen <strong>socios</strong> registrados.
             </div>
         @endif
-	</div>
+    </div>
+    <x-modal id="desvincular" titulo="Desvincular Socio" wireClick="delete" boton="Desvincular" :coleccion="$estados"/>
 </div>
 
+@push('scripts')
+	<script type="text/javascript">
+        window.livewire.on('cerrarModal', () => {
+            $('#desvincular').modal('hide');
+        });
+	</script>
+    <script type="text/javascript">
+        window.livewire.on('alertaOk', texto => {
+            Swal.fire({
+                toast: true,
+                position: 'bottom-end',
+                icon: 'success',
+                title: texto,
+                showConfirmButton: false,
+                timer: 3300,
+                background: '#38c172',
+                iconColor: '#fff'
+            })
+        });
+	</script>
+@endpush

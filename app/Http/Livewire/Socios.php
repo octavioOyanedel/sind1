@@ -10,6 +10,7 @@ use App\Models\NacionSocio;
 use App\Models\Provincia;
 use App\Models\Sede;
 use App\Models\Socio;
+use App\Models\EstadoSocio;
 use Livewire\Component;
 use App\Rules\NombreRule;
 use App\Rules\RutRule;
@@ -42,7 +43,7 @@ class Socios extends Component
     public $areas = [];
     public $cargos = [];
     public $naciones = [];
-
+    public $estados = [];
     /**
      * Variables livewire 2way binding
      */
@@ -53,6 +54,7 @@ class Socios extends Component
     public $area;
     public $cargo;
     public $nacion;
+    public $estado;
     // Nuevos registros
     public $nueva_region;
     public $nueva_provincia;
@@ -112,6 +114,7 @@ class Socios extends Component
         $this->sedes = Sede::orderBy('nombre', 'ASC')->get();
         $this->cargos = Cargo::orderBy('nombre', 'ASC')->get();
         $this->naciones = NacionSocio::orderBy('nombre', 'ASC')->get();
+        $this->estados = EstadoSocio::orderBy('nombre', 'ASC')->get();
 
         // Obtención de elementos anidados para poblar selects
     	if (!empty($this->region)) {
@@ -245,6 +248,21 @@ class Socios extends Component
         }
     }
 
+    public function delete()
+    {
+        $this->validate([
+            'estado' => 'required',
+        ]);    
+            
+        $socio = Socio::findOrFail($this->id_socio);
+        $socio->estado_socio_id = $this->estado;
+        $socio->update();
+        $socio->delete();
+        $this->cargarTablaListar();
+        $this->emit('cerrarModal');
+        $this->emit('alertaOk', 'Socio Desvinculado.');
+    }
+
     /**
      * Búsquedas unica y masiva de socios
      */
@@ -258,7 +276,7 @@ class Socios extends Component
             if(count(separarNombreApellido($this->valor_busqueda)) > 1){
                 $apellido = separarNombreApellido($this->valor_busqueda)['apellido'];
             }
-            $this->encontrados = Socio::withTrashed()->with(['distrito','provincia','comuna','nacionSocio','sede','area','cargo','estadoSocio'])->orderBy('apellido1','ASC')
+            $this->encontrados = Socio::with(['distrito','provincia','comuna','nacionSocio','sede','area','cargo','estadoSocio'])->orderBy('apellido1','ASC')
             ->nombres($nombre, $apellido)
             ->general($this->valor_busqueda, 'id')
             ->general($this->valor_busqueda, 'nombre1')
@@ -284,7 +302,7 @@ class Socios extends Component
         if($this->validacionBusquedaMasiva()){
             $this->emit('alertaInfo', 'Debe seleccionar al menos un criterio de búsqueda.');
         }else{
-            $this->encontrados = Socio::withTrashed()->orderBy('apellido1','ASC')
+            $this->encontrados = Socio::with(['distrito','provincia','comuna','nacionSocio','sede','area','cargo','estadoSocio'])->orderBy('apellido1','ASC')
             ->rangoFecha($this->fechaNacIni, $this->fechaNacFin, 'fecha_nac')
             ->rangoFecha($this->fechaSind1Ini, $this->fechaSind1Fin, 'fecha_sind1')
             ->rangoFecha($this->fechaPucvIni, $this->fechaPucvFin, 'fecha_pucv')
@@ -316,7 +334,7 @@ class Socios extends Component
     public function cargarFormEdit(Socio $socio)
     {
         // captura de id para su posterior edición
-        $this->id_socio = $socio->id;
+        $this->prepararSocio($socio);
         $this->forms = "_crear_editar";
         $this->titulo_form = "Editar Socio";
         $this->boton = "Editar";
@@ -348,8 +366,9 @@ class Socios extends Component
         $this->tablas = "_listar";
         $this->titulo_tabla = "Listado de Socios";
     }   
+
     /**
-     * Poblado de forms
+     * Poblado de forms y captura de objeto socio
      */
     public function poblarFormEditar(Socio $socio)
     {
@@ -374,6 +393,12 @@ class Socios extends Component
         $this->area = $socio->area_id;
         $this->cargo = $socio->cargo_id;
         $this->nacion = $socio->nacion_socio_id;
+    }
+
+    public function prepararSocio(Socio $socio)
+    {
+        $this->resetFormEliminar();
+        $this->id_socio = $socio->id;
     }
 
     /**
@@ -417,6 +442,10 @@ class Socios extends Component
 
     public function resetFormBusquedaUnica(){
         $this->valor_busqueda = NULL;
+    }
+
+    public function resetFormEliminar(){
+        $this->estado = NULL;
     }
 
     public function resetFormBusquedaMasiva()

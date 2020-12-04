@@ -7,7 +7,7 @@
                 <option value="{{ $item->id }}">{{ $item->nombre }}</option>			
             @endforeach
         </select>
-        @error('region') 
+        @error($wireModel) 
             <small class="text-danger">{{ $message }}</small>
         @enderror
     </div>
