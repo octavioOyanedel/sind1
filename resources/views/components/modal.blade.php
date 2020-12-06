@@ -8,33 +8,33 @@
 						<span aria-hidden="true">&times;</span>
 					</button>
 				</div>
-				<div class="modal-body">                   
+				<div class="modal-body">
                     @switch($id)
-                        @case('nuevaRegion')
+                        @case('nueva-region')
                             @include('components.partials.forms._region')
                         @break
-                        @case('nuevaProvincia')
+                        @case('nueva-provincia')
                             @include('components.partials.forms._provincia', ['regiones' => $coleccion])
 						@break
-						@case('nuevaComuna')
+						@case('nueva-comuna')
                             @include('components.partials.forms._comuna', ['provincias' => $coleccion])
 						@break
-						@case('nuevaSede')
+						@case('nueva-sede')
                             @include('components.partials.forms._sede')
 						@break
-						@case('nuevaArea')
+						@case('nueva-area')
                             @include('components.partials.forms._area', ['sedes' => $coleccion])
-						@break 	
-						@case('nuevoCargo')
+						@break
+						@case('nuevo-cargo')
                             @include('components.partials.forms._cargo')
 						@break
-						@case('nuevaNacion')
+						@case('nueva-nacion')
                             @include('components.partials.forms._nacion')
 						@break
 						@case('desvincular')
                             @include('components.partials.forms._desvincular', ['estados' => $coleccion])
-                        @break 							 						 																											                         
-                        @default                           
+                        @break
+                        @default
                     @endswitch
 				</div>
 				<div class="modal-footer">
@@ -43,5 +43,5 @@
 				</div>
 			</div>
 		</div>
-	</div>	
+	</div>
 </div>

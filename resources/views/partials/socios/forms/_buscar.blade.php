@@ -3,7 +3,7 @@
         <span class="mb-0">{{$titulo_form}}
             <a wire:click="cargarFormCreate" class="float-right text-success" href="#" title="Incorporar Socio">
                 <i class="fas fa-user-plus"></i>
-            </a>		
+            </a>
         </span>
 	</div>
 	<div class="card-body">
@@ -19,9 +19,9 @@
 
         <hr class="">
 
-        <x-rango-fecha id="fecha_nac" label="Rango Fecha Nac." wireModelIni="fechaNacIni" wireModelFin="fechaNacFin" />
-        <x-rango-fecha id="fecha_pucv" label="Rango Ing. PUCV" wireModelIni="fechaPucvIni" wireModelFin="fechaPucvFin" />
-        <x-rango-fecha id="fecha_sind1" label="Rango Ing. SIND1" wireModelIni="fechaSind1Ini" wireModelFin="fechaSind1Fin" />
+        <x-rango-fecha id="fecha_nac" label="Rango Fecha Nac." wireModelIni="fecha_nac_ini" wireModelFin="fecha_nac_fin" />
+        <x-rango-fecha id="fecha_pucv" label="Rango Ing. PUCV" wireModelIni="fecha_pucv_ini" wireModelFin="fecha_pucv_fin" />
+        <x-rango-fecha id="fecha_sind1" label="Rango Ing. SIND1" wireModelIni="fecha_sind1_ini" wireModelFin="fecha_sind1_fin" />
         @include('components.partials.forms._genero_buscar')
         <x-select-busqueda id="region" label="Región" :coleccion="$regiones" wireModel="region"/>
         <x-select-busqueda id="provincia" label="Provincia" :coleccion="$provincias" wireModel="provincia"/>

@@ -23,7 +23,7 @@ class Socios extends Component
     use WithPagination;
 	// Corrige error en estilos de paginación
     protected $paginationTheme = 'bootstrap';
-    
+
     /**
      * Estado inicial de formulario y tabla
      */
@@ -71,12 +71,12 @@ class Socios extends Component
     public $apellido1;
     public $apellido2;
     public $genero;
-    public $fechaNac;
+    public $fecha_nac;
     public $contacto;
     public $correo;
-    public $fechaPucv;
+    public $fecha_pucv;
     public $anexo;
-    public $fechaSind1;
+    public $fecha_sind1;
     public $direccion;
     // Variable id para edicion de socio
     public $id_socio;
@@ -84,19 +84,19 @@ class Socios extends Component
     public $socio;
     // Variable busqueda unica
     public $valor_busqueda;
-    public $fechaNacIni;
-    public $fechaNacFin;
-    public $fechaSind1Ini;
-    public $fechaSind1Fin;
-    public $fechaPucvIni;
-    public $fechaPucvFin;
+    public $fecha_nac_ini;
+    public $fecha_nac_fin;
+    public $fecha_sind1_ini;
+    public $fecha_sind1_fin;
+    public $fecha_pucv_ini;
+    public $fecha_pucv_fin;
     // Registros encontrados
     public $encontrados = [];
     public $flag_busqueda;
     // Variables select para evitar duplicado de mensajes de error entre modal y form principal
-    public $regionModal;
-    public $provinciaModal;
-    public $sedeModal;    
+    public $region_modal;
+    public $provincia_modal;
+    public $sede_modal;
     /**
      * Render clase livewire
      */
@@ -133,7 +133,7 @@ class Socios extends Component
 
     /**
      * Acciones CRUD
-     */   
+     */
     public function create()
     {
         $this->validate([
@@ -144,12 +144,12 @@ class Socios extends Component
             'apellido1' => ['required', new NombreRule],
             'apellido2' => ['nullable', new NombreRule],
             'genero' => ['required', 'alpha'],
-            'fechaNac' => ['nullable', 'date'],
+            'fecha_nac' => ['nullable', 'date'],
             'contacto' => ['nullable', 'numeric'],
             'correo' => ['nullable', 'email', 'unique:socios,correo'],
-            'fechaPucv' => ['nullable', 'date'],
+            'fecha_pucv' => ['nullable', 'date'],
             'anexo' => ['nullable', 'numeric'],
-            'fechaSind1' => ['nullable', 'date'],
+            'fecha_sind1' => ['nullable', 'date'],
             'region' => ['nullable'],
             'provincia' => ['nullable'],
             'comuna' => ['nullable'],
@@ -158,8 +158,8 @@ class Socios extends Component
             'area' => ['nullable'],
             'cargo' => ['nullable'],
             'nacion' => ['nullable'],
-        ]);   
-        
+        ]);
+
         $socio = Socio::create([
             'rut' => $this->rut,
             'numero' => $this->numero,
@@ -168,12 +168,12 @@ class Socios extends Component
             'apellido1' => $this->apellido1,
             'apellido2' => $this->apellido2,
             'genero' => $this->genero,
-            'fecha_nac' => $this->fechaNac,
+            'fecha_nac' => $this->fecha_nac,
             'contacto' => $this->contacto,
             'correo' => $this->correo,
-            'fecha_pucv' => $this->fechaPucv,
+            'fecha_pucv' => $this->fecha_pucv,
             'anexo' => $this->anexo,
-            'fecha_sind1' => $this->fechaSind1,
+            'fecha_sind1' => $this->fecha_sind1,
             'distrito_id' => $this->region,
             'provincia_id' => $this->provincia,
             'comuna_id' => $this->comuna,
@@ -185,7 +185,7 @@ class Socios extends Component
 
         $this->resetFormsCrearEditar();
         $this->cargarTablaSocio($socio);
-        $this->emit('alertaOk', 'Socio Incorporado.');
+        $this->emit('alerta_ok', 'Socio Incorporado.');
     }
 
     public function update()
@@ -200,12 +200,12 @@ class Socios extends Component
                 'apellido1' => ['required', new NombreRule],
                 'apellido2' => ['nullable', new NombreRule],
                 'genero' => ['required', 'alpha'],
-                'fechaNac' => ['nullable', 'date'],
+                'fecha_nac' => ['nullable', 'date'],
                 'contacto' => ['nullable', 'numeric'],
                 'correo' => ['nullable', 'email', Rule::unique('socios')->ignore($socio)],
-                'fechaPucv' => ['nullable', 'date'],
+                'fecha_pucv' => ['nullable', 'date'],
                 'anexo' => ['nullable', 'numeric'],
-                'fechaSind1' => ['nullable', 'date'],
+                'fecha_sind1' => ['nullable', 'date'],
                 'region' => ['nullable'],
                 'provincia' => ['nullable'],
                 'comuna' => ['nullable'],
@@ -224,12 +224,12 @@ class Socios extends Component
                 'apellido1' => $this->apellido1,
                 'apellido2' => $this->apellido2,
                 'genero' => $this->genero,
-                'fecha_nac' => $this->fechaNac,
+                'fecha_nac' => $this->fecha_nac,
                 'contacto' => $this->contacto,
                 'correo' => $this->correo,
-                'fecha_pucv' => $this->fechaPucv,
+                'fecha_pucv' => $this->fecha_pucv,
                 'anexo' => $this->anexo,
-                'fecha_sind1' => $this->fechaSind1,
+                'fecha_sind1' => $this->fecha_sind1,
                 'distrito_id' => $this->region,
                 'provincia_id' => $this->provincia,
                 'comuna_id' => $this->comuna,
@@ -245,7 +245,7 @@ class Socios extends Component
             $this->boton = "crear";
             $this->resetFormsCrearEditar();
             $this->cargarTablaSocio($socio);
-            $this->emit('alertaOk', 'Socio Editado.');
+            $this->emit('alerta_ok', 'Socio Editado.');
         }else{
             $this->emit('alertaInfo', 'No se han hecho modificaciones en formulario.');
         }
@@ -255,15 +255,15 @@ class Socios extends Component
     {
         $this->validate([
             'estado' => 'required',
-        ]);    
-            
+        ]);
+
         $socio = Socio::findOrFail($this->id_socio);
         $socio->estado_socio_id = $this->estado;
         $socio->update();
         $socio->delete();
         $this->cargarTablaListar();
-        $this->emit('cerrarModal');
-        $this->emit('alertaOk', 'Socio Desvinculado.');
+        $this->emit('cerrar_modal');
+        $this->emit('alerta_ok', 'Socio Desvinculado.');
     }
 
     /**
@@ -273,7 +273,7 @@ class Socios extends Component
     {
         $this->resetFormBusquedaMasiva();
         if($this->validacionBusquedaUnica()){
-            $this->emit('alertaInfo', 'Debe ingresar búsqueda.');
+            $this->emit('alerta_info', 'Debe ingresar búsqueda.');
         }else{
             $nombre = separarNombreApellido($this->valor_busqueda)['nombre'];
             if(count(separarNombreApellido($this->valor_busqueda)) > 1){
@@ -303,12 +303,12 @@ class Socios extends Component
     {
         $this->resetFormBusquedaUnica();
         if($this->validacionBusquedaMasiva()){
-            $this->emit('alertaInfo', 'Debe seleccionar al menos un criterio de búsqueda.');
+            $this->emit('alerta_info', 'Debe seleccionar al menos un criterio de búsqueda.');
         }else{
             $this->encontrados = Socio::with(['distrito','provincia','comuna','nacionSocio','sede','area','cargo','estadoSocio'])->orderBy('apellido1','ASC')
-            ->rangoFecha($this->fechaNacIni, $this->fechaNacFin, 'fecha_nac')
-            ->rangoFecha($this->fechaSind1Ini, $this->fechaSind1Fin, 'fecha_sind1')
-            ->rangoFecha($this->fechaPucvIni, $this->fechaPucvFin, 'fecha_pucv')
+            ->rangoFecha($this->fecha_nac_ini, $this->fecha_nac_fin, 'fecha_nac')
+            ->rangoFecha($this->fecha_sind1_ini, $this->fecha_sind1_fin, 'fecha_sind1')
+            ->rangoFecha($this->fecha_pucv_ini, $this->fecha_pucv_fin, 'fecha_pucv')
             ->generalAnd($this->genero, 'genero')
             ->generalAnd($this->region, 'distrito_id')
             ->generalAnd($this->provincia, 'provincia_id')
@@ -319,19 +319,19 @@ class Socios extends Component
             ->generalAnd($this->nacion, 'nacion_socio_id')
             ->get();
             $this->tablas = "_resultados";
-            $this->flag_busqueda = "masiva";        
+            $this->flag_busqueda = "masiva";
         }
-    }    
+    }
 
     /**
      * Carga de vistas (tablas y forms)
      */
     public function cargarFormCreate()
     {
-        //$this->flag_busqueda = NULL; 
+        //$this->flag_busqueda = NULL;
         $this->forms = "_crear_editar";
         $this->titulo_form = "Incorporar Socio";
-        $this->boton = "crear";       
+        $this->boton = "crear";
     }
 
     public function cargarFormEdit(Socio $socio)
@@ -341,7 +341,7 @@ class Socios extends Component
         $this->forms = "_crear_editar";
         $this->titulo_form = "Editar Socio";
         $this->boton = "Editar";
-        $this->poblarFormEditar($socio);        
+        $this->poblarFormEditar($socio);
     }
 
     public function cargarFormBuscar()
@@ -361,13 +361,13 @@ class Socios extends Component
         $this->socio = $socio;
         $this->tablas = "_ver";
         $this->titulo_tabla = "Info Socio";
-    }   
+    }
 
     public function cargarTablaListar()
     {
         $this->tablas = "_listar";
         $this->titulo_tabla = "Listado de Socios";
-    }   
+    }
 
     /**
      * Poblado de forms y captura de objeto socio
@@ -381,12 +381,12 @@ class Socios extends Component
         $this->apellido1 = $socio->apellido1;
         $this->apellido2 = $socio->apellido2;
         $this->genero = $socio->genero;
-        $this->fechaNac = $socio->fecha_nac;
+        $this->fecha_nac = $socio->fecha_nac;
         $this->contacto = $socio->contacto;
         $this->correo = $socio->correo;
-        $this->fechaPucv = $socio->fecha_pucv;
+        $this->fecha_pucv = $socio->fecha_pucv;
         $this->anexo = $socio->anexo;
-        $this->fechaSind1 = $socio->fecha_sind1;
+        $this->fecha_sind1 = $socio->fecha_sind1;
         $this->direccion = $socio->direccion;
         $this->region = $socio->distrito_id;
         $this->provincia = $socio->provincia_id;
@@ -399,7 +399,7 @@ class Socios extends Component
 
     public function prepararSocio(Socio $socio)
     {
-        $this->emit('limpiarErrores');
+        $this->emit('limpiar_errores');
         $this->resetFormEliminar();
         $this->id_socio = $socio->id;
     }
@@ -416,12 +416,12 @@ class Socios extends Component
         $this->apellido1 = NULL;
         $this->apellido2 = NULL;
         $this->genero = NULL;
-        $this->fechaNac = NULL;
+        $this->fecha_nac = NULL;
         $this->contacto = NULL;
         $this->correo = NULL;
-        $this->fechaPucv = NULL;
+        $this->fecha_pucv = NULL;
         $this->anexo = NULL;
-        $this->fechaSind1 = NULL;
+        $this->fecha_sind1 = NULL;
         $this->region = NULL;
         $this->provincia = NULL;
         $this->comuna = NULL;
@@ -429,11 +429,11 @@ class Socios extends Component
         $this->sede = NULL;
         $this->area = NULL;
         $this->cargo = NULL;
-        $this->nacion = NULL;        
+        $this->nacion = NULL;
     }
 
     public function resetFormsNuevos()
-    {    
+    {
         $this->nueva_region = NULL;
         $this->nueva_provincia = NULL;
         $this->nueva_comuna = NULL;
@@ -441,10 +441,10 @@ class Socios extends Component
         $this->nueva_area = NULL;
         $this->nuevo_cargo = NULL;
         $this->nueva_nacion = NULL;
-        $this->regionModal = NULL;
-        $this->provinciaModal = NULL;
-        $this->sedeModal = NULL;
-        $this->emit('limpiarErrores'); 
+        $this->region_modal = NULL;
+        $this->provincia_modal = NULL;
+        $this->sede_modal = NULL;
+        $this->emit('limpiar_errores');
     }
 
     public function resetFormBusquedaUnica(){
@@ -457,12 +457,12 @@ class Socios extends Component
 
     public function resetFormBusquedaMasiva()
     {
-        $this->fechaNacIni = NULL;
-        $this->fechaNacFin = NULL;
-        $this->fechaSind1Ini = NULL;
-        $this->fechaSind1Fin = NULL;
-        $this->fechaPucvIni = NULL;
-        $this->fechaPucvFin = NULL;
+        $this->fecha_nac_ini = NULL;
+        $this->fecha_nac_fin = NULL;
+        $this->fecha_sind1_ini = NULL;
+        $this->fecha_sind1_fin = NULL;
+        $this->fecha_pucv_ini = NULL;
+        $this->fecha_pucv_fin = NULL;
         $this->genero = NULL;
         $this->region = NULL;
         $this->provincia = NULL;
@@ -470,7 +470,7 @@ class Socios extends Component
         $this->sede = NULL;
         $this->area = NULL;
         $this->cargo = NULL;
-        $this->nacion = NULL;                     
+        $this->nacion = NULL;
     }
 
     /**
@@ -486,30 +486,30 @@ class Socios extends Component
 			'nombre' => $this->nueva_region
         ]);
 
-        $this->emit('cerrarModal');
-        $this->emit('alertaOk', 'Región Agregada.');
+        $this->emit('cerrar_modal');
+        $this->emit('alerta_ok', 'Región Agregada.');
     }
 
     public function nuevaProvincia()
     {
         $this->validate([
-            'regionModal' => 'required',
+            'region_modal' => 'required',
             'nueva_provincia' => ['required', new NombreRule, 'unique:provincias,nombre']
 		]);
 
 		Provincia::create([
             'nombre' => $this->nueva_provincia,
-            'distrito_id' => $this->regionModal
+            'distrito_id' => $this->region_modal
         ]);
 
-        $this->emit('cerrarModal');
-        $this->emit('alertaOk', 'Provincia Agregada.');
+        $this->emit('cerrar_modal');
+        $this->emit('alerta_ok', 'Provincia Agregada.');
     }
 
     public function nuevaComuna()
     {
         $this->validate([
-            'provinciaModal' => 'required',
+            'provincia_modal' => 'required',
             'nueva_comuna' => ['required', new NombreRule, 'unique:comunas,nombre']
 		]);
 
@@ -518,8 +518,8 @@ class Socios extends Component
             'provincia_id' => $this->provincia
         ]);
 
-        $this->emit('cerrarModal');
-        $this->emit('alertaOk', 'Comuna Agregada.');
+        $this->emit('cerrar_modal');
+        $this->emit('alerta_ok', 'Comuna Agregada.');
     }
 
     public function nuevaSede()
@@ -532,14 +532,14 @@ class Socios extends Component
             'nombre' => $this->nueva_sede,
         ]);
 
-        $this->emit('cerrarModal');
-        $this->emit('alertaOk', 'Sede Agregada.');
+        $this->emit('cerrar_modal');
+        $this->emit('alerta_ok', 'Sede Agregada.');
     }
 
     public function nuevaArea()
     {
         $this->validate([
-            'sedeModal' => 'required',
+            'sede_modal' => 'required',
             'nueva_area' => ['required', new NombreRule, 'unique:areas,nombre']
 		]);
 
@@ -548,8 +548,8 @@ class Socios extends Component
             'sede_id' => $this->sede
         ]);
 
-        $this->emit('cerrarModal');
-        $this->emit('alertaOk', 'Área Agregada.');
+        $this->emit('cerrar_modal');
+        $this->emit('alerta_ok', 'Área Agregada.');
     }
 
     public function nuevoCargo()
@@ -562,8 +562,8 @@ class Socios extends Component
             'nombre' => $this->nuevo_cargo,
         ]);
 
-        $this->emit('cerrarModal');
-        $this->emit('alertaOk', 'Cargo Agregado.');
+        $this->emit('cerrar_modal');
+        $this->emit('alerta_ok', 'Cargo Agregado.');
     }
 
     public function nuevaNacion()
@@ -576,9 +576,9 @@ class Socios extends Component
             'nombre' => $this->nueva_nacion,
         ]);
 
-        $this->emit('cerrarModal');
-        $this->emit('alertaOk', 'Nacionalidad Agregada.');
-    }    
+        $this->emit('cerrar_modal');
+        $this->emit('alerta_ok', 'Nacionalidad Agregada.');
+    }
     /**
      * Validacion de formularios vacios (nuevos o búsqueda) o sin cambios (editar)
      */
@@ -593,26 +593,26 @@ class Socios extends Component
     public function validacionBusquedaMasiva()
     {
         if( $this->genero === NULL &&
-            $this->fechaNacIni === NULL && 
-            $this->fechaNacFin === NULL &&
-            $this->fechaSind1Ini === NULL &&
-            $this->fechaSind1Fin === NULL &&
-            $this->fechaPucvIni === NULL &&
-            $this->fechaPucvFin === NULL &&
+            $this->fecha_nac_ini === NULL &&
+            $this->fecha_nac_fin === NULL &&
+            $this->fecha_sind1_ini === NULL &&
+            $this->fecha_sind1_fin === NULL &&
+            $this->fecha_pucv_ini === NULL &&
+            $this->fecha_pucv_fin === NULL &&
             $this->region === NULL &&
             $this->provincia === NULL &&
             $this->comuna === NULL &&
             $this->sede === NULL &&
             $this->area === NULL &&
-            $this->cargo === NULL && 
+            $this->cargo === NULL &&
             $this->nacion === NULL ){
             return true;
         }
         return false;
-    }    
+    }
 
     /**
-     * Helpers propios 
+     * Helpers propios
      */
     public function registrosEditados($socio)
     {
@@ -620,7 +620,7 @@ class Socios extends Component
         unset($socio['estado_socio_id']);
         unset($socio['deleted_at']);
         unset($socio['created_at']);
-        unset($socio['updated_at']);     
+        unset($socio['updated_at']);
         $nuevos_datos = $this->crearArregloNuevosDatos();
         return count(array_diff_assoc($socio,$nuevos_datos));
     }
@@ -634,14 +634,14 @@ class Socios extends Component
             "apellido2" => $this->apellido2,
             "rut" => $this->rut,
             "genero" => $this->genero,
-            "fecha_nac" => $this->fechaNac,
+            "fecha_nac" => $this->fecha_nac,
             "contacto" => $this->contacto,
             "correo" => $this->correo,
             "direccion" => $this->direccion,
-            "fecha_sind1" => $this->fechaSind1,
+            "fecha_sind1" => $this->fecha_sind1,
             "numero" => $this->numero,
             "anexo" => $this->anexo,
-            "fecha_pucv" => $this->fechaPucv,
+            "fecha_pucv" => $this->fecha_pucv,
             "distrito_id" => $this->region,
             "provincia_id" => $this->provincia,
             "comuna_id" => $this->comuna,

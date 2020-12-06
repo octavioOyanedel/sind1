@@ -10,8 +10,8 @@
                     <a wire:click="busquedaMasiva" class="float-right text-success mr-4" href="#" title="Volver a Resultados.">
                         <i class="fas fa-chevron-circle-left"></i>
                     </a>
-                @endif                 
-            @endif          
+                @endif
+            @endif
         </span>
 	</div>
 	<div class="card-body">
@@ -62,12 +62,12 @@
         });
     </script>
 	<script type="text/javascript">
-        window.livewire.on('cerrarModal', () => {
+        window.livewire.on('cerrar_modal', () => {
             $('#desvincular').modal('hide');
         });
 	</script>
     <script type="text/javascript">
-        window.livewire.on('alertaOk', texto => {
+        window.livewire.on('alerta_ok', texto => {
             Swal.fire({
                 toast: true,
                 position: 'bottom-end',
