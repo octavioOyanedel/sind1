@@ -47,7 +47,7 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="#" class="nav-link"><p>Socio</p></a>
+                            <a href="{{route('home')}}" class="{{enlaceActivo('home')}} nav-link"><p>Socio</p></a>
                         </li>
                         <li class="nav-item">
                             <a href="#" class="nav-link"><p>Carga</p></a>
@@ -105,7 +105,7 @@
                         <i class="nav-icon fas fa-info-circle"></i>
                         <p>Info</p>
                     </a>
-                </li> 
+                </li>
                 {{-- Salir--}}
                 <li class="nav-item has-treeview">
                     <a class="nav-link" href="{{ route('logout') }}"
@@ -117,7 +117,7 @@
                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                         @csrf
                     </form>
-                </li>                                                                     
+                </li>
             </ul>
         </nav>
         <!-- /.ENLACES DE NAV VERTICAL -->

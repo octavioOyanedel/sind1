@@ -8,9 +8,7 @@
     </div>
 		<div class="card-body">
 
-			<x-input id="rut" type="text" label="Rut" placeholder="Ej.: 11222333k" wireModel="rut" required="si"/>
-
-			<x-input id="numero" type="text" label="# Socio" placeholder="Ej.: 123" wireModel="numero" required="si"/>
+            <a wire:click="test" href="#" class="">test carga</a>
 
 			<x-input id="nombre1" type="text" label="1° Nombre" placeholder="Ej.: Amaro" wireModel="nombre1" required="si"/>
 
@@ -20,35 +18,11 @@
 
 			<x-input id="apellido2" type="text" label="Apellido Mat." placeholder="Ej.: Martínez" wireModel="apellido2" required=""/>
 
-			@include('components.partials.forms._genero')
+            <x-input id="rut" type="text" label="Rut" placeholder="Ej.: 11222333k" wireModel="rut" required="si"/>
 
 			<x-input id="fecha-nac" type="date" label="Fecha Nac." placeholder="" wireModel="fecha_nac" required=""/>
 
-			<x-input id="contacto" type="text" label="# Contacto" placeholder="Ej.: 987654321" wireModel="contacto" required=""/>
-
-			<x-input id="correo" type="text" label="Correo" placeholder="Ej.: sind1@pucv.cl" wireModel="correo" required=""/>
-
-			<x-input id="fecha-pucv" type="date" label="Fecha Ing. PUCV" placeholder="" wireModel="fecha_pucv" required=""/>
-
-			<x-input id="anexo" type="text" label="Anexo" placeholder="Ej.: 3096" wireModel="anexo" required=""/>
-
-			<x-input id="fecha-sind1" type="date" label="Fecha Ing. SIND1" placeholder="" wireModel="fecha_sind1" required=""/>
-
-			<x-select id="region" label="Región" modal="#nueva-region" wireModel="region" required="" :coleccion="$regiones"/>
-
-			<x-select id="provincia" label="Provincia" modal="#nueva-provincia" wireModel="provincia" required="" :coleccion="$provincias"/>
-
-			<x-select id="comuna" label="Comuna" modal="#nueva-comuna" wireModel="comuna" required="" :coleccion="$comunas"/>
-
-			<x-input id="direccion" type="text" label="Dirección" placeholder="Ej.: Calle 1, Casa N° 2" wireModel="direccion" required=""/>
-
-			<x-select id="sede" label="Sede" modal="#nueva-sede" wireModel="sede" required="" :coleccion="$sedes"/>
-
-			<x-select id="area" label="Area" modal="#nueva-area" wireModel="area" required="" :coleccion="$areas"/>
-
-			<x-select id="cargo" label="Cargo" modal="#nuevo-cargo" wireModel="cargo" required="" :coleccion="$cargos"/>
-
-			<x-select id="nacion" label="Nacionalidad" modal="#nueva-nacion" wireModel="nacion" required="" :coleccion="$naciones"/>
+			<x-select id="nacion" label="Nacionalidad" modal="#nueva-nacion" wireModel="parentesco" required="" :coleccion="$parentescos"/>
 
 			<div class="form-group">
 				@if ($boton === 'crear')
@@ -56,8 +30,7 @@
 				@else
 					<button wire:click="update" class="form-control btn btn-primary">Editar</button>
 				@endif
-            </div>
-            <a  href="#" data-toggle="modal" data-target="#nueva-carga" class="">test carga</a>
+			</div>
 		</div>
 
 	<!-- Ventanas Modales -->
@@ -69,33 +42,22 @@
 	<x-modal id="nuevo-cargo" titulo="Nuevo Cargo" wireClick="nuevoCargo" boton="Guardar" coleccion=""/>
     <x-modal id="nueva-nacion" titulo="Nueva Nacionalidad" wireClick="nuevaNacion" boton="Guardar" coleccion=""/>
 
-
+    {{-- Modal continuar agregar carga familiar --}}
+    <x-modal id="nueva-carga" titulo="Agregar Carga a Socio" wireClick=cargarFormCarga boton="Si" coleccion=""/>
 
 </div>
 
-    {{-- Modal continuar agregar carga familiar --}}
-    <x-modal id="nueva-carga" titulo="Agregar Carga a Socio" wireClick="cargarFormCreateCarga" boton="Si" coleccion=""/>
-
 @push('scripts')
     <script type="text/javascript">
-        $('#accion-boton').click(function() {
-            $('#nueva-carga').modal('hide');
+        window.livewire.on('continuar_estudio', () => {
+            $("#nuevo-estudio").modal();
         });
     </script>
 	<script type="text/javascript">
         window.livewire.on('cerrar_modal', () => {
-            $('#nueva-region').modal('hide');
-			$('#nueva-provincia').modal('hide');
-			$('#nueva-comuna').modal('hide');
-			$('#nueva-sede').modal('hide');
-			$('#nueva-area').modal('hide');
-			$('#nuevo-cargo').modal('hide');
-			$('#nueva-nacion').modal('hide');
-            $('#nueva-carga').modal('hide');
-            console.log('despues de intento de cierre de ventana modal');
+            $('#nuevo-region').modal('hide');
         });
-    </script>
-
+	</script>
     <script type="text/javascript">
         window.livewire.on('alerta_ok', texto => {
             Swal.fire({

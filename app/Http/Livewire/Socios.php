@@ -97,6 +97,8 @@ class Socios extends Component
     public $region_modal;
     public $provincia_modal;
     public $sede_modal;
+    // Variables cargas familiares
+    public $parentescos = [];
     /**
      * Render clase livewire
      */
@@ -106,6 +108,11 @@ class Socios extends Component
         return view('livewire.socios',[
             'socios' => Socio::with(['sede','area','cargo'])->orderBy('created_at', 'DESC')->simplePaginate(10)
         ]);
+    }
+
+    public function test()
+    {
+        $this->emit('continuar_carga');
     }
 
     /**
@@ -328,10 +335,25 @@ class Socios extends Component
      */
     public function cargarFormCreate()
     {
-        //$this->flag_busqueda = NULL;
         $this->forms = "_crear_editar";
         $this->titulo_form = "Incorporar Socio";
         $this->boton = "crear";
+    }
+
+    public function cargarFormCreateCarga()
+    {
+        $this->forms = "_crear_editar_carga";
+        $this->titulo_form = "Agregar Carga Familiar";
+        $this->boton = "crear";
+
+    }
+
+    public function cargarFormEstudio()
+    {
+        //$this->forms = "_crear_editar_carga";
+        //$this->titulo_form = "Agregar Carga Familiar";
+        //$this->boton = "crear";
+        //$this->emit('cerrar_modal');
     }
 
     public function cargarFormEdit(Socio $socio)
@@ -399,8 +421,8 @@ class Socios extends Component
 
     public function prepararSocio(Socio $socio)
     {
-        $this->emit('limpiar_errores');
         $this->resetFormEliminar();
+        $this->resetFormsNuevos();
         $this->id_socio = $socio->id;
     }
 
@@ -434,6 +456,8 @@ class Socios extends Component
 
     public function resetFormsNuevos()
     {
+        $this->resetErrorBag();
+        $this->resetValidation();
         $this->nueva_region = NULL;
         $this->nueva_provincia = NULL;
         $this->nueva_comuna = NULL;
@@ -444,7 +468,6 @@ class Socios extends Component
         $this->region_modal = NULL;
         $this->provincia_modal = NULL;
         $this->sede_modal = NULL;
-        $this->emit('limpiar_errores');
     }
 
     public function resetFormBusquedaUnica(){

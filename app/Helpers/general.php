@@ -6,6 +6,18 @@ use App\Models\Socio;
  * Input: string búsqueda
  * Output: arreglo con nombre y apellido
  */
+function enlaceActivo($ruta)
+{
+    if(request()->routeIs($ruta)){
+        return 'active';
+    }
+
+}
+/**
+ * Obtener arreglo con nombre y apellido candidato para busqueda
+ * Input: string búsqueda
+ * Output: arreglo con nombre y apellido
+ */
 function separarNombreApellido($q)
 {
 	$arreglo = array('nombre'=>'','apellido'=>'');

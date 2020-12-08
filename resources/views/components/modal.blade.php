@@ -34,12 +34,20 @@
 						@case('desvincular')
                             @include('components.partials.forms._desvincular', ['estados' => $coleccion])
                         @break
+						@case('nueva-carga')
+                            <div class="alert alert-success" role="alert">
+                                <h4 class="alert-heading"><i class="far fa-smile-beam"></i> ¡Socio Incorporado!</h4>
+                                <p>Se ha agregado un nuevo socio.</p>
+                                <hr>
+                                <p class="mb-0"><small>¿Desea agregar una carga familiar vinculada a este socio?</small></p>
+                            </div>
+                        @break
                         @default
                     @endswitch
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Cerrar</button>
-                    <button wire:click="{{$wireClick}}" type="button" class="btn btn-sm @if($id == "desvincular") btn-danger @else btn-primary @endif">{{$boton}}</button>
+                    <button id="accion-boton" wire:click="{{$wireClick}}" type="button" class="btn btn-sm @if($id == "desvincular") btn-danger @else btn-primary @endif" data-dismiss="modal">{{$boton}}</button>
 				</div>
 			</div>
 		</div>
