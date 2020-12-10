@@ -8,8 +8,6 @@
     </div>
 		<div class="card-body">
 
-            <a wire:click="test" href="#" class="">test carga</a>
-
 			<x-input id="nombre1" type="text" label="1° Nombre" placeholder="Ej.: Amaro" wireModel="nombre1" required="si"/>
 
 			<x-input id="nombre2" type="text" label="2° Nombre" placeholder="Ej.: Amaro" wireModel="nombre2" required=""/>
@@ -32,15 +30,6 @@
 				@endif
 			</div>
 		</div>
-
-	<!-- Ventanas Modales -->
-	<x-modal id="nueva-region" titulo="Nueva Región" wireClick="nuevaRegion" boton="Guardar" coleccion="" />
-	<x-modal id="nueva-provincia" titulo="Nueva Provincia" wireClick="nuevaProvincia" boton="Guardar" :coleccion="$regiones"/>
-	<x-modal id="nueva-comuna" titulo="Nueva Comuna" wireClick="nuevaComuna" boton="Guardar" :coleccion="$provincias"/>
-	<x-modal id="nueva-sede" titulo="Nueva Sede" wireClick="nuevaSede" boton="Guardar" coleccion=""/>
-	<x-modal id="nueva-area" titulo="Nueva Área" wireClick="nuevaArea" boton="Guardar" :coleccion="$sedes"/>
-	<x-modal id="nuevo-cargo" titulo="Nuevo Cargo" wireClick="nuevoCargo" boton="Guardar" coleccion=""/>
-    <x-modal id="nueva-nacion" titulo="Nueva Nacionalidad" wireClick="nuevaNacion" boton="Guardar" coleccion=""/>
 
     {{-- Modal continuar agregar carga familiar --}}
     <x-modal id="nueva-carga" titulo="Agregar Carga a Socio" wireClick=cargarFormCarga boton="Si" coleccion=""/>

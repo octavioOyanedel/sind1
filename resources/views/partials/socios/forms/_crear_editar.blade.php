@@ -57,7 +57,6 @@
 					<button wire:click="update" class="form-control btn btn-primary">Editar</button>
 				@endif
             </div>
-            <a  href="#" data-toggle="modal" data-target="#nueva-carga" class="">test carga</a>
 		</div>
 
 	<!-- Ventanas Modales -->
@@ -67,10 +66,8 @@
 	<x-modal id="nueva-sede" titulo="Nueva Sede" wireClick="nuevaSede" boton="Guardar" coleccion=""/>
 	<x-modal id="nueva-area" titulo="Nueva Área" wireClick="nuevaArea" boton="Guardar" :coleccion="$sedes"/>
 	<x-modal id="nuevo-cargo" titulo="Nuevo Cargo" wireClick="nuevoCargo" boton="Guardar" coleccion=""/>
-    <x-modal id="nueva-nacion" titulo="Nueva Nacionalidad" wireClick="nuevaNacion" boton="Guardar" coleccion=""/>
-
-
-
+	<x-modal id="nueva-nacion" titulo="Nueva Nacionalidad" wireClick="nuevaNacion" boton="Guardar" coleccion=""/>
+	
 </div>
 
     {{-- Modal continuar agregar carga familiar --}}
@@ -78,8 +75,8 @@
 
 @push('scripts')
     <script type="text/javascript">
-        $('#accion-boton').click(function() {
-            $('#nueva-carga').modal('hide');
+        window.livewire.on('nueva_carga', () => {
+            $('#nueva-carga').modal('show');           
         });
     </script>
 	<script type="text/javascript">
@@ -92,7 +89,7 @@
 			$('#nuevo-cargo').modal('hide');
 			$('#nueva-nacion').modal('hide');
             $('#nueva-carga').modal('hide');
-            console.log('despues de intento de cierre de ventana modal');
+            
         });
     </script>
 

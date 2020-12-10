@@ -11,6 +11,7 @@ use App\Models\Provincia;
 use App\Models\Sede;
 use App\Models\Socio;
 use App\Models\EstadoSocio;
+use App\Models\Parentesco;
 use Livewire\Component;
 use App\Rules\NombreRule;
 use App\Rules\RutRule;
@@ -99,6 +100,8 @@ class Socios extends Component
     public $sede_modal;
     // Variables cargas familiares
     public $parentescos = [];
+    public $parentesco;
+    
     /**
      * Render clase livewire
      */
@@ -125,6 +128,7 @@ class Socios extends Component
         $this->cargos = Cargo::orderBy('nombre', 'ASC')->get();
         $this->naciones = NacionSocio::orderBy('nombre', 'ASC')->get();
         $this->estados = EstadoSocio::orderBy('nombre', 'ASC')->get();
+        $this->parentescos = Parentesco::orderBy('nombre', 'ASC')->get();
 
         // Obtención de elementos anidados para poblar selects
     	if (!empty($this->region)) {
@@ -192,7 +196,35 @@ class Socios extends Component
 
         $this->resetFormsCrearEditar();
         $this->cargarTablaSocio($socio);
-        $this->emit('alerta_ok', 'Socio Incorporado.');
+        $this->emit('nueva_carga');
+        //$this->emit('alerta_ok', 'Socio Incorporado.');
+    }
+
+    public function createCarga()
+    {
+        $this->validate([
+            'rut' => ['required',  new RutRule, 'alpha_num', 'max:9', 'unique:cargas,rut'],
+            'nombre1' => ['required', new NombreRule],
+            'nombre2' => ['nullable', new NombreRule],
+            'apellido1' => ['required', new NombreRule],
+            'apellido2' => ['nullable', new NombreRule],
+            'fecha_nac' => ['nullable', 'date'],
+            'parentesco' => ['nullable'],
+        ]);
+
+        $socio = Carga::create([
+            'rut' => $this->rut,
+            'nombre1' => $this->nombre1,
+            'nombre2' => $this->nombre2,
+            'apellido1' => $this->apellido1,
+            'apellido2' => $this->apellido2,
+            'fecha_nac' => $this->fecha_nac,
+            'parentesco_id' => $this->parentesco
+        ]);
+
+        $this->resetFormsCrearEditar();
+        $this->cargarTablaSocio($socio);
+        $this->emit('alerta_ok', 'Carga Familiar Incorporada.');
     }
 
     public function update()
