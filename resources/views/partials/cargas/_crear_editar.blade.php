@@ -20,11 +20,11 @@
 
 			<x-input id="fecha-nac" type="date" label="Fecha Nac." placeholder="" wireModel="fecha_nac" required=""/>
 
-			<x-select id="nacion" label="Nacionalidad" modal="#nueva-nacion" wireModel="parentesco" required="" :coleccion="$parentescos"/>
+			<x-select id="parentesco" label="Parentesco" modal="#nuevo-parentesco" wireModel="parentesco" required="" :coleccion="$parentescos"/>
 
 			<div class="form-group">
 				@if ($boton === 'crear')
-					<button wire:click="create" class="form-control btn btn-primary">Guardar</button>
+					<button wire:click="createCarga" class="form-control btn btn-primary">Guardar</button>
 				@else
 					<button wire:click="update" class="form-control btn btn-primary">Editar</button>
 				@endif
@@ -32,7 +32,7 @@
 		</div>
 
     {{-- Modal continuar agregar carga familiar --}}
-    <x-modal id="nueva-carga" titulo="Agregar Carga a Socio" wireClick=cargarFormCarga boton="Si" coleccion=""/>
+    <x-modal id="nuevo-parentesco" titulo="Nuevo Parentesco" wireClick=cargarFormParentesco boton="Guardar" coleccion=""/>
 
 </div>
 

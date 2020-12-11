@@ -33,7 +33,10 @@
 						@break
 						@case('desvincular')
                             @include('components.partials.forms._desvincular', ['estados' => $coleccion])
-                        @break
+						@break
+						@case('nuevo-parentesco')
+                            @include('components.partials.forms._parentesco')
+                        @break						
 						@case('nueva-carga')
                             <div class="alert alert-success" role="alert">
                                 <h4 class="alert-heading"><i class="far fa-smile-beam"></i> ¡Socio Incorporado!</h4>

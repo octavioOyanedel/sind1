@@ -1,0 +1,1 @@
+<x-input-modal id="nuevo_parentesco" type="text" label="Parentesco" placeholder="Ej.: Padre" wireModel="nuevo_parentesco" required="si"/>

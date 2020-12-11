@@ -71,7 +71,7 @@
 </div>
 
     {{-- Modal continuar agregar carga familiar --}}
-    <x-modal id="nueva-carga" titulo="Agregar Carga a Socio" wireClick="cargarFormCreateCarga" boton="Si" coleccion=""/>
+    <x-modal id="nueva-carga" titulo="Aviso" wireClick="cargarFormCreateCarga" boton="Si" coleccion=""/>
 
 @push('scripts')
     <script type="text/javascript">
