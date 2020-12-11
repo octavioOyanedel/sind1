@@ -166,67 +166,131 @@ class Socios extends Component
      * MÉTODOS DE CARGAS
      */
     // Carga de objetos
-    public function cargarObjetoSocio()
+    public function cargarObjetoSocio(Socio $socio)
     {
-        //
+        $this->objeto_socio = $socio;
     }
 
-    public function cargarObjetoCarga()
+    public function cargarObjetoCarga(Carga $carga)
     {
-        //
+        $this->objeto_carga = $carga;
     }
 
-    public function cargarObjetoEstudio()
+    public function cargarObjetoEstudio(Estudio $estudio)
     {
-        //
+        $this->objeto_estudio = $estudio;
     }    
+
     // Carga de formularios
     // Socios ***********************************************************************
     public function cargarFormCrearSocio()
     {
-        //
+        $this->forms = "_form_socio";
+        $this->titulo_form = "Incorporar Socio";
+        $this->boton = "crear";
     }
 
     public function cargarFormEditarSocio(Socio $socio)
     {
-        //
+        $this->cargarObjetoSocio($socio);
+        $this->forms = "_form_socio";
+        $this->titulo_form = "Editar Socio";
+        $this->boton = "editar";
     }
 
     public function cargarFormBuscarSocio()
     {
-        //
+        $this->forms = "_buscar_socio";
+        $this->titulo_form = "Buscar Socio/s";
     }
 
     // Cargas ***********************************************************************
     public function cargarFormCrearCarga()
     {
-        //
+        $this->forms = "_form_carga";
+        $this->titulo_form = "Agregar Carga Familiar";
+        $this->boton = "crear";
     }
 
     public function cargarFormEditarCarga(Carga $carga)
     {
-        //
+        $this->cargarObjetoCarga($carga);
+        $this->forms = "_form_carga";
+        $this->titulo_form = "Editar Carga Familiar";
+        $this->boton = "editar";
+
     }
 
     public function cargarFormBuscarCarga()
     {
-        //
+        $this->forms = "_buscar_carga";
+        $this->titulo_form = "Buscar Carga/s";
     }
 
     // Estudios *********************************************************************
     public function cargarFormCrearEstudio()
     {
-        //
+        $this->forms = "_form_estudio";
+        $this->titulo_form = "Agregar Estudio";
+        $this->boton = "crear";
     }
 
     public function cargarFormEditarEstudio(Estudio $estudio)
     {
-        //
+        $this->cargarObjetoEstudio($estudio);
+        $this->forms = "_form_estudio";
+        $this->titulo_form = "Editar Estudio";
+        $this->boton = "editar";
     }
 
     public function cargarFormBuscarEstudio()
     {
-        //
+        $this->forms = "_buscar_estudio";
+        $this->titulo_form = "Buscar Estudio/s";
+    }
+
+    // Poblar formularios de edición
+    // Socios ***********************************************************************
+    public function poblarFormEditarSocio(Socio $socio)
+    {
+        $this->socio_nombre1 = $socio->nombre1;
+        $this->socio_nombre2 = $socio->nombre2;
+        $this->socio_apellido1 = $socio->apellido1;
+        $this->socio_apellido2 = $socio->apellido2;
+        $this->socio_rut = $socio->rut;
+        $this->socio_genero = $socio->genero;
+        $this->socio_fecha_nac = $socio->fecha_nac;
+        $this->socio_contacto = $socio->contacto;
+        $this->socio_correo = $socio->correo;
+        $this->socio_direccion = $socio->direccion;
+        $this->socio_fecha_sind1 = $socio->fecha_sind1;
+        $this->socio_numero = $socio->numero;
+        $this->socio_anexo = $socio->anexo;
+        $this->socio_fecha_pucv = $socio->fecha_pucv;
+        $this->socio_distrito_id = $socio->distrito_id;
+        $this->socio_provincia_id = $socio->provincia_id;
+        $this->socio_comuna_id = $socio->comuna_id;
+        $this->socio_cargo_id = $socio->cargo_id;
+        $this->socio_sede_id = $socio->sede_id;
+        $this->socio_area_id = $socio->area_id;
+        $this->socio_nacion_socio_id = $socio->nacion_socio_id;        
+    }    
+    // Cargas ***********************************************************************
+    public function poblarFormEditarCarga(Carga $carga)
+    {
+        $this->carga_nombre1 = $carga->nombre1;
+        $this->carga_nombre2 = $carga->nombre2;
+        $this->carga_apellido1 = $carga->apellido1;
+        $this->carga_apellido2 = $carga->apellido2;
+        $this->carga_rut = $carga->rut;
+        $this->carga_fecha = $carga->fecha;
+        $this->carga_parentesco_id = $carga->parentesco_id;
+        $this->carga_socio_id = $carga->socio_id;        
+    }
+    // Estudios **********************************************************************
+    public function poblarFormEditarEstudio(Estudio $estudio)
+    {
+        
     }
 
     // Carga de tablas
