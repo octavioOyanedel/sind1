@@ -105,22 +105,22 @@ class Socios extends Component
     public $busqueda_estudio = NULL;
     // Nuevos registros
     // Socio ************************************************************************
-    public $nueva_region;
-    public $nueva_provincia;
-    public $nueva_comuna;
-    public $nueva_sede;
-    public $nueva_area;
-    public $nuevo_cargo;
-    public $nueva_nacion;
-    public $nueva_region_modal;
-    public $nueva_provincia_modal;
-    public $nueva_sede_modal;
+    public $nueva_region = NULL;
+    public $nueva_provincia = NULL;
+    public $nueva_comuna = NULL;
+    public $nueva_sede = NULL;
+    public $nueva_area = NULL;
+    public $nuevo_cargo = NULL;
+    public $nueva_nacion = NULL;
+    public $nueva_region_modal = NULL;
+    public $nueva_provincia_modal = NULL;
+    public $nueva_sede_modal = NULL;
     // Carga ************************************************************************
-    public $nuevo_parentesco;
+    public $nuevo_parentesco = NULL;
     // Estudio **********************************************************************
-    public $nuevo_grado;
-    public $nuevo_establecimiento;
-    public $nuevo_estado_estudio;
+    public $nuevo_grado = NULL;
+    public $nuevo_establecimiento = NULL;
+    public $nuevo_estado_estudio = NULL;
 
     /**
      * Render clase livewire
@@ -159,9 +159,9 @@ class Socios extends Component
         }
     	if (!empty($this->estudio_grado_id)) {
     		$this->establecimientos = Establecimiento::where('grado_id', $this->estudio_grado_id)->get();
-        }        
-    }    
-    
+        }
+    }
+
     /**
      * MÉTODOS DE CARGAS
      */
@@ -179,7 +179,7 @@ class Socios extends Component
     public function cargarObjetoEstudio(Estudio $estudio)
     {
         $this->objeto_estudio = $estudio;
-    }    
+    }
 
     // Carga de formularios
     // Socios ***********************************************************************
@@ -273,8 +273,8 @@ class Socios extends Component
         $this->socio_cargo_id = $socio->cargo_id;
         $this->socio_sede_id = $socio->sede_id;
         $this->socio_area_id = $socio->area_id;
-        $this->socio_nacion_socio_id = $socio->nacion_socio_id;        
-    }    
+        $this->socio_nacion_socio_id = $socio->nacion_socio_id;
+    }
     // Cargas ***********************************************************************
     public function poblarFormEditarCarga(Carga $carga)
     {
@@ -285,76 +285,139 @@ class Socios extends Component
         $this->carga_rut = $carga->rut;
         $this->carga_fecha = $carga->fecha;
         $this->carga_parentesco_id = $carga->parentesco_id;
-        $this->carga_socio_id = $carga->socio_id;        
+        $this->carga_socio_id = $carga->socio_id;
     }
     // Estudios **********************************************************************
     public function poblarFormEditarEstudio(Estudio $estudio)
     {
-        
+        $this->estudio_grado_id = $estudio->grado_id;
+        $this->estudio_establecimiento_id = $estudio->establecimiento_id;
+        $this->estudio_estado_estudio_id = $estudio->estado_estudio_id;
+        $this->estudio_socio_id = $estudio->estado_estudio_id;
     }
 
     // Carga de tablas
     // Socios ***********************************************************************
     public function cargarTablaMostrarSocio(Socio $socio)
     {
-        //
+        $this->cargarObjetoSocio($socio);
+        $this->tablas = "_ver_socio";
+        $this->titulo_tabla = "Info. de Socios";
     }
 
     public function cargarTablaListarSocio()
     {
-        //
+        $this->tablas = "_listar_socios";
+        $this->titulo_tabla = "Listado de Socios";
     }
 
     public function cargarTablaResultadosSocio()
     {
-        //
+        $this->tablas = "_resultados_busqueda_socio";
+        $this->titulo_tabla = "Listado de Socios";
     }
 
     // Cargas ***********************************************************************
     public function cargarTablaMostrarCarga(Carga $carga)
     {
-        //
+        $this->cargarObjetoCarga($carga);
+        $this->tablas = "_ver_carga";
+        $this->titulo_tabla = "Info. de Carga Familiar";
     }
 
     public function cargarTablaListarCarga()
     {
-        //
+        $this->tablas = "_listar_cargas";
+        $this->titulo_tabla = "Listado de Cargas Familiares";
     }
 
     public function cargarTablaResultadosCarga()
     {
-        //
+        $this->tablas = "_resultados_busqueda_carga";
+        $this->titulo_tabla = "Listado de Cargas Familiares";
     }
 
     // Estudios **********************************************************************
     public function cargarTablaMostrarEstudio(Estudio $estudio)
     {
-        //
+        $this->cargarObjetoEstudio($estudio);
+        $this->tablas = "_ver_estudio";
+        $this->titulo_tabla = "Info. de Estudio Realizado";
     }
 
     public function cargarTablaListarEstudio()
     {
-        //
+        $this->tablas = "_listar_estudios";
+        $this->titulo_tabla = "Listado de Estudios Realizados";
     }
 
     public function cargarTablaResultadosEstudio()
     {
-        //
+        $this->tablas = "_resultados_busqueda_estudio";
+        $this->titulo_tabla = "Listado de Estudios Realizados";
     }
-    
+
     /**
      * MÉTODOS  CRUD + BUSCAR
      */
     // Socios **********************************************************************
     public function crearSocio()
     {
-        //
+        // Variables livewire
+        $this->validate([
+            'socio_nombre1' => ['required', new NombreRule],
+            'socio_nombre2' => ['nullable', new NombreRule],
+            'socio_apellido1' => ['required', new NombreRule],
+            'socio_apellido2' => ['nullable', new NombreRule],
+            'socio_rut' => ['required',  new RutRule, 'alpha_num', 'max:9', 'unique:socios,rut'],
+            'socio_genero' => ['required', 'alpha'],
+            'socio_fecha_nac' => ['nullable', 'date'],
+            'socio_contacto' => ['nullable', 'numeric'],
+            'socio_correo' => ['nullable', 'email', 'unique:socios,correo'],
+            'socio_direccion' => ['nullable', new DireccionRule],
+            'socio_fecha_sind1' => ['nullable', 'date'],
+            'socio_numero' => ['required', 'numeric', 'unique:socios,numero'],
+            'socio_anexo' => ['nullable', 'numeric'],
+            'socio_fecha_pucv' => ['nullable', 'date'],
+            'socio_distrito_id' => ['nullable'],
+            'socio_provincia_id' => ['nullable'],
+            'socio_comuna_id' => ['nullable'],
+            'socio_cargo_id' => ['nullable'],
+            'socio_sede_id' => ['nullable'],
+            'socio_area_id' => ['nullable'],
+            'socio_nacion_socio_id' => ['nullable'],
+        ]);
+        // Campos de base de datos => valiables livewire
+        $objeto = Socio::create([
+            'rut' => $this->socio_rut,
+            'numero' => $this->socio_numero,
+            'nombre1' => $this->socio_nombre1,
+            'nombre2' => $this->socio_nombre2,
+            'apellido1' => $this->socio_apellido1,
+            'apellido2' => $this->socio_apellido2,
+            'genero' => $this->socio_genero,
+            'fecha_nac' => $this->socio_fecha_nac,
+            'contacto' => $this->socio_contacto,
+            'correo' => $this->socio_correo,
+            'fecha_pucv' => $this->socio_fecha_pucv,
+            'anexo' => $this->socio_anexo,
+            'fecha_sind1' => $this->socio_fecha_sind1,
+            'distrito_id' => $this->socio_distrito_id,
+            'provincia_id' => $this->socio_provincia_id,
+            'comuna_id' => $this->socio_comuna_id,
+            'sede_id' => $this->socio_sede_id,
+            'area_id' => $this->socio_area_id,
+            'cargo_id' => $this->socio_cargo_id,
+            'nacion_socio_id' => $this->socio_nacion_socio_id,
+        ]);
+        $this->resetFormSocio();
+        $this->cargarTablaMostrarSocio($objeto);
     }
 
     public function editarSocio()
     {
         //
-    }    
+    }
 
     public function eliminarSocio()
     {
@@ -364,17 +427,40 @@ class Socios extends Component
     public function BuscarSocioUnica()
     {
         //
-    }      
+    }
 
     public function BuscarSocioMasiva()
     {
         //
-    }   
+    }
 
     // Cargas **********************************************************************
     public function crearCarga()
     {
-        //
+        // Variables livewire
+        $this->validate([
+            'carga_nombre1' => ['required', new NombreRule],
+            'carga_nombre2' => ['nullable', new NombreRule],
+            'carga_apellido1' => ['required', new NombreRule],
+            'carga_apellido2' => ['nullable', new NombreRule],
+            'carga_rut' => ['required',  new RutRule, 'alpha_num', 'max:9', 'unique:cargas,rut'],
+            'carga_fecha' => ['required', 'date'],
+            'carga_parentesco_id' => ['required'],
+            'carga_socio_id' => ['required'],
+        ]);
+        // Campos de base de datos => valiables livewire
+        $objeto = Carga::create([
+            'nombre1' => $this->carga_nombre1,
+            'nombre2' => $this->carga_nombre2,
+            'apellido1' => $this->carga_apellido1,
+            'apellido2' => $this->carga_apellido2,
+            'rut' => $this->carga_rut,
+            'fecha' => $this->carga_fecha,
+            'parentesco_id' => $this->carga_patentesco_id,
+            'socio_id' => $this->carga_socio_id,
+        ]);
+        $this->resetFormCarga();
+        $this->cargarTablaMostrarCarga($objeto);
     }
 
     public function editarCarga()
@@ -390,75 +476,140 @@ class Socios extends Component
     public function BuscarCargaUnica()
     {
         //
-    }      
+    }
 
     public function BuscarCargaMasiva()
     {
         //
-    }   
+    }
 
     // Estudios **********************************************************************
     public function crearEstudio()
     {
-        //
+        // Variables livewire
+        $this->validate([
+            'estudio_grado_id' => ['required'],
+            'estudio_establecimiento_id' => ['required'],
+            'estudio_estado_estudio_id' => ['required'],
+            'estudio_socio_id' => ['required'],
+        ]);
+        // Campos de base de datos => valiables livewire
+        $objeto = Estudio::create([
+            'grado_id' => $this->estudio_grado_id,
+            'establecimiento_id' => $this->estudio_establecimiento_id,
+            'estado_estudio_id' => $this->estudio_estado_estudio_id,
+            'socio_id' => $this->estudio_socio_id,
+        ]);
+        $this->resetFormEstudio();
+        $this->cargarTablaMostrarEstudio($objeto);
     }
 
     public function editarEstudio()
     {
         //
     }
-    
+
     public function eliminarEstudio()
     {
         //
     }
-    
+
     public function BuscarEstudioUnica()
     {
         //
-    }      
+    }
 
     public function BuscarEstudioMasiva()
     {
         //
-    }  
-    
+    }
+
     /**
      * VERIFICACIÓN DE CAMBIOS AL EDITAR
      */
     // Socios **********************************************************************
     public function edicionSocios($socio)
     {
-        //
+        unset($socio['id']);
+        unset($socio['estado_socio_id']);
+        unset($socio['deleted_at']);
+        unset($socio['created_at']);
+        unset($socio['updated_at']);
+        $nuevos_datos = $this->crearArregloEdicionSocio();
+        return count(array_diff_assoc($socio,$nuevos_datos));
     }
 
     public function crearArregloEdicionSocio()
     {
-        //
+        return array(
+            'nombre1' => $this->socio_nombre1,
+            'nombre2' => $this->socio_nombre2,
+            'apellido1' => $this->socio_apellido1,
+            'apellido2' => $this->socio_apellido2,
+            'rut' => $this->socio_rut,
+            'genero' => $this->socio_genero,
+            'fecha_nac' => $this->socio_fecha_nac,
+            'contacto' => $this->socio_contacto,
+            'correo' => $this->socio_correo,
+            'direccion' => $this->socio_direccion,
+            'fecha_sind1' => $this->socio_fecha_sind1,
+            'numero' => $this->socio_numero,
+            'anexo' => $this->socio_anexo,
+            'fecha_pucv' => $this->socio_fecha_pucv,
+            'distrito_id' => $this->socio_distrito_id,
+            'provincia_id' => $this->socio_provincia_id,
+            'comuna_id' => $this->socio_comuna_id,
+            'cargo_id' => $this->socio_cargo_id,
+            'sede_id' => $this->socio_sede_id,
+            'area_id' => $this->socio_area_id,
+            'nacion_socio_id' => $this->socio_nacion_socio_id,
+        );
     }
 
     // Cargas **********************************************************************
     public function edicionCarga($carga)
     {
-        //
+        unset($carga['id']);
+        unset($carga['created_at']);
+        unset($carga['updated_at']);
+        $nuevos_datos = $this->crearArregloEdicionCarga();
+        return count(array_diff_assoc($carga,$nuevos_datos));
     }
 
     public function crearArregloEdicionCarga()
     {
-        //
+        return array(
+            'nombre1' => $this->carga_nombre1,
+            'nombre2' => $this->carga_nombre2,
+            'apellido1' => $this->carga_apellido1,
+            'apellido2' => $this->carga_apellido2,
+            'rut' => $this->carga_rut,
+            'fecha' => $this->carga_fecha,
+            'parentesco_id' => $this->carga_patentesco_id,
+            'socio_id' => $this->carga_socio_id,
+        );
     }
 
     // Estudio *********************************************************************
     public function edicionEstudio($estudio)
     {
-        //
+        unset($estudio['id']);
+        unset($estudio['created_at']);
+        unset($estudio['updated_at']);
+        $nuevos_datos = $this->crearArregloEdicionEstudio();
+        return count(array_diff_assoc($estudio,$nuevos_datos));
     }
 
     public function crearArregloEdicionEstudio()
     {
-        //
+        return array(
+            'grado_id' => $this->estudio_grado_id,
+            'establecimiento_id' => $this->estudio_establecimiento_id,
+            'estado_estudio_id' => $this->estudio_estado_estudio_id,
+            'socio_id' => $this->estudio_socio_id,
+        );
     }
-    
+
     /**
      * VALIDACIÓN DE FORMULARIOS BUSCAR
      */
@@ -466,23 +617,23 @@ class Socios extends Component
     public function validarBusquedaUnicaSocio()
     {
         //
-    }  
+    }
 
     public function validarBusquedaMasivaSocio()
     {
         //
-    }  
+    }
 
     // Carga **********************************************************************
     public function validarBusquedaUnicaCarga()
     {
         //
-    }  
+    }
 
     public function validarBusquedaMasivaCarga()
     {
         //
-    }  
+    }
 
     // Estudio ********************************************************************
     public function validarBusquedaUnicaEstudio()
@@ -498,7 +649,7 @@ class Socios extends Component
     /**
      * NUEVOS REGISTROS
      */
-    // Socio ********************************************************************** 
+    // Socio **********************************************************************
     public function nuevaRegion()
     {
         $this->validate([
@@ -601,9 +752,9 @@ class Socios extends Component
 
         $this->emit('cerrar_modal');
         $this->emit('alerta_ok', 'Nacionalidad Agregada.');
-    }   
+    }
 
-    // Carga ********************************************************************** 
+    // Carga **********************************************************************
     public function nuevoParentesco()
     {
         $this->validate([
@@ -616,7 +767,7 @@ class Socios extends Component
 
         $this->emit('cerrar_modal');
         $this->emit('alerta_ok', 'Parentesco Agregado.');
-    }   
+    }
 
     // Estudios *******************************************************************
     public function nuevoGrado()
@@ -631,7 +782,7 @@ class Socios extends Component
 
         $this->emit('cerrar_modal');
         $this->emit('alerta_ok', 'Grado Académico Agregado.');
-    }   
+    }
 
     public function nuevoEstablecimiento()
     {
@@ -647,7 +798,7 @@ class Socios extends Component
 
         $this->emit('cerrar_modal');
         $this->emit('alerta_ok', 'Establecimiento Agregado.');
-    }   
+    }
 
     public function nuevoEstado()
     {
@@ -661,10 +812,10 @@ class Socios extends Component
 
         $this->emit('cerrar_modal');
         $this->emit('alerta_ok', 'Estado Estudio Agregado.');
-    }   
+    }
 
     /**
-     * RESET FORMS 
+     * RESET FORMS
      */
     // Socio **********************************************************************
     public function resetFormSocio()
@@ -706,12 +857,12 @@ class Socios extends Component
         $this->carga_socio_id = NULL;
     }
 
-    // Estudio ******************************************************************** 
+    // Estudio ********************************************************************
     public function resetFormEstudio()
     {
         $this->estudio_grado_id = NULL;
         $this->estudio_establecimiento_id = NULL;
         $this->estudio_estado_estudio_id = NULL;
         $this->estudio_socio_id  = NULL;
-    }    
+    }
 }
