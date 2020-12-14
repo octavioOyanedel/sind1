@@ -10,4 +10,12 @@ class Carga extends Model
     use HasFactory;
 
     protected $guarded = [];
+
+    /**
+     * RELACIONES
+     */
+    public function parentesco()
+    {
+        return $this->belongsTo('App\Models\Parentesco');
+    }       
 }
