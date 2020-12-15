@@ -62,7 +62,7 @@ class Socios extends Component
     // Módulo resultados búsquedas masivas *****************************************
     public $resultados_busqueda_socio = [];
     public $resultados_busqueda_carga = [];
-    public $resultados_busqueda_estudio = [];    
+    public $resultados_busqueda_estudio = [];
     // Variables 2way
     // Módulo socios ***************************************************************
     public $socio_nombre1 = NULL;
@@ -640,7 +640,7 @@ class Socios extends Component
             'socio_id' => $this->estudio_socio_id,
         ]);
         $this->resetFormEstudio();
-        $this->cargarTablaMostrarEstudio($objeto);        
+        $this->cargarTablaMostrarEstudio($objeto);
     }
 
     public function editarEstudio()
@@ -669,20 +669,16 @@ class Socios extends Component
 
     public function BuscarEstudioUnico()
     {
-        $this->resultados_busqueda_estudio = Estudio::with(['grado','establecimiento','estadoEstudio'])->orderBy('apellido1','ASC')
-        //->nombres($nombre, $apellido)
-        ->general($this->busqueda_carga, 'id')
-        ->general($this->busqueda_carga, 'nombre1')
-        ->general($this->busqueda_carga, 'nombre2')
-        ->general($this->busqueda_carga, 'apellido1')
-        ->general($this->busqueda_carga, 'apellido2')
-        ->general($this->busqueda_carga, 'rut')
-        ->get();
+        // No aplíca
     }
 
     public function BuscarEstudioMasivo()
     {
-        //
+        $this->resultados_busqueda_estudio = Estudio::with(['grado','establecimiento','estadoEstudio'])->orderBy('id','ASC')
+        ->generalAnd($this->estudio_grado_id, 'grado_id')
+        ->generalAnd($this->estudio_establecimiento_id, 'establecimiento_id')
+        ->generalAnd($this->estudio_estado_estudio_id, 'estado_estudio_id')
+        ->get();
     }
 
     /**
@@ -1040,6 +1036,29 @@ class Socios extends Component
         $this->socio_nacion_socio_id = NULL;
     }
 
+    public function resetFormBusquedaUnicaSocio()
+    {
+        $this->busqueda_socio = NULL;
+    }
+
+    public function resetFormBusquedaMasivaSocio()
+    {
+        $this->buscar_socio_fecha_nac_ini = NULL;
+        $this->buscar_socio_fecha_nac_fin = NULL;
+        $this->buscar_socio_fecha_sind1_ini = NULL;
+        $this->buscar_socio_fecha_sind1_fin = NULL;
+        $this->buscar_socio_fecha_pucv_ini = NULL;
+        $this->buscar_socio_fecha_pucv_fin = NULL;
+        $this->buscar_socio_genero = NULL;
+        $this->buscar_socio_distrito_id = NULL;
+        $this->buscar_socio_provincia_id = NULL;
+        $this->buscar_socio_comuna_id = NULL;
+        $this->buscar_socio_sede_id = NULL;
+        $this->buscar_socio_area_id = NULL;
+        $this->buscar_socio_cargo_id = NULL;
+        $this->buscar_socio_nacion_socio_id = NULL;
+    }
+
     // Carga **********************************************************************
     public function resetFormCarga()
     {
@@ -1053,6 +1072,18 @@ class Socios extends Component
         $this->carga_socio_id = NULL;
     }
 
+    public function resetFormBusquedaUnicaCarga()
+    {
+        $this->busqueda_carga = NULL;
+    }
+
+    public function resetFormBusquedaMasivaCarga()
+    {
+        $this->buscar_carga_fecha_nac_ini = NULL;
+        $this->buscar_carga_fecha_nac_fin = NULL;
+        $this->buscar_carga_parentesco_id = NULL;
+    }
+
     // Estudio ********************************************************************
     public function resetFormEstudio()
     {
@@ -1060,5 +1091,17 @@ class Socios extends Component
         $this->estudio_establecimiento_id = NULL;
         $this->estudio_estado_estudio_id = NULL;
         $this->estudio_socio_id  = NULL;
+    }
+
+    public function resetFormBusquedaUnicaEstudio()
+    {
+        $this->busqueda_estudio = NULL;
+    }
+
+    public function resetFormBusquedaMasivaEstudio()
+    {
+        $this->buscar_estudio_grado_id = NULL;
+        $this->buscar_estudio_establecimiento_id = NULL;
+        $this->buscar_estudio_estado_estudio_id = NULL;
     }
 }
