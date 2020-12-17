@@ -89,7 +89,10 @@ function imprimirRelacion($objeto)
  */
 function fechaYmdAdmy($fecha)
 {
-    return date('d-m-Y', strtotime($fecha));
+    if($fecha){
+        return date('d-m-Y', strtotime($fecha));
+    }
+
 }
 
 /**

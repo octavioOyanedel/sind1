@@ -221,6 +221,7 @@ class Socios extends Component
     public function cargarFormEditarSocio(Socio $socio)
     {
         $this->cargarObjetoSocio($socio);
+        $this->poblarFormEditarSocio($this->objeto_socio);
         $this->forms = "_form_socio";
         $this->titulo_form = "Editar Socio";
         $this->boton = "editar";
@@ -444,53 +445,64 @@ class Socios extends Component
 
     public function editarSocio()
     {
-        // Variables livewire
-        $this->validate([
-            'socio_nombre1' => ['required', new NombreRule],
-            'socio_nombre2' => ['nullable', new NombreRule],
-            'socio_apellido1' => ['required', new NombreRule],
-            'socio_apellido2' => ['nullable', new NombreRule],
-            'socio_rut' => ['required',  new RutRule, 'alpha_num', 'max:9', Rule::unique('socios')->ignore($this->objeto_socio)],
-            'socio_genero' => ['required', 'alpha'],
-            'socio_fecha_nac' => ['nullable', 'date'],
-            'socio_contacto' => ['nullable', 'numeric'],
-            'socio_correo' => ['nullable', 'email', Rule::unique('socios')->ignore($this->objeto_socio)],
-            'socio_direccion' => ['nullable', new DireccionRule],
-            'socio_fecha_sind1' => ['nullable', 'date'],
-            'socio_numero' => ['required', 'numeric', Rule::unique('socios')->ignore($this->objeto_socio)],
-            'socio_anexo' => ['nullable', 'numeric'],
-            'socio_fecha_pucv' => ['nullable', 'date'],
-            'socio_distrito_id' => ['nullable'],
-            'socio_provincia_id' => ['nullable'],
-            'socio_comuna_id' => ['nullable'],
-            'socio_cargo_id' => ['nullable'],
-            'socio_sede_id' => ['nullable'],
-            'socio_area_id' => ['nullable'],
-            'socio_nacion_socio_id' => ['nullable'],
-        ]);
-        // Campos de base de datos => valiables livewire
-        $this->objeto_socio->update([
-            'rut' => $this->socio_rut,
-            'numero' => $this->socio_numero,
-            'nombre1' => $this->socio_nombre1,
-            'nombre2' => $this->socio_nombre2,
-            'apellido1' => $this->socio_apellido1,
-            'apellido2' => $this->socio_apellido2,
-            'genero' => $this->socio_genero,
-            'fecha_nac' => $this->socio_fecha_nac,
-            'contacto' => $this->socio_contacto,
-            'correo' => $this->socio_correo,
-            'fecha_pucv' => $this->socio_fecha_pucv,
-            'anexo' => $this->socio_anexo,
-            'fecha_sind1' => $this->socio_fecha_sind1,
-            'distrito_id' => $this->socio_distrito_id,
-            'provincia_id' => $this->socio_provincia_id,
-            'comuna_id' => $this->socio_comuna_id,
-            'sede_id' => $this->socio_sede_id,
-            'area_id' => $this->socio_area_id,
-            'cargo_id' => $this->socio_cargo_id,
-            'nacion_socio_id' => $this->socio_nacion_socio_id,
-        ]);
+        //dd($this->edicionSocios($this->objeto_socio->toArray()));
+
+        if($this->edicionSocios($this->objeto_socio->toArray()) > 0){
+            // Variables livewire
+            $this->validate([
+                'socio_nombre1' => ['required', new NombreRule],
+                'socio_nombre2' => ['nullable', new NombreRule],
+                'socio_apellido1' => ['required', new NombreRule],
+                'socio_apellido2' => ['nullable', new NombreRule],
+                'socio_rut' => ['required',  new RutRule, 'alpha_num', 'max:9', Rule::unique('socios','rut')->ignore($this->objeto_socio)],
+                'socio_genero' => ['required', 'alpha'],
+                'socio_fecha_nac' => ['nullable', 'date'],
+                'socio_contacto' => ['nullable', 'numeric'],
+                'socio_correo' => ['nullable', 'email', Rule::unique('socios','correo')->ignore($this->objeto_socio)],
+                'socio_direccion' => ['nullable', new DireccionRule],
+                'socio_fecha_sind1' => ['nullable', 'date'],
+                'socio_numero' => ['required', 'numeric', Rule::unique('socios','numero')->ignore($this->objeto_socio)],
+                'socio_anexo' => ['nullable', 'numeric'],
+                'socio_fecha_pucv' => ['nullable', 'date'],
+                'socio_distrito_id' => ['nullable'],
+                'socio_provincia_id' => ['nullable'],
+                'socio_comuna_id' => ['nullable'],
+                'socio_cargo_id' => ['nullable'],
+                'socio_sede_id' => ['nullable'],
+                'socio_area_id' => ['nullable'],
+                'socio_nacion_socio_id' => ['nullable'],
+            ]);
+
+            // Campos de base de datos => valiables livewire
+            $this->objeto_socio->update([
+                'rut' => $this->socio_rut,
+                'numero' => $this->socio_numero,
+                'nombre1' => $this->socio_nombre1,
+                'nombre2' => $this->socio_nombre2,
+                'apellido1' => $this->socio_apellido1,
+                'apellido2' => $this->socio_apellido2,
+                'genero' => $this->socio_genero,
+                'fecha_nac' => $this->socio_fecha_nac,
+                'contacto' => $this->socio_contacto,
+                'correo' => $this->socio_correo,
+                'fecha_pucv' => $this->socio_fecha_pucv,
+                'anexo' => $this->socio_anexo,
+                'fecha_sind1' => $this->socio_fecha_sind1,
+                'distrito_id' => $this->socio_distrito_id,
+                'provincia_id' => $this->socio_provincia_id,
+                'comuna_id' => $this->socio_comuna_id,
+                'sede_id' => $this->socio_sede_id,
+                'area_id' => $this->socio_area_id,
+                'cargo_id' => $this->socio_cargo_id,
+                'nacion_socio_id' => $this->socio_nacion_socio_id,
+            ]);
+            //$this->resetFormSocio();
+            $this->cargarFormCrearSocio();
+            $this->cargarTablaMostrarSocio($this->objeto_socio);
+            $this->emit('alerta_ok', 'Socio Editado.');
+        }else{
+            $this->emit('alerta_info', 'No se han hecho modificaciones en formulario.');
+        }
     }
 
     public function eliminarSocio()
