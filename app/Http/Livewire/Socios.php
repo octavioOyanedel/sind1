@@ -37,7 +37,7 @@ class Socios extends Component
     public $forms = "_form_socio";
     public $titulo_form = "Incorporar Socio";
     public $boton = "crear";
-    public $tablas = "_listar_socio";
+    public $tablas = "_listar_socios";
     public $titulo_tabla = "Listado de Socios";
     // Objetos socio, carga y estudio ***********************************************
     public $objeto_socio = NULL;
@@ -445,6 +445,7 @@ class Socios extends Component
             'distrito_id' => $this->socio_distrito_id,
             'provincia_id' => $this->socio_provincia_id,
             'comuna_id' => $this->socio_comuna_id,
+            'direccion' => $this->socio_direccion,
             'sede_id' => $this->socio_sede_id,
             'area_id' => $this->socio_area_id,
             'cargo_id' => $this->socio_cargo_id,
@@ -502,6 +503,7 @@ class Socios extends Component
                 'distrito_id' => $this->socio_distrito_id,
                 'provincia_id' => $this->socio_provincia_id,
                 'comuna_id' => $this->socio_comuna_id,
+                'direccion' => $this->socio_direccion,
                 'sede_id' => $this->socio_sede_id,
                 'area_id' => $this->socio_area_id,
                 'cargo_id' => $this->socio_cargo_id,

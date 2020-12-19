@@ -4,7 +4,7 @@
             @if (count($resultados_busqueda_socio) > 0)
                 <span class="text-primary"> >> <strong>{{ count($resultados_busqueda_socio) }}</strong></span>
             @endif
-            <a wire:click="cargarTablaListar" class="float-right text-dark" href="#" title="Listar Socios">
+            <a wire:click="cargarTablaListarSocio" class="float-right text-dark" href="#" title="Listar Socios">
                 <i class="fas fa-list"></i>
             </a>             
         </span>

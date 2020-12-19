@@ -1,20 +1,24 @@
 <div class="card">
 	<div class="card-header">
 		<span class="mb-0">Info Socio
-            <a wire:click="cargarTablaListar" class="float-right text-dark" href="#" title="Listar Socios">
+            <a wire:click="cargarTablaListarSocio" class="float-right text-dark" href="#" title="Listar Socios">
                 <i class="fas fa-list"></i>
             </a>
-            <a wire:click="cargarFormEdit({{$objeto_socio->id}})" class="float-right text-primary mr-4" href="#" title="Editar Socio">
+            <a wire:click="cargarFormEditarSocio({{$objeto_socio->id}})" class="float-right text-primary mr-4" href="#" title="Editar Socio">
                 <i class="fas fa-user-edit"></i>
             </a>
             @if ($flag_busqueda != NULL)
                 @if ($flag_busqueda === 'unica')
-                    <a wire:click="busquedaUnica" class="float-right text-success mr-4" href="#" title="Volver a Resultados.">
-                        <i class="fas fa-chevron-circle-left"></i>
+                    <a wire:click="busquedaUnicaSocio" class="float-right text-success mr-4" href="#" title="Volver a Resultados.">
+                        @if (count($resultados_busqueda_socio) > 0)
+                            <span class="text-primary"> << <strong>{{ count($resultados_busqueda_socio) }}</strong></span>
+                        @endif
                     </a>
                 @else
-                    <a wire:click="busquedaMasiva" class="float-right text-success mr-4" href="#" title="Volver a Resultados.">
-                        <i class="fas fa-chevron-circle-left"></i>
+                    <a wire:click="busquedaMasivaSocio" class="float-right text-success mr-4" href="#" title="Volver a Resultados.">
+                        @if (count($resultados_busqueda_socio) > 0)
+                            <span class="text-primary"> << <strong>{{ count($resultados_busqueda_socio) }}</strong></span>
+                        @endif
                     </a>
                 @endif
             @endif
