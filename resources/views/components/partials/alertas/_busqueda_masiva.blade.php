@@ -1,0 +1,1 @@
+Puedes intentarlo nuevamente seleccionando una combinación distinta de criterios.

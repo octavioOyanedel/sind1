@@ -1,7 +1,7 @@
 <div class="card">
     <div class="card-header">
         <span class="mb-0">{{$titulo_form}}
-            <a wire:click="cargarFormBuscar" class="float-right text-success" href="#" title="Buscar Socio">
+            <a wire:click="cargarFormBuscarSocio" class="float-right text-success" href="#" title="Buscar Socio">
                 <i class="fas fa-search"></i>
             </a>
         </span>

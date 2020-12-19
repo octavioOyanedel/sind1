@@ -102,7 +102,7 @@ class Socios extends Component
     public $estudio_estado_estudio_id = NULL;
     public $estudio_socio_id  = NULL;
     // Flag búsqueda, permite direrenciar entre búsqueda única y masiva
-    public $flag_busqueda;
+    public $flag_busqueda = NULL;
     // Búsquedas unicas
     public $busqueda_socio = NULL;
     public $busqueda_carga = NULL;
@@ -176,9 +176,10 @@ class Socios extends Component
         $this->establecimientos = Establecimiento::orderBy('nombre', 'ASC')->get();
 
         // Obtención de elementos anidados para poblar selects
+        // Form crear, editar
     	if (!empty($this->socio_distrito_id)) {
     		$this->provincias = Provincia::where('distrito_id', $this->socio_distrito_id)->get();
-    	}
+        }
     	if (!empty($this->socio_provincia_id)) {
     		$this->comunas = Comuna::where('provincia_id', $this->socio_provincia_id)->get();
         }
@@ -188,6 +189,16 @@ class Socios extends Component
     	if (!empty($this->estudio_grado_id)) {
     		$this->establecimientos = Establecimiento::where('grado_id', $this->estudio_grado_id)->get();
         }
+        // Form buscar
+    	if (!empty($this->buscar_socio_distrito_id)) {
+    		$this->provincias = Provincia::where('distrito_id', $this->buscar_socio_distrito_id)->get();
+        }     
+    	if (!empty($this->buscar_socio_provincia_id)) {
+    		$this->comunas = Comuna::where('provincia_id', $this->buscar_socio_provincia_id)->get();
+        }
+    	if (!empty($this->buscar_socio_sede_id)) {
+    		$this->areas = Area::where('sede_id', $this->buscar_socio_sede_id)->get();
+        }                
     }
 
     /**
@@ -517,39 +528,59 @@ class Socios extends Component
         $this->cargarTablaListarSocio();
     }
 
-    public function BuscarSocioUnica()
+    public function busquedaUnicaSocio()
     {
-        $this->resultados_busqueda_socio = Socio::with(['distrito','provincia','comuna','nacionSocio','sede','area','cargo','estadoSocio'])->orderBy('apellido1','ASC')
-        //->nombres($nombre, $apellido)
-        ->general($this->busqueda_socio, 'id')
-        ->general($this->busqueda_socio, 'nombre1')
-        ->general($this->busqueda_socio, 'nombre2')
-        ->general($this->busqueda_socio, 'apellido1')
-        ->general($this->busqueda_socio, 'apellido2')
-        ->general($this->busqueda_socio, 'rut')
-        ->general($this->busqueda_socio, 'anexo')
-        ->general($this->busqueda_socio, 'numero')
-        ->general($this->busqueda_socio, 'contacto')
-        ->general($this->busqueda_socio, 'correo')
-        ->general($this->busqueda_socio, 'direccion')
-        ->get();
+        $this->flag_busqueda="unica";
+        $this->resetFormBusquedaMasivaSocio();
+        if($this->validarBusquedaUnicaSocio()){
+            $this->emit('alerta_info', 'Debe ingresar búsqueda.');
+        }else{
+            $nombre = separarNombreApellido($this->busqueda_socio)['nombre'];
+            if(count(separarNombreApellido($this->busqueda_socio)) > 1){
+                $apellido = separarNombreApellido($this->busqueda_socio)['apellido'];
+            }
+            $this->resultados_busqueda_socio = Socio::with(['distrito','provincia','comuna','nacionSocio','sede','area','cargo','estadoSocio'])->orderBy('apellido1','ASC')
+            ->nombres($nombre, $apellido)
+            ->general($this->busqueda_socio, 'id')
+            ->general($this->busqueda_socio, 'nombre1')
+            ->general($this->busqueda_socio, 'nombre2')
+            ->general($this->busqueda_socio, 'apellido1')
+            ->general($this->busqueda_socio, 'apellido2')
+            ->general($this->busqueda_socio, 'rut')
+            ->general($this->busqueda_socio, 'anexo')
+            ->general($this->busqueda_socio, 'numero')
+            ->general($this->busqueda_socio, 'contacto')
+            ->general($this->busqueda_socio, 'correo')
+            ->general($this->busqueda_socio, 'direccion')
+            ->get();
+            $this->cargarTablaResultadosSocio();
+        }
+
     }
 
-    public function BuscarSocioMasiva()
+    public function busquedaMasivaSocio()
     {
-        $this->resultados_busqueda_socio = Socio::with(['distrito','provincia','comuna','nacionSocio','sede','area','cargo','estadoSocio'])->orderBy('apellido1','ASC')
-        ->rangoFecha($this->buscar_socio_fecha_nac_ini, $this->buscar_socio_fecha_nac_fin, 'fecha_nac')
-        ->rangoFecha($this->buscar_socio_fecha_sind1_ini, $this->buscar_socio_fecha_sind1_fin, 'fecha_sind1')
-        ->rangoFecha($this->buscar_socio_fecha_pucv_ini, $this->buscar_socio_fecha_pucv_fin, 'fecha_pucv')
-        ->generalAnd($this->buscar_socio_genero, 'genero')
-        ->generalAnd($this->buscar_socio_distrito_id, 'distrito_id')
-        ->generalAnd($this->buscar_socio_provincia_id, 'provincia_id')
-        ->generalAnd($this->buscar_socio_comuna_id, 'comuna_id')
-        ->generalAnd($this->buscar_socio_sede_id, 'sede_id')
-        ->generalAnd($this->buscar_socio_area_id, 'area_id')
-        ->generalAnd($this->buscar_socio_cargo_id, 'cargo_id')
-        ->generalAnd($this->buscar_socio_nacion_socio_id, 'nacion_socio_id')
-        ->get();
+        $this->flag_busqueda="masiva";
+        $this->resetFormBusquedaUnicaSocio();
+        if($this->validarBusquedaMasivaSocio()){
+            $this->emit('alerta_info', 'Debe seleccionar al menos un criterio de búsqueda.');
+        }else{
+            $this->resultados_busqueda_socio = Socio::with(['distrito','provincia','comuna','nacionSocio','sede','area','cargo','estadoSocio'])->orderBy('apellido1','ASC')
+            ->rangoFecha($this->buscar_socio_fecha_nac_ini, $this->buscar_socio_fecha_nac_fin, 'fecha_nac')
+            ->rangoFecha($this->buscar_socio_fecha_sind1_ini, $this->buscar_socio_fecha_sind1_fin, 'fecha_sind1')
+            ->rangoFecha($this->buscar_socio_fecha_pucv_ini, $this->buscar_socio_fecha_pucv_fin, 'fecha_pucv')
+            ->generalAnd($this->buscar_socio_genero, 'genero')
+            ->generalAnd($this->buscar_socio_distrito_id, 'distrito_id')
+            ->generalAnd($this->buscar_socio_provincia_id, 'provincia_id')
+            ->generalAnd($this->buscar_socio_comuna_id, 'comuna_id')
+            ->generalAnd($this->buscar_socio_sede_id, 'sede_id')
+            ->generalAnd($this->buscar_socio_area_id, 'area_id')
+            ->generalAnd($this->buscar_socio_cargo_id, 'cargo_id')
+            ->generalAnd($this->buscar_socio_nacion_socio_id, 'nacion_socio_id')
+            ->get();
+            $this->cargarTablaResultadosSocio();
+        }        
+
     }
 
     // Cargas **********************************************************************

@@ -1,13 +1,16 @@
 <div class="card">
 	<div class="card-header">
-		<span class="mb-0">{{$titulo_tabla}} {{count($encontrados)}}
+        <span class="mb-0">{{$titulo_tabla}} 
+            @if (count($resultados_busqueda_socio) > 0)
+                <span class="text-primary"> >> <strong>{{ count($resultados_busqueda_socio) }}</strong></span>
+            @endif
             <a wire:click="cargarTablaListar" class="float-right text-dark" href="#" title="Listar Socios">
                 <i class="fas fa-list"></i>
             </a>             
         </span>
 	</div>
 	<div class="card-body">
-        @if (count($encontrados) != 0)
+        @if (count($resultados_busqueda_socio) != 0)
             <div class="table-responsive">
                 <table class="table table-striped table-hover table-bordered">
                     <thead class="cabecera-tabla">
@@ -20,7 +23,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($encontrados as $item)
+                        @foreach ($resultados_busqueda_socio as $item)
                             <tr>
                                 <th class="text-center" scope="row">{{$item->numero}}</th>
                                 <td>{{formatoNombre($item)}}</td>
@@ -38,26 +41,12 @@
 				</div>
             </div>
         @else
-        <div class="alert alert-warning" role="alert">
-            <h4 class="alert-heading"><i class="far fa-frown"></i></h4>
-            <p>No se han encontrado resultados para tu búsqueda.</p>
-            <hr>
-            <p class="mb-0">
-                Recomendaciones:
-                <small class="">
-                    <ul class="">
-                        <li>rut</li>
-                        <li>nombre + apellido</li>
-                        <li>sólo nombre o apellido</li>
-                        <li>correo</li>
-                        <li># socio</li>
-                        <li>anexo</li>
-                        <li>dirección</li>
-                        <li># contacto</li>
-                    </ul>
-                </small>
-            </p>
-          </div>
+            @if ($flag_busqueda === "unica")
+                <x-mensaje-alerta icono="far fa-frown" mensaje="No se han encontrado resultados para tu búsqueda." contenido="busqueda_unica"/>
+            @else
+                <x-mensaje-alerta icono="far fa-frown" mensaje="No se han encontrado resultados para tu búsqueda." contenido="busqueda_masiva"/>
+            @endif
+            
         @endif
 	</div>
 </div>
