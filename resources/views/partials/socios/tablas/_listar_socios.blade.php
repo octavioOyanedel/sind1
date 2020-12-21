@@ -40,7 +40,7 @@
                                 <td>{{imprimirRelacion($item->sede)}}</td>
                                 <td wire:click="cargarTablaMostrarSocio({{$item->id}})" class="celda-accion text-center"><a href="#" class="text-success"><i title="Ver socio" class="fas fa-user-check"></i></a></td>
                                 <td wire:click="cargarFormEditarSocio({{$item->id}})" class="celda-accion text-center"><a href="#" class="text-primary"><i title="Editar socio" class="fas fa-user-edit"></i></a></td>
-                                <td class="celda-accion text-center"><a wire:click="cargarObjetoSocio({{$item->id}})" href="#" class="text-danger" data-toggle="modal" data-target="#desvincular"><i title="Eliminar socio" class="fas fa-user-minus"></i></a></td>
+                                <td class="celda-accion text-center"><a wire:click="cargarEliminarSocio({{$item->id}})" href="#" class="text-danger" data-toggle="modal" data-target="#desvincular"><i title="Eliminar socio" class="fas fa-user-minus"></i></a></td>
                             </tr>
                         @endforeach
                     </tbody>

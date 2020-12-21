@@ -244,6 +244,13 @@ class Socios extends Component
         $this->titulo_form = "Buscar Socio/s";
     }
 
+    public function cargarEliminarSocio(Socio $socio)
+    {   
+        $this->resetFormEliminarSocio();
+        $this->cargarObjetoSocio($socio);
+        $this->resetMensajesErrorValidadion();
+    }    
+
     // Cargas ***********************************************************************
     public function cargarFormCrearCarga()
     {
@@ -1088,6 +1095,11 @@ class Socios extends Component
     public function resetFormBusquedaUnicaSocio()
     {
         $this->busqueda_socio = NULL;
+    }
+
+    public function resetFormEliminarSocio()
+    {
+        $this->socio_estado_socio_id = NULL;
     }
 
     public function resetFormBusquedaMasivaSocio()
