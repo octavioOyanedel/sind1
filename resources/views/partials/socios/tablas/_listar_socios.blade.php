@@ -33,15 +33,15 @@
                     </thead>
                     <tbody>
                         @foreach ($socios as $item)
-                        <tr>
-                            <th class="text-center" scope="row">{{$item->numero}}</th>
-                            <td>{{formatoNombre($item)}}</td>
-                            <td class="text-center">{{$item->anexo}}</td>
-                            <td>{{imprimirRelacion($item->sede)}}</td>
-                            <td wire:click="cargarTablaMostrarSocio({{$item->id}})" class="celda-accion text-center"><a href="#" class="text-success"><i title="Ver socio" class="fas fa-user-check"></i></a></td>
-                            <td wire:click="cargarFormEditarSocio({{$item->id}})" class="celda-accion text-center"><a href="#" class="text-primary"><i title="Editar socio" class="fas fa-user-edit"></i></a></td>
-                            <td class="celda-accion text-center"><a wire:click="prepararSocio({{$item->id}})" href="#" class="text-danger" data-toggle="modal" data-target="#desvincular"><i title="Eliminar socio" class="fas fa-user-minus"></i></a></td>
-                        </tr>
+                            <tr>
+                                <th class="text-center" scope="row">{{$item->numero}}</th>
+                                <td>{{formatoNombre($item)}}</td>
+                                <td class="text-center">{{$item->anexo}}</td>
+                                <td>{{imprimirRelacion($item->sede)}}</td>
+                                <td wire:click="cargarTablaMostrarSocio({{$item->id}})" class="celda-accion text-center"><a href="#" class="text-success"><i title="Ver socio" class="fas fa-user-check"></i></a></td>
+                                <td wire:click="cargarFormEditarSocio({{$item->id}})" class="celda-accion text-center"><a href="#" class="text-primary"><i title="Editar socio" class="fas fa-user-edit"></i></a></td>
+                                <td class="celda-accion text-center"><a wire:click="cargarObjetoSocio({{$item->id}})" href="#" class="text-danger" data-toggle="modal" data-target="#desvincular"><i title="Eliminar socio" class="fas fa-user-minus"></i></a></td>
+                            </tr>
                         @endforeach
                     </tbody>
                 </table>
@@ -55,16 +55,12 @@
             </div>
         @endif
     </div>
-    <x-modal id="desvincular" titulo="Desvincular Socio" wireClick="delete" boton="Desvincular" :coleccion="$estados"/>
 </div>
 
+{{-- Modal --}}
+<x-modal id="desvincular" titulo="Desvincular Socio" wireClick="eliminarSocio" boton="Desvincular" :coleccion="$estados"/>
+
 @push('scripts')
-    <script type="text/javascript">
-        window.livewire.on('limpiarErrores', () => {
-            $('.select-modal').removeClass("is-invalid");
-            $('.mensaje-error').text('');
-        });
-    </script>
 	<script type="text/javascript">
         window.livewire.on('cerrar_modal', () => {
             $('#desvincular').modal('hide');

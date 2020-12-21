@@ -10,6 +10,9 @@
                 @case('busqueda_masiva')
                     @include('components.partials.alertas._busqueda_masiva')
                     @break
+                @case('desvincular')
+                    @include('components.partials.alertas._desvincular')
+                    @break                    
                 @default
                     
             @endswitch

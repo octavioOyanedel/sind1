@@ -521,13 +521,17 @@ class Socios extends Component
     public function eliminarSocio()
     {
         $this->validate([
-            'socio_estado_id' => 'required',
+            'socio_estado_socio_id' => 'required',
         ]);
 
         $this->objeto_socio->estado_socio_id = $this->socio_estado_socio_id;
         $this->objeto_socio->update();
         $this->objeto_socio->delete();
+        $this->resetFormBusquedaUnicaSocio();
+        $this->resetFormBusquedaMasivaSocio();     
         $this->cargarTablaListarSocio();
+        $this->emit('cerrar_modal');
+        $this->emit('alerta_ok', 'Socio Desvinculado.');       
     }
 
     public function busquedaUnicaSocio()
@@ -1152,6 +1156,7 @@ class Socios extends Component
 
     public function resetFormsNuevosSocio()
     {
+        $this->resetMensajesErrorValidadion();
         $this->nueva_region = NULL;
         $this->nueva_provincia = NULL;
         $this->nueva_comuna = NULL;
@@ -1166,14 +1171,21 @@ class Socios extends Component
 
     public function resetFormsNuevosCarga()
     {
-        $this->nuevo_parentesco = NULL;
-   
+        $this->resetMensajesErrorValidadion();
+        $this->nuevo_parentesco = NULL;  
     }
 
     public function resetFormsNuevosEstudio()
     {
+        $this->resetMensajesErrorValidadion();        
         $this->nuevo_grado = NULL;
         $this->nuevo_establecimiento = NULL;
         $this->nuevo_estado_estudio = NULL;        
+    }
+
+    public function resetMensajesErrorValidadion()
+    {
+        $this->resetErrorBag();
+        $this->resetValidation();
     }
 }

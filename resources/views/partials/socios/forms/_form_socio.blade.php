@@ -88,7 +88,7 @@
 			$('#nuevo-cargo').modal('hide');
 			$('#nueva-nacion').modal('hide');
             $('#nueva-carga').modal('hide');
-
+			$('#nueva-carga').modal('hide');
         });
     </script>
 
