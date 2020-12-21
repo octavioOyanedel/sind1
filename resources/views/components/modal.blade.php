@@ -50,7 +50,7 @@
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Cerrar</button>
-                    <button id="accion-boton" wire:click="{{$wireClick}}" type="button" class="btn btn-sm @if($id == "desvincular") btn-danger @else btn-primary @endif" data-dismiss="modal">{{$boton}}</button>
+                    <button id="accion-boton" wire:click="{{$wireClick}}" type="button" class="btn btn-sm @if($id == "desvincular") btn-danger @else btn-primary @endif">{{$boton}}</button>
 				</div>
 			</div>
 		</div>

@@ -1149,4 +1149,31 @@ class Socios extends Component
         $this->buscar_estudio_establecimiento_id = NULL;
         $this->buscar_estudio_estado_estudio_id = NULL;
     }
+
+    public function resetFormsNuevosSocio()
+    {
+        $this->nueva_region = NULL;
+        $this->nueva_provincia = NULL;
+        $this->nueva_comuna = NULL;
+        $this->nueva_sede = NULL;
+        $this->nueva_area = NULL;
+        $this->nuevo_cargo = NULL;
+        $this->nueva_nacion = NULL;
+        $this->nueva_region_modal = NULL;
+        $this->nueva_provincia_modal = NULL;
+        $this->nueva_sede_modal = NULL;
+    }
+
+    public function resetFormsNuevosCarga()
+    {
+        $this->nuevo_parentesco = NULL;
+   
+    }
+
+    public function resetFormsNuevosEstudio()
+    {
+        $this->nuevo_grado = NULL;
+        $this->nuevo_establecimiento = NULL;
+        $this->nuevo_estado_estudio = NULL;        
+    }
 }
