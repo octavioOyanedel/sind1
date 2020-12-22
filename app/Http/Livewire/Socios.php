@@ -224,6 +224,8 @@ class Socios extends Component
     // Socios ***********************************************************************
     public function cargarFormCrearSocio()
     {
+        $this->resetFormBusquedaUnicaSocio();
+        $this->resetFormBusquedaMasivaSocio();         
         $this->forms = "_form_socio";
         $this->titulo_form = "Incorporar Socio";
         $this->boton = "crear";
@@ -241,6 +243,7 @@ class Socios extends Component
 
     public function cargarFormBuscarSocio()
     {
+        $this->resetFormSocio();
         $this->forms = "_buscar_socio";
         $this->titulo_form = "Buscar Socio/s";
     }
