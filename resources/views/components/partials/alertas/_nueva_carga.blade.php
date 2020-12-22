@@ -1,0 +1,1 @@
+Para agregar carga, vinculada a socio incorporado, presione boton <span class="font-italic">"Agregar Carga Familiar"</span>

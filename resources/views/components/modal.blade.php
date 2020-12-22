@@ -37,20 +37,26 @@
 						@case('nuevo-parentesco')
                             @include('components.partials.forms._parentesco')
                         @break						
-						@case('nueva-carga')
-                            <div class="alert alert-success" role="alert">
-                                <h4 class="alert-heading"><i class="far fa-smile-beam"></i> ¡Socio Incorporado!</h4>
-                                <p>Se ha agregado un nuevo socio.</p>
-                                <hr>
-                                <p class="mb-0"><small>¿Desea agregar una carga familiar vinculada a este socio?</small></p>
-                            </div>
+						@case('consulta-nueva-carga')
+							<x-mensaje-alerta tipo="success" icono="far fa-smile" mensaje="Socio Incorporado." contenido="nueva_carga"/>
                         @break
                         @default
                     @endswitch
 				</div>
 				<div class="modal-footer">
+					{{-- Botonera --}}
 					<button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Cerrar</button>
-                    <button id="accion-boton" wire:click="{{$wireClick}}" type="button" class="btn btn-sm @if($id == "desvincular") btn-danger @else btn-primary @endif">{{$boton}}</button>
+					@switch($id)
+						@case('consulta-nueva-carga')
+							<button id="accion-boton" wire:click="cargarFormCrearCarga" type="button" class="btn btn-sm btn-primary">Carga</button>
+							<button id="accion-boton" wire:click="cargarFormCrearEstudio" type="button" class="btn btn-sm btn-primary">Estudio</button>
+						@break
+						@case('desvincular')
+							<button id="accion-boton" wire:click="{{$wireClick}}" type="button" class="btn btn-sm btn-danger">{{$boton}}</button>
+						@break
+						@default
+							<button id="accion-boton" wire:click="{{$wireClick}}" type="button" class="btn btn-sm btn-primary">{{$boton}}</button>
+					@endswitch
 				</div>
 			</div>
 		</div>

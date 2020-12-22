@@ -6,6 +6,7 @@ use Illuminate\View\Component;
 
 class MensajeAlerta extends Component
 {
+    public $tipo;
     public $icono;
     public $mensaje;
     public $contenido;
@@ -15,8 +16,9 @@ class MensajeAlerta extends Component
      *
      * @return void
      */
-    public function __construct($icono, $mensaje, $contenido)
+    public function __construct($tipo, $icono, $mensaje, $contenido)
     {
+        $this->tipo = $tipo;
         $this->icono = $icono;
         $this->mensaje = $mensaje;
         $this->contenido = $contenido;

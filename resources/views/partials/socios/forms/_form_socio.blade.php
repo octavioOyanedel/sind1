@@ -69,15 +69,14 @@
 <x-modal id="nuevo-cargo" titulo="Nuevo Cargo" wireClick="nuevoCargo" boton="Guardar" coleccion=""/>
 <x-modal id="nueva-nacion" titulo="Nueva Nacionalidad" wireClick="nuevaNacion" boton="Guardar" coleccion=""/>
 
-
-
+<x-modal id="consulta-nueva-carga" titulo="Aviso" wireClick="cargarFormCrearCarga" boton="Agregar Carga Familiar" coleccion=""/>
 
 @push('scripts')
-    <script type="text/javascript">
-        window.livewire.on('nueva_carga', () => {
-            $('#nueva-carga').modal('show');
-        });
-    </script>
+	<script type="text/javascript">
+		window.addEventListener('nueva_carga', event => {
+			$("#consulta-nueva-carga").modal('show');
+		})
+	</script>
 	<script type="text/javascript">
         window.livewire.on('cerrar_modal', () => {
             $('#nueva-region').modal('hide');

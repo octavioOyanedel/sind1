@@ -38,9 +38,9 @@
             </div>
         @else
             @if ($flag_busqueda === "unica")
-                <x-mensaje-alerta icono="far fa-frown" mensaje="No se han encontrado resultados para tu búsqueda." contenido="busqueda_unica"/>
+                <x-mensaje-alerta tipo="warning" icono="far fa-frown" mensaje="No se han encontrado resultados para tu búsqueda." contenido="busqueda_unica"/>
             @else
-                <x-mensaje-alerta icono="far fa-frown" mensaje="No se han encontrado resultados para tu búsqueda." contenido="busqueda_masiva"/>
+                <x-mensaje-alerta tipo="warning" icono="far fa-frown" mensaje="No se han encontrado resultados para tu búsqueda." contenido="busqueda_masiva"/>
             @endif
             
         @endif
