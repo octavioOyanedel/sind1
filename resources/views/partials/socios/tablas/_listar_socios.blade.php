@@ -1,22 +1,6 @@
 <div class="card">
 	<div class="card-header">
-        <span class="mb-0">{{$titulo_tabla}}
-            @if ($flag_busqueda != NULL)
-                @if ($flag_busqueda === 'unica')
-                    <a wire:click="busquedaUnicaSocio" class="float-right text-success mr-4" href="#" title="Volver a Resultados.">
-                        @if (count($resultados_busqueda_socio) > 0)
-                            <span class="text-primary"> << <strong>{{ count($resultados_busqueda_socio) }}</strong></span>
-                        @endif
-                    </a>
-                @else
-                    <a wire:click="busquedaMasivaSocio" class="float-right text-success mr-4" href="#" title="Volver a Resultados.">
-                        @if (count($resultados_busqueda_socio) > 0)
-                            <span class="text-primary"> << <strong>{{ count($resultados_busqueda_socio) }}</strong></span>
-                        @endif
-                    </a>
-                @endif
-            @endif
-        </span>
+        <span class="mb-0">{{$titulo_tabla}}</span>
 	</div>
 	<div class="card-body">
         @if (count($socios) != 0)

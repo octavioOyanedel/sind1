@@ -1,10 +1,6 @@
 <div class="card">
 	<div class="card-header">
-        <span class="mb-0">{{$titulo_tabla}} 
-            <a wire:click="cargarTablaListarSocio" class="float-right text-dark" href="#" title="Listar Socios">
-                <i class="fas fa-list"></i>
-            </a>             
-        </span>
+        <span class="mb-0">{{$titulo_tabla}}</span>
 	</div>
 	<div class="card-body">
         @if (count($resultados_busqueda_socio) != 0)
