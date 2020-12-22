@@ -461,6 +461,7 @@ class Socios extends Component
         ]);
         $this->resetFormSocio();
         $this->cargarTablaMostrarSocio($objeto);
+        $this->emit('alerta_ok', 'Socio Incorporado.');
     }
 
     public function editarSocio()

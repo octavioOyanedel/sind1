@@ -40,7 +40,7 @@ function separarNombreApellido($q)
  */
 function numeroRecomendado()
 {
-    $socio = Socio::orderBy('numero', 'DESC')->first();
+    $socio = Socio::withTrashed()->orderBy('numero', 'DESC')->first();
 
     if($socio != null){
         $numero = $socio->numero + 1;
