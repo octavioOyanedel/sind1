@@ -233,6 +233,7 @@ class Socios extends Component
 
     public function cargarFormEditarSocio(Socio $socio)
     {
+        $this->resetMensajesErrorValidadion();
         $this->cargarTablaListarSocio();
         $this->cargarObjetoSocio($socio);
         $this->poblarFormEditarSocio($this->objeto_socio);
