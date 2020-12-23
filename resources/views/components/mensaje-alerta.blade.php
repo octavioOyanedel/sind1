@@ -13,8 +13,8 @@
                 @case('desvincular')
                     @include('components.partials.alertas._desvincular')
                     @break
-                @case('nueva_carga')
-                    @include('components.partials.alertas._nueva_carga')
+                @case('consulta_post_socio')
+                    @include('components.partials.alertas._consulta_post_socio')
                     @break                                      
                 @default
                     

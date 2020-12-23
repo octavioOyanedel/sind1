@@ -69,12 +69,12 @@
 <x-modal id="nuevo-cargo" titulo="Nuevo Cargo" wireClick="nuevoCargo" boton="Guardar" coleccion=""/>
 <x-modal id="nueva-nacion" titulo="Nueva Nacionalidad" wireClick="nuevaNacion" boton="Guardar" coleccion=""/>
 
-<x-modal id="consulta-nueva-carga" titulo="Aviso" wireClick="cargarFormCrearCarga" boton="Agregar Carga Familiar" coleccion=""/>
+<x-modal id="consulta-post-socio" titulo="Aviso" wireClick="" boton="" coleccion=""/>
 
 @push('scripts')
 	<script type="text/javascript">
-		window.addEventListener('nueva_carga', event => {
-			$("#consulta-nueva-carga").modal('show');
+		window.addEventListener('consulta-post-socio', event => {
+			$("#consulta-post-socio").modal('show');
 		})
 	</script>
 	<script type="text/javascript">
@@ -88,6 +88,7 @@
 			$('#nueva-nacion').modal('hide');
             $('#nueva-carga').modal('hide');
 			$('#nueva-carga').modal('hide');
+
         });
     </script>
 

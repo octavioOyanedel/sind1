@@ -258,7 +258,6 @@ class Socios extends Component
     // Cargas ***********************************************************************
     public function cargarFormCrearCarga()
     {
-        $this->dispatchBrowserEvent('cerrar_nueva_carga');
         $this->forms = "_form_carga";
         $this->titulo_form = "Agregar Carga Familiar";
         $this->boton = "crear";
@@ -282,7 +281,7 @@ class Socios extends Component
     // Estudios *********************************************************************
     public function cargarFormCrearEstudio()
     {
-        $this->forms = "_form_carga";
+        $this->forms = "_form_estudio";
         $this->titulo_form = "Agregar Estudio";
         $this->boton = "crear";
     }
@@ -465,7 +464,7 @@ class Socios extends Component
         ]);
         $this->resetFormSocio();
         $this->cargarTablaMostrarSocio($objeto);
-        $this->dispatchBrowserEvent('nueva_carga');
+        $this->dispatchBrowserEvent('consulta-post-socio');
 
     }
 

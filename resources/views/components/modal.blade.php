@@ -37,8 +37,8 @@
 						@case('nuevo-parentesco')
                             @include('components.partials.forms._parentesco')
                         @break						
-						@case('consulta-nueva-carga')
-							<x-mensaje-alerta tipo="success" icono="far fa-smile" mensaje="Socio Incorporado." contenido="nueva_carga"/>
+						@case('consulta-post-socio')
+							<x-mensaje-alerta tipo="success" icono="far fa-smile" mensaje="Socio Incorporado." contenido="consulta_post_socio"/>
                         @break
                         @default
                     @endswitch
@@ -47,9 +47,9 @@
 					{{-- Botonera --}}
 					<button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Cerrar</button>
 					@switch($id)
-						@case('consulta-nueva-carga')
-							<button id="accion-boton" wire:click="cargarFormCrearCarga" type="button" class="btn btn-sm btn-primary">Carga</button>
-							<button id="accion-boton" wire:click="cargarFormCrearEstudio" type="button" class="btn btn-sm btn-primary">Estudio</button>
+						@case('consulta-post-socio')
+							<button id="accion-boton" wire:click="cargarFormCrearCarga" type="button" class="btn btn-sm btn-primary" data-dismiss="modal">Carga</button>
+							<button id="accion-boton" wire:click="cargarFormCrearEstudio" type="button" class="btn btn-sm btn-primary" data-dismiss="modal">Estudio</button>
 						@break
 						@case('desvincular')
 							<button id="accion-boton" wire:click="{{$wireClick}}" type="button" class="btn btn-sm btn-danger">{{$boton}}</button>
