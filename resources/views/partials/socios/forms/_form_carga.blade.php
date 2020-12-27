@@ -11,6 +11,11 @@
     </div>
 		<div class="card-body">
 
+            @if ($objeto_socio)
+                <p class="text-center mb-3">SOCIO</p>
+                <p class="text-center mb-3">{{formatoNombre($objeto_socio)}}</p>
+            @endif
+
 			<x-input id="nombre1" type="text" label="1° Nombre" placeholder="Ej.: Amaro" wireModel="carga_nombre1" required="si"/>
 
 			<x-input id="nombre2" type="text" label="2° Nombre" placeholder="Ej.: Amaro" wireModel="carga_nombre2" required=""/>

@@ -1,4 +1,4 @@
-Seleccione siguiente acción a seguir:
+Seleccione acción a seguir:
 <small>                   
     <ul class="mt-2">
         <li>Nueva carga familiar</li>                       

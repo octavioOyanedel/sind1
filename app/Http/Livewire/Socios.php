@@ -465,6 +465,7 @@ class Socios extends Component
         ]);
         $this->resetFormSocio();
         $this->cargarTablaMostrarSocio($objeto);
+        $this->cargarObjetoSocio($objeto);
         $this->dispatchBrowserEvent('consulta-post-socio');
 
     }
@@ -613,7 +614,6 @@ class Socios extends Component
             'carga_rut' => ['required',  new RutRule, 'alpha_num', 'max:9', 'unique:cargas,rut'],
             'carga_fecha' => ['required', 'date'],
             'carga_parentesco_id' => ['required'],
-            'carga_socio_id' => ['required'],
         ]);
         // Campos de base de datos => valiables livewire
         $objeto = Carga::create([
@@ -623,8 +623,8 @@ class Socios extends Component
             'apellido2' => $this->carga_apellido2,
             'rut' => $this->carga_rut,
             'fecha' => $this->carga_fecha,
-            'parentesco_id' => $this->carga_patentesco_id,
-            'socio_id' => $this->carga_socio_id,
+            'parentesco_id' => $this->carga_parentesco_id,
+            'socio_id' => $this->objeto_socio->id,
         ]);
         $this->resetFormCarga();
         $this->cargarTablaMostrarCarga($objeto);

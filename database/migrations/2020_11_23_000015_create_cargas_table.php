@@ -16,9 +16,9 @@ class CreateCargasTable extends Migration
         Schema::create('cargas', function (Blueprint $table) {
             $table->id();
             $table->string('nombre1');
-            $table->string('nombre2');
+            $table->string('nombre2')->nullable();
             $table->string('apellido1');
-            $table->string('apellido2');
+            $table->string('apellido2')->nullable();
             $table->string('rut');
             $table->date('fecha');
             $table->unsignedBigInteger('parentesco_id')->nullable();
