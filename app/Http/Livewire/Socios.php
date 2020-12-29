@@ -192,13 +192,13 @@ class Socios extends Component
         // Form buscar
     	if (!empty($this->buscar_socio_distrito_id)) {
     		$this->provincias = Provincia::where('distrito_id', $this->buscar_socio_distrito_id)->get();
-        }     
+        }
     	if (!empty($this->buscar_socio_provincia_id)) {
     		$this->comunas = Comuna::where('provincia_id', $this->buscar_socio_provincia_id)->get();
         }
     	if (!empty($this->buscar_socio_sede_id)) {
     		$this->areas = Area::where('sede_id', $this->buscar_socio_sede_id)->get();
-        }                
+        }
     }
 
     /**
@@ -225,7 +225,7 @@ class Socios extends Component
     public function cargarFormCrearSocio()
     {
         $this->resetFormBusquedaUnicaSocio();
-        $this->resetFormBusquedaMasivaSocio();         
+        $this->resetFormBusquedaMasivaSocio();
         $this->forms = "_form_socio";
         $this->titulo_form = "Incorporar Socio";
         $this->boton = "crear";
@@ -250,11 +250,11 @@ class Socios extends Component
     }
 
     public function cargarEliminarSocio(Socio $socio)
-    {   
+    {
         $this->resetFormEliminarSocio();
         $this->cargarObjetoSocio($socio);
         $this->resetMensajesErrorValidadion();
-    }    
+    }
 
     // Cargas ***********************************************************************
     public function cargarFormCrearCarga()
@@ -524,11 +524,11 @@ class Socios extends Component
             ]);
             $this->cargarFormCrearSocio();
             $this->resetFormSocio();
-            $this->cargarTablaMostrarSocio($this->objeto_socio); 
+            $this->cargarTablaMostrarSocio($this->objeto_socio);
             $this->emit('alerta_ok', 'Socio Editado.');
         }else{
             $this->emit('alerta_info', 'No se han hecho modificaciones en formulario.');
-        }       
+        }
     }
 
     public function eliminarSocio()
@@ -541,10 +541,10 @@ class Socios extends Component
         $this->objeto_socio->update();
         $this->objeto_socio->delete();
         $this->resetFormBusquedaUnicaSocio();
-        $this->resetFormBusquedaMasivaSocio();     
+        $this->resetFormBusquedaMasivaSocio();
         $this->cargarTablaListarSocio();
         $this->emit('cerrar_modal');
-        $this->emit('alerta_ok', 'Socio Desvinculado.');       
+        $this->emit('alerta_ok', 'Socio Desvinculado.');
     }
 
     public function busquedaUnicaSocio()
@@ -598,7 +598,7 @@ class Socios extends Component
             ->generalAnd($this->buscar_socio_nacion_socio_id, 'nacion_socio_id')
             ->get();
             $this->cargarTablaResultadosSocio();
-        }        
+        }
 
     }
 
@@ -627,7 +627,8 @@ class Socios extends Component
             'socio_id' => $this->objeto_socio->id,
         ]);
         $this->resetFormCarga();
-        $this->cargarTablaMostrarCarga($objeto);
+        $this->emit('alerta_ok', 'Carga Familiar Agregada.');
+        //$this->cargarTablaMostrarCarga($objeto);
     }
 
     public function editarCarga()
@@ -1189,15 +1190,15 @@ class Socios extends Component
     public function resetFormsNuevosCarga()
     {
         $this->resetMensajesErrorValidadion();
-        $this->nuevo_parentesco = NULL;  
+        $this->nuevo_parentesco = NULL;
     }
 
     public function resetFormsNuevosEstudio()
     {
-        $this->resetMensajesErrorValidadion();        
+        $this->resetMensajesErrorValidadion();
         $this->nuevo_grado = NULL;
         $this->nuevo_establecimiento = NULL;
-        $this->nuevo_estado_estudio = NULL;        
+        $this->nuevo_estado_estudio = NULL;
     }
 
     public function resetMensajesErrorValidadion()

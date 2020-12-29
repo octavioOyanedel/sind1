@@ -19,27 +19,27 @@ class Socio extends Model
     public function distrito()
     {
         return $this->belongsTo('App\Models\Distrito');
-    }    
+    }
 
     public function provincia()
     {
         return $this->belongsTo('App\Models\Provincia');
-    } 
+    }
 
     public function comuna()
     {
         return $this->belongsTo('App\Models\Comuna');
-    }   
+    }
 
     public function nacionSocio()
     {
         return $this->belongsTo('App\Models\NacionSocio');
-    }   
+    }
 
     public function estadoSocio()
     {
         return $this->belongsTo('App\Models\EstadoSocio');
-    }   
+    }
 
     public function sede()
     {
@@ -54,6 +54,16 @@ class Socio extends Model
     public function cargo()
     {
         return $this->belongsTo('App\Models\Cargo');
+    }
+
+    public function cargas()
+    {
+        return $this->hasMany('App\Models\Carga');
+    }
+
+    public function estudios()
+    {
+        return $this->hasMany('App\Models\Estudio');
     }
 
     /**
@@ -91,5 +101,5 @@ class Socio extends Model
         if($inicio === null && $fin != null){
             return $query->where($campo,'<=',$fin);
         }
-    }    
+    }
 }

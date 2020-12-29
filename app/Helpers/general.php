@@ -13,6 +13,7 @@ function enlaceActivo($ruta)
     }
 
 }
+
 /**
  * Obtener arreglo con nombre y apellido candidato para busqueda
  * Input: string búsqueda
