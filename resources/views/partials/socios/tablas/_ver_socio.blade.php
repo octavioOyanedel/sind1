@@ -99,40 +99,45 @@
         </table>
 
         {{-- Tabla cargas --}}
-            <div class="table-responsive mt-3">
-                <table class="table table-striped table-hover table-bordered">
-                    @if(!$objeto_socio->cargas->isEmpty())
-                        <thead class="cabecera-tabla">
-                            <tr>
-                                <td scope="col" colspan="5">Cargas Familiares</td>
-                            </tr>
-                        </thead>
-                    @else
-                        <div class="alert alert-warning mt-3" role="alert">
-                            <small>Socio no cuenta con cargas familiares registradas.</small>
-                        </div>
-                    @endif
+        <div class="table-responsive mt-3">
+            <table class="table table-striped table-hover table-bordered">
+                @if(!$objeto_socio->cargas->isEmpty())
                     <thead class="cabecera-tabla">
                         <tr>
-                            <td scope="col">Nombre</td>
-                            <td class="text-center" scope="col">Parentesco</td>
-                            <td scope="col" colspan="3"></td>
+                            <td scope="col" colspan="8">Cargas Familiares</td>
                         </tr>
                     </thead>
-                    <tbody>
-                        @foreach ($objeto_socio->cargas as $item)
-                            <tr>
-                                <td>{{formatoNombre($item)}}</td>
-                                <td class="text-center">{{$item->parentesco->nombre}}</td>
-                                <td wire:click="cargarTablaMostrarSocio({{$item->id}})" class="celda-accion text-center"><a href="#" class="text-success"><i title="Ver socio" class="fas fa-user-check"></i></a></td>
-                                <td wire:click="cargarFormEditarSocio({{$item->id}})" class="celda-accion text-center"><a href="#" class="text-primary"><i title="Editar socio" class="fas fa-user-edit"></i></a></td>
-                                <td class="celda-accion text-center"><a wire:click="cargarEliminarSocio({{$item->id}})" href="#" class="text-danger" data-toggle="modal" data-target="#desvincular"><i title="Eliminar socio" class="fas fa-user-minus"></i></a></td>
-                            </tr>
-                        @endforeach
-                        <tr><td colspan="5"><a href=""><i class="fas fa-plus-circle"></i> Nueva Carga</a></td></tr>
-                    </tbody>
-                </table>
-            </div>
+                @else
+                    <div class="alert alert-warning mt-3" role="alert">
+                        <small>Socio no cuenta con cargas familiares registradas.</small>
+                    </div>
+                @endif
+                <thead class="cabecera-tabla">
+                    <tr>
+                        <td scope="col">Nombre</td>
+                        <td scope="col">Rut</td>
+                        <td class="text-center" scope="col">Fecha Nac.</td>
+                        <td class="text-center" scope="col">Edad</td>
+                        <td class="text-center" scope="col">Parentesco</td>
+                        <td scope="col" colspan="3"></td>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($objeto_socio->cargas as $item)
+                        <tr>
+                            <td>{{formatoNombre($item)}}</td>
+                            <td>{{formatoRut($item->rut)}}</td>
+                            <td class="text-center">{{fechaYmdAdmy($item->fecha)}}</td>
+                            <td class="text-center">{{obtenerEdad($item->fecha)}}</td>
+                            <td class="text-center">{{$item->parentesco->nombre}}</td>
+                            <td wire:click="cargarFormEditarSocio({{$item->id}})" class="celda-accion text-center"><a href="#" class="text-primary"><i title="Editar socio" class="fas fa-user-edit"></i></a></td>
+                            <td class="celda-accion text-center"><a wire:click="cargarEliminarSocio({{$item->id}})" href="#" class="text-danger" data-toggle="modal" data-target="#desvincular"><i title="Eliminar socio" class="fas fa-user-minus"></i></a></td>
+                        </tr>
+                    @endforeach
+                    <tr><td wire:click="cargarFormCrearCarga" colspan="8"><a href="#"><i class="fas fa-plus-circle"></i> Nueva Carga</a></td></tr>
+                </tbody>
+            </table>
+        </div>
         {{-- Tabla estudios realizados --}}
         @if(!$objeto_socio->estudios->isEmpty())
             <div class="table-responsive mt-3">

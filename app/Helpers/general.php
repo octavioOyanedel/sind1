@@ -14,6 +14,16 @@ function enlaceActivo($ruta)
 
 }
 
+function obtenerEdad($fecha)
+{
+    if(\Carbon\Carbon::parse($fecha)->age == 0){
+        $edad = \Carbon\Carbon::parse($fecha)->diff(\Carbon\Carbon::now())->format('%m y %d');
+    }else{
+        $edad = \Carbon\Carbon::parse($fecha)->diff(\Carbon\Carbon::now())->format('%y');
+    }
+    return $edad;
+}
+
 /**
  * Obtener arreglo con nombre y apellido candidato para busqueda
  * Input: string búsqueda

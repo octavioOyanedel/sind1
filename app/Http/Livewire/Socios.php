@@ -233,9 +233,10 @@ class Socios extends Component
 
     public function cargarFormEditarSocio(Socio $socio)
     {
+        $this->cargarObjetoSocio($socio);
         $this->resetMensajesErrorValidadion();
         $this->cargarTablaListarSocio();
-        $this->cargarObjetoSocio($socio);
+        $this->cargarTablaMostrarSocio($this->objeto_socio);
         $this->poblarFormEditarSocio($this->objeto_socio);
         $this->forms = "_form_socio";
         $this->titulo_form = "Editar Socio";
@@ -626,7 +627,10 @@ class Socios extends Component
             'parentesco_id' => $this->carga_parentesco_id,
             'socio_id' => $this->objeto_socio->id,
         ]);
+
         $this->resetFormCarga();
+        $this->cargarTablaListarSocio();
+        $this->cargarTablaMostrarSocio($this->objeto_socio);
         $this->emit('alerta_ok', 'Carga Familiar Agregada.');
         //$this->cargarTablaMostrarCarga($objeto);
     }

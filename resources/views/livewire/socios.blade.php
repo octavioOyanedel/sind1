@@ -1,4 +1,4 @@
-<div>
+<div wire:poll.keep-alive>
 	<div class="row my-2 mx-0">
 
 		{{-- CARD FORM --}}
