@@ -16,14 +16,77 @@ function enlaceActivo($ruta)
 
 function obtenerEdad($fecha)
 {
-    if(\Carbon\Carbon::parse($fecha)->age == 0){
-        $edad = \Carbon\Carbon::parse($fecha)->diff(\Carbon\Carbon::now())->format('%m y %d');
+    $dia = \Carbon\Carbon::parse($fecha)->diff(\Carbon\Carbon::now())->format('%d');
+    $mes = \Carbon\Carbon::parse($fecha)->diff(\Carbon\Carbon::now())->format('%m');
+    $year = \Carbon\Carbon::parse($fecha)->age;
+
+    if(\Carbon\Carbon::parse($fecha)->age == 0){ 
+        if($mes == '0'){
+            $edad = \Carbon\Carbon::parse($fecha)->diff(\Carbon\Carbon::now())->format('%d '.obtenerDias($dia));
+        }
+        if($dia == '0'){          
+            $edad = \Carbon\Carbon::parse($fecha)->diff(\Carbon\Carbon::now())->format('%m '.obtenerMeses($mes));
+        }  
+        if($mes == '0' && $dia == '0'){
+            $edad = 'Recién nacido.';
+        }
+        if($mes != '0' && $dia != '0'){
+            $edad = \Carbon\Carbon::parse($fecha)->diff(\Carbon\Carbon::now())->format('%m Mes/es y %d Día/s');
+        }               
     }else{
-        $edad = \Carbon\Carbon::parse($fecha)->diff(\Carbon\Carbon::now())->format('%y');
+        $edad = \Carbon\Carbon::parse($fecha)->diff(\Carbon\Carbon::now())->format('%y '.obtenerYears($year));
     }
     return $edad;
 }
 
+/**
+ * Obtener string día o días según día de fecha de nacimiento
+ * Input: cantidad de dias
+ * Output: string Día o Días
+ */
+function obtenerDias($dia)
+{
+    $dias = NULL;
+    if($dia == '1'){
+        $dias = "Día";
+    }else{
+        $dias = "Días";
+    }
+    return $dias;
+} 
+
+/**
+ * Obtener string mes o meses según mes de fecha de nacimiento
+ * Input: cantidad de meses
+ * Output: string Mes o Meses
+ */
+function obtenerMeses($mes)
+{
+    $meses = NULL;
+    if($mes == '1'){
+        $meses = "Mes";
+    }else{
+        $meses = "Meses";
+    }
+    return $meses;      
+} 
+
+/**
+ * Obtener string año o años según mes de fecha de nacimiento
+ * Input: cantidad de años
+ * Output: string Año o Años
+ */
+function obtenerYears($year)
+{
+    $years = NULL;
+    if($year == 1){
+        $years = "Año";
+    }else{
+        $years = "Años";
+    }  
+    return $years;
+
+} 
 /**
  * Obtener arreglo con nombre y apellido candidato para busqueda
  * Input: string búsqueda
