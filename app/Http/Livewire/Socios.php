@@ -268,6 +268,9 @@ class Socios extends Component
     public function cargarFormEditarCarga(Carga $carga)
     {
         $this->cargarObjetoCarga($carga);
+        $this->resetMensajesErrorValidadion();
+        $this->cargarTablaMostrarSocio($this->objeto_socio);
+        $this->poblarFormEditarCarga($this->objeto_carga);
         $this->forms = "_form_carga";
         $this->titulo_form = "Editar Carga Familiar";
         $this->boton = "editar";
@@ -637,28 +640,34 @@ class Socios extends Component
 
     public function editarCarga()
     {
-        // Variables livewire
-        $this->validate([
-            'carga_nombre1' => ['required', new NombreRule],
-            'carga_nombre2' => ['nullable', new NombreRule],
-            'carga_apellido1' => ['required', new NombreRule],
-            'carga_apellido2' => ['nullable', new NombreRule],
-            'carga_rut' => ['required',  new RutRule, 'alpha_num', 'max:9', Rule::unique('cargas')->ignore($this->objeto_carga)],
-            'carga_fecha' => ['required', 'date'],
-            'carga_parentesco_id' => ['required'],
-            'carga_socio_id' => ['required'],
-        ]);
-        // Campos de base de datos => valiables livewire
-        $this->objeto_carga->update([
-            'nombre1' => $this->carga_nombre1,
-            'nombre2' => $this->carga_nombre2,
-            'apellido1' => $this->carga_apellido1,
-            'apellido2' => $this->carga_apellido2,
-            'rut' => $this->carga_rut,
-            'fecha' => $this->carga_fecha,
-            'parentesco_id' => $this->carga_patentesco_id,
-            'socio_id' => $this->carga_socio_id,
-        ]);
+        if($this->edicionCarga($this->objeto_carga->toArray()) > 0){
+            // Variables livewire
+            $this->validate([
+                'carga_nombre1' => ['required', new NombreRule],
+                'carga_nombre2' => ['nullable', new NombreRule],
+                'carga_apellido1' => ['required', new NombreRule],
+                'carga_apellido2' => ['nullable', new NombreRule],
+                'carga_rut' => ['required',  new RutRule, 'alpha_num', 'max:9', Rule::unique('cargas','rut')->ignore($this->objeto_carga)],
+                'carga_fecha' => ['required', 'date'],
+                'carga_parentesco_id' => ['required'],
+            ]);
+            // Campos de base de datos => valiables livewire
+            $this->objeto_carga->update([
+                'nombre1' => $this->carga_nombre1,
+                'nombre2' => $this->carga_nombre2,
+                'apellido1' => $this->carga_apellido1,
+                'apellido2' => $this->carga_apellido2,
+                'rut' => $this->carga_rut,
+                'fecha' => $this->carga_fecha,
+                'parentesco_id' => $this->carga_parentesco_id,
+            ]);
+            $this->cargarFormCrearSocio();
+            $this->resetFormSocio();
+            $this->cargarTablaMostrarSocio($this->objeto_socio);
+            $this->emit('alerta_ok', 'Carga Editada.');            
+        }else{
+            $this->emit('alerta_info', 'No se han hecho modificaciones en formulario.');
+        }        
     }
 
     public function eliminarCarga()
@@ -808,7 +817,7 @@ class Socios extends Component
             'apellido2' => $this->carga_apellido2,
             'rut' => $this->carga_rut,
             'fecha' => $this->carga_fecha,
-            'parentesco_id' => $this->carga_patentesco_id,
+            'parentesco_id' => $this->carga_parentesco_id,
             'socio_id' => $this->carga_socio_id,
         );
     }

@@ -130,7 +130,7 @@
                             <td class="text-center">{{fechaYmdAdmy($item->fecha)}}</td>
                             <td class="text-center">{{obtenerEdad($item->fecha)}}</td>
                             <td class="text-center">{{$item->parentesco->nombre}}</td>
-                            <td wire:click="cargarFormEditarSocio({{$item->id}})" class="celda-accion text-center"><a href="#" class="text-primary"><i title="Editar socio" class="fas fa-user-edit"></i></a></td>
+                            <td wire:click="cargarFormEditarCarga({{$item->id}})" class="celda-accion text-center"><a href="#" class="text-primary"><i title="Editar socio" class="fas fa-user-edit"></i></a></td>
                             <td class="celda-accion text-center"><a wire:click="cargarEliminarSocio({{$item->id}})" href="#" class="text-danger" data-toggle="modal" data-target="#desvincular"><i title="Eliminar socio" class="fas fa-user-minus"></i></a></td>
                         </tr>
                     @endforeach

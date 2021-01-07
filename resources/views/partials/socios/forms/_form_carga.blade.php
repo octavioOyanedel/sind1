@@ -34,7 +34,7 @@
 				@if ($boton === 'crear')
 					<button wire:click="crearCarga" class="form-control btn btn-primary">Guardar</button>
 				@else
-					<button wire:click="update" class="form-control btn btn-primary">Editar</button>
+					<button wire:click="editarCarga" class="form-control btn btn-primary">Editar</button>
 				@endif
 			</div>
 		</div>
