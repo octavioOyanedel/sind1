@@ -15,7 +15,10 @@
                     @break
                 @case('consulta_post_socio')
                     @include('components.partials.alertas._consulta_post_socio')
-                    @break                                      
+                    @break
+                @case('eliminar_carga')
+                    @include('components.partials.alertas._eliminar_carga')
+                    @break                                                   
                 @default
                     
             @endswitch

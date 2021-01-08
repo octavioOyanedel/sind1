@@ -31,7 +31,7 @@ function obtenerEdad($fecha)
             $edad = 'Recién nacido.';
         }
         if($mes != '0' && $dia != '0'){
-            $edad = \Carbon\Carbon::parse($fecha)->diff(\Carbon\Carbon::now())->format('%m Mes/es y %d Día/s');
+            $edad = \Carbon\Carbon::parse($fecha)->diff(\Carbon\Carbon::now())->format('%m '.obtenerMeses($mes).' y %d '.obtenerDias($dia));
         }               
     }else{
         $edad = \Carbon\Carbon::parse($fecha)->diff(\Carbon\Carbon::now())->format('%y '.obtenerYears($year));

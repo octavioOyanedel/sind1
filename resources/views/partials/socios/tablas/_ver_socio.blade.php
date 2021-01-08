@@ -130,8 +130,8 @@
                             <td class="text-center">{{fechaYmdAdmy($item->fecha)}}</td>
                             <td class="text-center">{{obtenerEdad($item->fecha)}}</td>
                             <td class="text-center">{{$item->parentesco->nombre}}</td>
-                            <td wire:click="cargarFormEditarCarga({{$item->id}})" class="celda-accion text-center"><a href="#" class="text-primary"><i title="Editar socio" class="fas fa-user-edit"></i></a></td>
-                            <td class="celda-accion text-center"><a wire:click="cargarEliminarSocio({{$item->id}})" href="#" class="text-danger" data-toggle="modal" data-target="#desvincular"><i title="Eliminar socio" class="fas fa-user-minus"></i></a></td>
+                            <td wire:click="cargarFormEditarCarga({{$item->id}})" class="celda-accion text-center"><a href="#" class="text-primary"><i title="Editar carga familiar" class="fas fa-user-edit"></i></a></td>
+                            <td class="celda-accion text-center"><a wire:click="cargarEliminarCarga({{$item->id}})" href="#" class="text-danger" data-toggle="modal" data-target="#eliminar-carga"><i title="Eliminar carga familiar" class="fas fa-user-minus"></i></a></td>
                         </tr>
                     @endforeach
                     <tr><td wire:click="cargarFormCrearCarga" colspan="8"><a href="#"><i class="fas fa-plus-circle"></i> Nueva Carga</a></td></tr>
@@ -161,9 +161,9 @@
                                 <td class="text-center">{{$item->grado}}</td>
                                 <td class="text-center">{{$item->establecimiento_id}}</td>
                                 <td class="text-center">{{$item->estado_estudio_id}}</td>
-                                <td wire:click="cargarTablaMostrarSocio({{$item->id}})" class="celda-accion text-center"><a href="#" class="text-success"><i title="Ver socio" class="fas fa-user-check"></i></a></td>
-                                <td wire:click="cargarFormEditarSocio({{$item->id}})" class="celda-accion text-center"><a href="#" class="text-primary"><i title="Editar socio" class="fas fa-user-edit"></i></a></td>
-                                <td class="celda-accion text-center"><a wire:click="cargarEliminarSocio({{$item->id}})" href="#" class="text-danger" data-toggle="modal" data-target="#desvincular"><i title="Eliminar socio" class="fas fa-user-minus"></i></a></td>
+                                <td wire:click="cargarTablaMostrarSocio({{$item->id}})" class="celda-accion text-center"><a href="#" class="text-success"><i title="Ver carga familiar" class="fas fa-user-check"></i></a></td>
+                                <td wire:click="cargarFormEditarSocio({{$item->id}})" class="celda-accion text-center"><a href="#" class="text-primary"><i title="Editar carga familiar" class="fas fa-user-edit"></i></a></td>
+                                <td class="celda-accion text-center"><a wire:click="cargarEliminarCarga({{$item->id}})" href="#" class="text-danger" data-toggle="modal" data-target="#eliminar-carga"><i title="Eliminar carga familiar" class="fas fa-user-minus"></i></a></td>
                             </tr>
                         @endforeach
                     </tbody>
@@ -176,3 +176,14 @@
         @endif
 	</div>
 </div>
+
+{{-- Modal --}}
+<x-modal id="eliminar-carga" titulo="Eliminar Carga" wireClick="eliminarCarga" boton="Eliminar" coleccion=""/>
+
+@push('scripts')
+	<script type="text/javascript">
+        window.livewire.on('cerrar_modal', () => {
+            $('#eliminar-carga').modal('hide');
+        });
+	</script>
+@endpush

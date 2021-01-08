@@ -283,6 +283,12 @@ class Socios extends Component
         $this->titulo_form = "Buscar Carga/s";
     }
 
+    public function cargarEliminarCarga(Carga $carga)
+    {
+        $this->cargarObjetoCarga($carga);
+        $this->resetMensajesErrorValidadion();
+    }
+
     // Estudios *********************************************************************
     public function cargarFormCrearEstudio()
     {
@@ -673,7 +679,9 @@ class Socios extends Component
     public function eliminarCarga()
     {
         $this->objeto_carga->delete();
-        $this->cargarTablaListarCarga();
+        //$this->cargarTablaListarCarga();
+        $this->emit('cerrar_modal');
+        $this->emit('alerta_ok', 'Carga Familiar Eliminada.');
     }
 
     public function BuscarCargaUnica()

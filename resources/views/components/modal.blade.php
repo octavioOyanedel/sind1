@@ -39,7 +39,10 @@
                         @break						
 						@case('consulta-post-socio')
 							<x-mensaje-alerta tipo="success" icono="far fa-smile" mensaje="Socio Incorporado." contenido="consulta_post_socio"/>
-                        @break
+						@break
+						@case('eliminar-carga')
+                            @include('components.partials.forms._eliminar_carga')
+                        @break							
                         @default
                     @endswitch
 				</div>
@@ -54,6 +57,9 @@
 						@case('desvincular')
 							<button id="accion-boton" wire:click="{{$wireClick}}" type="button" class="btn btn-sm btn-danger">{{$boton}}</button>
 						@break
+						@case('eliminar-carga')
+							<button id="accion-boton" wire:click="{{$wireClick}}" type="button" class="btn btn-sm btn-danger">{{$boton}}</button>
+						@break						
 						@default
 							<button id="accion-boton" wire:click="{{$wireClick}}" type="button" class="btn btn-sm btn-primary">{{$boton}}</button>
 					@endswitch
