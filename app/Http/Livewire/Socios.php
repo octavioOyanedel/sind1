@@ -173,7 +173,7 @@ class Socios extends Component
         $this->estados = EstadoSocio::orderBy('nombre', 'ASC')->get();
         $this->parentescos = Parentesco::orderBy('nombre', 'ASC')->get();
         $this->grados = Grado::orderBy('nombre', 'ASC')->get();
-        $this->establecimientos = Establecimiento::orderBy('nombre', 'ASC')->get();
+        $this->estado_estudios = EstadoEstudio::orderBy('nombre', 'ASC')->get();
 
         // Obtención de elementos anidados para poblar selects
         // Form crear, editar
@@ -189,6 +189,7 @@ class Socios extends Component
     	if (!empty($this->estudio_grado_id)) {
     		$this->establecimientos = Establecimiento::where('grado_id', $this->estudio_grado_id)->get();
         }
+
         // Form buscar
     	if (!empty($this->buscar_socio_distrito_id)) {
     		$this->provincias = Provincia::where('distrito_id', $this->buscar_socio_distrito_id)->get();

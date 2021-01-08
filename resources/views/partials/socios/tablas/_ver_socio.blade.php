@@ -138,42 +138,45 @@
                 </tbody>
             </table>
         </div>
+
         {{-- Tabla estudios realizados --}}
-        @if(!$objeto_socio->estudios->isEmpty())
-            <div class="table-responsive mt-3">
-                <table class="table table-striped table-hover table-bordered">
+        <div class="table-responsive mt-3">
+            <table class="table table-striped table-hover table-bordered">
+                @if(!$objeto_socio->estudios->isEmpty())
                     <thead class="cabecera-tabla">
                         <tr>
-                            <td scope="col" colspan="5">Estudios Realizados</td>
+                            <td scope="col" colspan="8">Estudios Realizados</td>
                         </tr>
                     </thead>
-                    <thead class="cabecera-tabla">
+                @else
+                    <div class="alert alert-warning mt-3" role="alert">
+                        <small>Socio no cuenta con estudios registrados.</small>
+                    </div>
+                @endif
+                <thead class="cabecera-tabla">
+                    <tr>
+                        <td scope="col">Grado Académico</td>
+                        <td scope="col">Establecimiento</td>
+                        <td class="text-center" scope="col">Estado</td>
+                        <td class="text-center" scope="col">Título</td>
+                        <td scope="col" colspan="3"></td>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($objeto_socio->estudios as $item)
                         <tr>
-                            <td scope="col">Grado</td>
-                            <td scope="col">Establecimiento</td>
-                            <td scope="col">Estado</td>
-                            <td scope="col" colspan="3"></td>
+                            <td>grado</td>
+                            <td>estab</td>
+                            <td>estad</td>
+                            <td>titul</td>
+                            <td wire:click="cargarFormEditarEstudio({{$item->id}})" class="celda-accion text-center"><a href="#" class="text-primary"><i title="Editar estudio realizado" class="fas fa-user-edit"></i></a></td>
+                            <td class="celda-accion text-center"><a wire:click="cargarEliminarEstudio({{$item->id}})" href="#" class="text-danger" data-toggle="modal" data-target="#eliminar-estudio"><i title="Eliminar estudio realizado" class="fas fa-user-minus"></i></a></td>
                         </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($objeto_socio->cargas as $item)
-                            <tr>
-                                <td class="text-center">{{$item->grado}}</td>
-                                <td class="text-center">{{$item->establecimiento_id}}</td>
-                                <td class="text-center">{{$item->estado_estudio_id}}</td>
-                                <td wire:click="cargarTablaMostrarSocio({{$item->id}})" class="celda-accion text-center"><a href="#" class="text-success"><i title="Ver carga familiar" class="fas fa-user-check"></i></a></td>
-                                <td wire:click="cargarFormEditarSocio({{$item->id}})" class="celda-accion text-center"><a href="#" class="text-primary"><i title="Editar carga familiar" class="fas fa-user-edit"></i></a></td>
-                                <td class="celda-accion text-center"><a wire:click="cargarEliminarCarga({{$item->id}})" href="#" class="text-danger" data-toggle="modal" data-target="#eliminar-carga"><i title="Eliminar carga familiar" class="fas fa-user-minus"></i></a></td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-            </div>
-        @else
-            <div class="alert alert-warning" role="alert">
-                <small>Socio no cuenta con estudios registradas.</small>
-            </div>
-        @endif
+                    @endforeach
+                    <tr><td wire:click="cargarFormCrearEstudio" colspan="8"><a href="#"><i class="fas fa-plus-circle"></i> Nueva Estudio</a></td></tr>
+                </tbody>
+            </table>
+        </div>
 	</div>
 </div>
 

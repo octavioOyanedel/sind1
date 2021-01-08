@@ -4,7 +4,7 @@
             <a wire:click="cargarFormBuscar" class="float-right text-success" href="#" title="Buscar socio">
                 <i class="fas fa-search"></i>
             </a>
-            <a wire:click="" class="float-right text-success mr-4" href="#" title="Agregar Estudio">
+            <a wire:click="cargarFormCrearEstudio" class="float-right text-success mr-4" href="#" title="Agregar Estudio">
                 <i class="fas fa-user-graduate"></i>
             </a>            
         </span>
