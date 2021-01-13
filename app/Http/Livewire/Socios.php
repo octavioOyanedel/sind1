@@ -149,6 +149,7 @@ class Socios extends Component
     public $nuevo_grado = NULL;
     public $nuevo_establecimiento = NULL;
     public $nuevo_estado_estudio = NULL;
+    public $nuevo_grado_modal = NULL;
 
     /**
      * Render clase livewire
@@ -1207,6 +1208,11 @@ class Socios extends Component
         $this->nueva_region_modal = NULL;
         $this->nueva_provincia_modal = NULL;
         $this->nueva_sede_modal = NULL;
+        $this->nuevo_parentesco = NULL;
+        $this->nuevo_grado = NULL;
+        $this->nuevo_establecimiento = NULL;
+        $this->nuevo_estado_estudio = NULL;
+        $this->nuevo_grado_modal = NULL;
     }
 
     public function resetFormsNuevosCarga()

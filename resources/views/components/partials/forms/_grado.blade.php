@@ -1,0 +1,1 @@
+<x-input-modal id="nuevo_grado" type="text" label="Grado Académico" placeholder="Ej.: Educación Universitaria" wireModel="nuevo_grado" required="si"/>

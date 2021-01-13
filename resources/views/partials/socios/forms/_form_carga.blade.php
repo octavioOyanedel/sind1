@@ -40,7 +40,7 @@
 		</div>
 
     {{-- Modal continuar agregar carga familiar --}}
-    <x-modal id="nuevo-parentesco" titulo="Nuevo Parentesco" wireClick=cargarFormParentesco boton="Guardar" coleccion=""/>
+    <x-modal id="nuevo-parentesco" titulo="Nuevo Parentesco" wireClick="cargarFormParentesco" boton="Guardar" coleccion=""/>
 
 </div>
 

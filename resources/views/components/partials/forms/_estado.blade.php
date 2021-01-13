@@ -1,0 +1,1 @@
+<x-input-modal id="nuevo_estado" type="text" label="Estado" placeholder="Ej.: Egresado" wireModel="nuevo_estado_estudio" required="si"/>

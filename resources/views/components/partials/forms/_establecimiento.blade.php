@@ -1,0 +1,2 @@
+<x-select-modal id="grado" label="Grado Académico" required="si" :coleccion="$grados" wireModel="nuevo_grado_modal"/>
+<x-input-modal id="nuevo_establecimiento" type="text" label="Establecimiento" placeholder="Ej.: Escuela E-353" wireModel="nuevo_establecimiento" required="si"/>

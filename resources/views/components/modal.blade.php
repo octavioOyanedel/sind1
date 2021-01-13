@@ -42,7 +42,16 @@
 						@break
 						@case('eliminar-carga')
                             @include('components.partials.forms._eliminar_carga')
-                        @break							
+						@break
+						@case('nuevo-grado')
+							@include('components.partials.forms._grado')
+						@break
+						@case('nuevo-establecimiento')
+							@include('components.partials.forms._establecimiento', ['grados' => $coleccion])
+						@break
+						@case('nuevo-estado')
+						@include('components.partials.forms._estado')
+                        @break																									
                         @default
                     @endswitch
 				</div>

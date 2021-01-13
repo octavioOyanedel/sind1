@@ -5,7 +5,7 @@
                 <i class="fas fa-search"></i>
             </a>
             <a wire:click="cargarFormCrearCarga" class="float-right text-success mr-4" href="#" title="Agregar Carga Familiar">
-                <i class="fas fa-user-graduate"></i>
+                <i class="fas fa-users"></i>
             </a>            
         </span>
     </div>
@@ -32,7 +32,9 @@
 		</div>
 
     {{-- Modal continuar agregar carga familiar --}}
-    <x-modal id="nuevo-parentesco" titulo="Nuevo Parentesco" wireClick=cargarFormParentesco boton="Guardar" coleccion=""/>
+    <x-modal id="nuevo-grado" titulo="Nuevo Grado" wireClick="" boton="Guardar" coleccion=""/>
+    <x-modal id="nuevo-establecimiento" titulo="Nuevo Establecimiento" wireClick="" boton="Guardar" :coleccion="$grados"/>
+    <x-modal id="nuevo-estado" titulo="Nuevo Estado" wireClick="" boton="Guardar" coleccion=""/>
 
 </div>
 
