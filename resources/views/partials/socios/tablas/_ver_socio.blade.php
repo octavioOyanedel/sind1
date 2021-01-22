@@ -158,17 +158,17 @@
                         <td scope="col">Grado Académico</td>
                         <td scope="col">Establecimiento</td>
                         <td class="text-center" scope="col">Estado</td>
-                        <td class="text-center" scope="col">Título</td>
+                        <td scope="col">Título</td>
                         <td scope="col" colspan="3"></td>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach ($objeto_socio->estudios as $item)
                         <tr>
-                            <td>grado</td>
-                            <td>estab</td>
-                            <td>estad</td>
-                            <td>titul</td>
+                            <td>{{imprimirRelacion($item->grado)}}</td>
+                            <td>{{imprimirRelacion($item->establecimiento)}}</td>
+                            <td class="text-center">{{imprimirRelacion($item->estadoEstudio)}}</td>
+                            <td>{{imprimirRelacion($item->titulo)}}</td>
                             <td wire:click="cargarFormEditarEstudio({{$item->id}})" class="celda-accion text-center"><a href="#" class="text-primary"><i title="Editar estudio realizado" class="fas fa-user-edit"></i></a></td>
                             <td class="celda-accion text-center"><a wire:click="cargarEliminarEstudio({{$item->id}})" href="#" class="text-danger" data-toggle="modal" data-target="#eliminar-estudio"><i title="Eliminar estudio realizado" class="fas fa-user-minus"></i></a></td>
                         </tr>

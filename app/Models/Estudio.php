@@ -27,5 +27,10 @@ class Estudio extends Model
     public function estadoEstudio()
     {
         return $this->belongsTo('App\Models\EstadoEstudio');
-    }        
+    }
+
+    public function titulo()
+    {
+        return $this->belongsTo('App\Models\Titulo');
+    }           
 }

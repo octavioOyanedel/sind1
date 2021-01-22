@@ -37,10 +37,10 @@
 		</div>
 
     {{-- Modal continuar agregar carga familiar --}}
-    <x-modal id="nuevo-grado" titulo="Nuevo Grado" wireClick="" boton="Guardar" coleccion=""/>
-    <x-modal id="nuevo-establecimiento" titulo="Nuevo Establecimiento" wireClick="" boton="Guardar" :coleccion="$grados"/>
-    <x-modal id="nuevo-estado" titulo="Nuevo Estado" wireClick="" boton="Guardar" coleccion=""/>
-    <x-modal id="nuevo-titulo" titulo="Nuevo Título" wireClick="" boton="Guardar" :coleccion="$establecimientos"/>
+    <x-modal id="nuevo-grado" titulo="Nuevo Grado" wireClick="nuevoGrado" boton="Guardar" coleccion=""/>
+    <x-modal id="nuevo-establecimiento" titulo="Nuevo Establecimiento" wireClick="nuevoEstablecimiento" boton="Guardar" :coleccion="$grados"/>
+    <x-modal id="nuevo-estado" titulo="Nuevo Estado" wireClick="nuevoEstado" boton="Guardar" coleccion=""/>
+    <x-modal id="nuevo-titulo" titulo="Nuevo Título" wireClick="nuevoTitulo" boton="Guardar" :coleccion="$establecimientos"/>
 
 </div>
 
@@ -50,37 +50,4 @@
             $("#nuevo-estudio").modal();
         });
     </script>
-	<script type="text/javascript">
-        window.livewire.on('cerrar_modal', () => {
-            $('#nuevo-parentesco').modal('hide');
-        });
-	</script>
-    <script type="text/javascript">
-        window.livewire.on('alerta_ok', texto => {
-            Swal.fire({
-                toast: true,
-                position: 'bottom-end',
-                icon: 'success',
-                title: texto,
-                showConfirmButton: false,
-                timer: 3300,
-                background: '#38c172',
-                iconColor: '#fff'
-            })
-        });
-	</script>
-	<script type="text/javascript">
-		window.livewire.on('alerta_info', texto => {
-			Swal.fire({
-				toast: true,
-				position: 'bottom-end',
-				icon: 'warning',
-				title: texto,
-				showConfirmButton: false,
-				timer: 3300,
-				background: '#ffc107',
-				iconColor: '#fff'
-			})
-		});
-	</script>
 @endpush

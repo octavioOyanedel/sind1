@@ -18,6 +18,7 @@ class CreateEstudiosTable extends Migration
             $table->unsignedBigInteger('grado_id')->nullable();
             $table->unsignedBigInteger('establecimiento_id')->nullable();
             $table->unsignedBigInteger('estado_estudio_id')->nullable();
+            $table->unsignedBigInteger('titulo_id')->nullable();
             $table->unsignedBigInteger('socio_id');
             $table->timestamps();
         });

@@ -17,6 +17,7 @@ class FkEstudiosTable extends Migration
             $table->foreign('grado_id')->references('id')->on('grados')->onUpdate('cascade')->onDelete('set null');
             $table->foreign('establecimiento_id')->references('id')->on('establecimientos')->onUpdate('cascade')->onDelete('set null');
             $table->foreign('estado_estudio_id')->references('id')->on('estado_estudios')->onUpdate('cascade')->onDelete('set null');
+            $table->foreign('titulo_id')->references('id')->on('titulos')->onUpdate('cascade')->onDelete('set null');
             $table->foreign('socio_id')->references('id')->on('socios')->onUpdate('cascade')->onDelete('cascade');
         });
     }

@@ -314,6 +314,9 @@ class Socios extends Component
     public function cargarFormEditarEstudio(Estudio $estudio)
     {
         $this->cargarObjetoEstudio($estudio);
+        $this->resetMensajesErrorValidadion();
+        $this->cargarTablaMostrarSocio($this->objeto_socio);
+        $this->poblarFormEditarEstudio($this->objeto_estudio);
         $this->forms = "_form_estudio";
         $this->titulo_form = "Editar Estudio";
         $this->boton = "editar";
@@ -369,7 +372,7 @@ class Socios extends Component
         $this->estudio_grado_id = $estudio->grado_id;
         $this->estudio_establecimiento_id = $estudio->establecimiento_id;
         $this->estudio_estado_estudio_id = $estudio->estado_estudio_id;
-        $this->estudio_socio_id = $estudio->estado_estudio_id;
+        $this->estudio_titulo_id = $estudio->titulo_id;
     }
 
     // Carga de tablas
@@ -727,17 +730,21 @@ class Socios extends Component
             'estudio_grado_id' => ['required'],
             'estudio_establecimiento_id' => ['required'],
             'estudio_estado_estudio_id' => ['required'],
-            'estudio_socio_id' => ['required'],
+            'estudio_titulo_id' => ['nullable'],
         ]);
         // Campos de base de datos => valiables livewire
         $objeto = Estudio::create([
             'grado_id' => $this->estudio_grado_id,
             'establecimiento_id' => $this->estudio_establecimiento_id,
             'estado_estudio_id' => $this->estudio_estado_estudio_id,
-            'socio_id' => $this->estudio_socio_id,
+            'titulo_id' => $this->estudio_titulo_id,
+            'socio_id' => $this->objeto_socio->id
         ]);
+
         $this->resetFormEstudio();
-        $this->cargarTablaMostrarEstudio($objeto);
+        $this->cargarTablaListarSocio();
+        $this->cargarTablaMostrarSocio($this->objeto_socio);
+        $this->emit('alerta_ok', 'Estudio Agregado.');
     }
 
     public function editarEstudio()
@@ -1101,6 +1108,22 @@ class Socios extends Component
 
         $this->emit('cerrar_modal');
         $this->emit('alerta_ok', 'Estado Estudio Agregado.');
+    }
+
+    public function nuevoTitulo()
+    {
+        $this->validate([
+            'nuevo_establecimiento_modal' => 'required',
+            'nuevo_titulo' => ['required', new NombreRule, 'unique:titulos,nombre']
+		]);
+
+		Titulo::create([
+            'nombre' => $this->nuevo_titulo,
+            'establecimiento_id' => $this->nuevo_establecimiento_modal
+        ]);
+
+        $this->emit('cerrar_modal');
+        $this->emit('alerta_ok', 'Título Agregado.');
     }
 
     /**

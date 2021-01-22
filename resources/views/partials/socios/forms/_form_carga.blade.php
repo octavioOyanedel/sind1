@@ -40,7 +40,7 @@
 		</div>
 
     {{-- Modal continuar agregar carga familiar --}}
-    <x-modal id="nuevo-parentesco" titulo="Nuevo Parentesco" wireClick="cargarFormParentesco" boton="Guardar" coleccion=""/>
+    <x-modal id="nuevo-parentesco" titulo="Nuevo Parentesco" wireClick="nuevoParentesco" boton="Guardar" coleccion=""/>
 
 </div>
 
@@ -50,37 +50,4 @@
             $("#nuevo-estudio").modal();
         });
     </script>
-	<script type="text/javascript">
-        window.livewire.on('cerrar_modal', () => {
-            $('#nuevo-parentesco').modal('hide');
-        });
-	</script>
-    <script type="text/javascript">
-        window.livewire.on('alerta_ok', texto => {
-            Swal.fire({
-                toast: true,
-                position: 'bottom-end',
-                icon: 'success',
-                title: texto,
-                showConfirmButton: false,
-                timer: 3300,
-                background: '#38c172',
-                iconColor: '#fff'
-            })
-        });
-	</script>
-	<script type="text/javascript">
-		window.livewire.on('alerta_info', texto => {
-			Swal.fire({
-				toast: true,
-				position: 'bottom-end',
-				icon: 'warning',
-				title: texto,
-				showConfirmButton: false,
-				timer: 3300,
-				background: '#ffc107',
-				iconColor: '#fff'
-			})
-		});
-	</script>
 @endpush

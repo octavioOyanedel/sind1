@@ -88,6 +88,11 @@
 			$('#nueva-nacion').modal('hide');
             $('#nueva-carga').modal('hide');
 			$('#eliminar-carga').modal('hide');
+			$('#nuevo-parentesco').modal('hide');
+			$('#nuevo-grado').modal('hide');
+			$('#nuevo-establecimiento').modal('hide');
+			$('#nuevo-estado').modal('hide');
+			$('#nuevo-titulo').modal('hide');
         });
     </script>
 
