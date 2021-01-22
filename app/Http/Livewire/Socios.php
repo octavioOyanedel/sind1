@@ -17,6 +17,7 @@ use App\Models\Parentesco;
 use App\Models\Provincia;
 use App\Models\Sede;
 use App\Models\Socio;
+use App\Models\Titulo;
 use Livewire\Component;
 use App\Rules\NombreRule;
 use App\Rules\RutRule;
@@ -59,6 +60,7 @@ class Socios extends Component
     public $grados = [];
     public $establecimientos = [];
     public $estado_estudios = [];
+    public $titulos = [];
     // Módulo resultados búsquedas masivas *****************************************
     public $resultados_busqueda_socio = [];
     public $resultados_busqueda_carga = [];
@@ -101,6 +103,7 @@ class Socios extends Component
     public $estudio_establecimiento_id = NULL;
     public $estudio_estado_estudio_id = NULL;
     public $estudio_socio_id  = NULL;
+    public $estudio_titulo_id  = NULL;
     // Flag búsqueda, permite direrenciar entre búsqueda única y masiva
     public $flag_busqueda = NULL;
     // Búsquedas unicas
@@ -131,6 +134,7 @@ class Socios extends Component
     public $buscar_estudio_grado_id = NULL;
     public $buscar_estudio_establecimiento_id = NULL;
     public $buscar_estudio_estado_estudio_id = NULL;
+    public $buscar_estudio_titulo_id = NULL;
     // Nuevos registros
     // Socio ************************************************************************
     public $nueva_region = NULL;
@@ -150,6 +154,8 @@ class Socios extends Component
     public $nuevo_establecimiento = NULL;
     public $nuevo_estado_estudio = NULL;
     public $nuevo_grado_modal = NULL;
+    public $nuevo_establecimiento_modal = NULL;
+    public $nuevo_titulo = NULL;
 
     /**
      * Render clase livewire
@@ -190,7 +196,9 @@ class Socios extends Component
     	if (!empty($this->estudio_grado_id)) {
     		$this->establecimientos = Establecimiento::where('grado_id', $this->estudio_grado_id)->get();
         }
-
+    	if (!empty($this->estudio_establecimiento_id)) {
+    		$this->titulos = Titulo::where('establecimiento_id', $this->estudio_establecimiento_id)->get();
+        }
         // Form buscar
     	if (!empty($this->buscar_socio_distrito_id)) {
     		$this->provincias = Provincia::where('distrito_id', $this->buscar_socio_distrito_id)->get();
@@ -265,6 +273,8 @@ class Socios extends Component
         $this->forms = "_form_carga";
         $this->titulo_form = "Agregar Carga Familiar";
         $this->boton = "crear";
+        $this->resetFormEstudio();
+        $this->resetMensajesErrorValidadion();
     }
 
     public function cargarFormEditarCarga(Carga $carga)
@@ -297,6 +307,8 @@ class Socios extends Component
         $this->forms = "_form_estudio";
         $this->titulo_form = "Agregar Estudio";
         $this->boton = "crear";
+        $this->resetFormcarga();
+        $this->resetMensajesErrorValidadion();
     }
 
     public function cargarFormEditarEstudio(Estudio $estudio)

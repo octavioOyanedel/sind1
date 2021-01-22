@@ -1,0 +1,2 @@
+<x-select-modal id="establecimiento" label="Establecimiento" required="si" :coleccion="$establecimientos" wireModel="nuevo_establecimiento_modal"/>
+<x-input-modal id="nuevo_titulo" type="text" label="Título" placeholder="Ej.: Secretariado Bilingue." wireModel="nuevo_titulo" required="si"/>

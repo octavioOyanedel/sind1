@@ -50,8 +50,11 @@
 							@include('components.partials.forms._establecimiento', ['grados' => $coleccion])
 						@break
 						@case('nuevo-estado')
-						@include('components.partials.forms._estado')
-                        @break																									
+							@include('components.partials.forms._estado')
+						@break
+						@case('nuevo-titulo')
+							@include('components.partials.forms._titulo', ['establecimientos' => $coleccion])
+                        @break																															
                         @default
                     @endswitch
 				</div>
