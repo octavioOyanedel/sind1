@@ -1,0 +1,1 @@
+<x-mensaje-alerta tipo="danger" icono="fas fa-exclamation-triangle" mensaje="Confirmación." contenido="eliminar_estudio"/>

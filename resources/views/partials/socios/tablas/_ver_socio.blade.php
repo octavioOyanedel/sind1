@@ -182,11 +182,4 @@
 
 {{-- Modal --}}
 <x-modal id="eliminar-carga" titulo="Eliminar Carga" wireClick="eliminarCarga" boton="Eliminar" coleccion=""/>
-
-@push('scripts')
-	<script type="text/javascript">
-        window.livewire.on('cerrar_modal', () => {
-            $('#eliminar-carga').modal('hide');
-        });
-	</script>
-@endpush
+<x-modal id="eliminar-estudio" titulo="Eliminar Estudio" wireClick="eliminarEstudio" boton="Eliminar" coleccion=""/>

@@ -93,6 +93,7 @@
 			$('#nuevo-establecimiento').modal('hide');
 			$('#nuevo-estado').modal('hide');
 			$('#nuevo-titulo').modal('hide');
+			$('#eliminar-estudio').modal('hide');
         });
     </script>
 

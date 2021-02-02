@@ -328,6 +328,12 @@ class Socios extends Component
         $this->titulo_form = "Buscar Estudio/s";
     }
 
+    public function cargarEliminarEstudio(Estudio $estudio)
+    {
+        $this->cargarObjetoEstudio($estudio);
+        $this->resetMensajesErrorValidadion();
+    }
+
     // Poblar formularios de edición
     // Socios ***********************************************************************
     public function poblarFormEditarSocio(Socio $socio)
@@ -696,7 +702,6 @@ class Socios extends Component
     public function eliminarCarga()
     {
         $this->objeto_carga->delete();
-        //$this->cargarTablaListarCarga();
         $this->emit('cerrar_modal');
         $this->emit('alerta_ok', 'Carga Familiar Eliminada.');
     }
@@ -749,26 +754,35 @@ class Socios extends Component
 
     public function editarEstudio()
     {
-        // Variables livewire
-        $this->validate([
-            'estudio_grado_id' => ['required'],
-            'estudio_establecimiento_id' => ['required'],
-            'estudio_estado_estudio_id' => ['required'],
-            'estudio_socio_id' => ['required'],
-        ]);
-        // Campos de base de datos => valiables livewire
-        $this->objeto_estudio->update([
-            'grado_id' => $this->estudio_grado_id,
-            'establecimiento_id' => $this->estudio_establecimiento_id,
-            'estado_estudio_id' => $this->estudio_estado_estudio_id,
-            'socio_id' => $this->estudio_socio_id,
-        ]);
+        if($this->edicionEstudio($this->objeto_estudio->toArray()) > 0){
+            $this->validate([
+                'estudio_grado_id' => ['required'],
+                'estudio_establecimiento_id' => ['required'],
+                'estudio_estado_estudio_id' => ['required'],
+                'estudio_titulo_id' => ['nullable'],
+            ]);
+            // Campos de base de datos => valiables livewire
+            $this->objeto_estudio->update([
+                'grado_id' => $this->estudio_grado_id,
+                'establecimiento_id' => $this->estudio_establecimiento_id,
+                'estado_estudio_id' => $this->estudio_estado_estudio_id,
+                'titulo_id' => $this->estudio_titulo_id,
+            ]);
+            $this->cargarFormCrearSocio();
+            $this->resetFormSocio();
+            $this->cargarTablaMostrarSocio($this->objeto_socio);
+            $this->emit('alerta_ok', 'Estudio Editado.');            
+        }else{
+            $this->emit('alerta_info', 'No se han hecho modificaciones en formulario.');
+        }     
+
     }
 
     public function eliminarEstudio()
     {
         $this->objeto_estudio->delete();
-        $this->cargarTablaListarEstudio();
+        $this->emit('cerrar_modal');
+        $this->emit('alerta_ok', 'Estudio Realizado Eliminado.');        
     }
 
     public function BuscarEstudioUnico()

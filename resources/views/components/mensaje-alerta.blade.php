@@ -18,7 +18,10 @@
                     @break
                 @case('eliminar_carga')
                     @include('components.partials.alertas._eliminar_carga')
-                    @break                                                   
+                    @break
+                @case('eliminar_estudio')
+                    @include('components.partials.alertas._eliminar_estudio')
+                    @break                                                                  
                 @default
                     
             @endswitch

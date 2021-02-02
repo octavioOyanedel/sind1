@@ -54,7 +54,10 @@
 						@break
 						@case('nuevo-titulo')
 							@include('components.partials.forms._titulo', ['establecimientos' => $coleccion])
-                        @break																															
+						@break
+						@case('eliminar-estudio')
+                            @include('components.partials.forms._eliminar_estudio')
+						@break																																				
                         @default
                     @endswitch
 				</div>
@@ -71,7 +74,10 @@
 						@break
 						@case('eliminar-carga')
 							<button id="accion-boton" wire:click="{{$wireClick}}" type="button" class="btn btn-sm btn-danger">{{$boton}}</button>
-						@break						
+						@break
+						@case('eliminar-estudio')
+							<button id="accion-boton" wire:click="{{$wireClick}}" type="button" class="btn btn-sm btn-danger">{{$boton}}</button>
+						@break													
 						@default
 							<button id="accion-boton" wire:click="{{$wireClick}}" type="button" class="btn btn-sm btn-primary">{{$boton}}</button>
 					@endswitch
