@@ -215,6 +215,9 @@ class Socios extends Component
      * MÉTODOS DE CARGAS
      */
     // Carga de objetos
+    /**
+     * MÉTODOS DE CARGAS
+     */
     public function cargarObjetoSocio(Socio $socio)
     {
         $this->objeto_socio = $socio;
@@ -593,7 +596,6 @@ class Socios extends Component
             }
             $this->resultados_busqueda_socio = Socio::with(['distrito','provincia','comuna','nacionSocio','sede','area','cargo','estadoSocio'])->orderBy('apellido1','ASC')
             ->nombres($nombre, $apellido)
-            ->general($this->busqueda_socio, 'id')
             ->general($this->busqueda_socio, 'nombre1')
             ->general($this->busqueda_socio, 'nombre2')
             ->general($this->busqueda_socio, 'apellido1')

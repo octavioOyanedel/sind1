@@ -5,11 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Model;
+use App\Traits\TestTrait;
 
 class Socio extends Model
 {
     use HasFactory;
     use SoftDeletes;
+    use TestTrait;
 
     protected $guarded = [];
 
@@ -71,9 +73,10 @@ class Socio extends Model
      */
     public function scopeGeneral($query, $q, $campo)
     {
-        if ($q) {
-            return $query->orWhere($campo, 'LIKE', "%$q%");
-        }
+        TestTrait::test($query, $q, $campo);
+        //if ($q) {
+        //    return $query->orWhere($campo, 'LIKE', "%$q%");
+        //}
     }
 
     public function scopeGeneralAnd($query, $q, $campo)

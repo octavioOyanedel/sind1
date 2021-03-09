@@ -147,6 +147,7 @@ return [
     */
 
     'attributes' => [
+        'socio_rut' => 'rut',
         'numero' => '# socio',
         'nombre1' => '1° nombre',
         'nombre2' => '2° nombre',
